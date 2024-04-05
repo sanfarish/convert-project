@@ -1,0 +1,133 @@
+.view .main .table {
+	grid-area: a1;
+    min-height: 530px;
+    max-height: calc(100vh - 120px);
+	min-width: 464px;
+}
+
+.view .main .table .data {
+    background-color: #444444;
+	height: calc(100% - 40px);
+    width: calc(100% - 40px);
+    border: 2px solid black;
+    overflow-y: auto;
+}
+
+.id {
+	height: 80px;
+    display: grid;
+    grid-template-columns: 100px 1fr 160px 80px;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+    "a1 a3 a5 a7"
+    "a2 a4 a6 a8";
+}
+
+.id:hover {
+    background-color: #666666;
+    transition: 0.1s ease-in;
+}
+
+.id > div {
+    display: flex;
+}
+
+.day, .category, .amount, .edit-wrapper {
+    padding-bottom: 2px;
+    font-size: 16pt;
+}
+
+.date, .note, .account, .delete-wrapper {
+    padding-top: 2px;
+    font-size: 12pt;
+}
+
+.day {
+    grid-area: a1;
+    justify-content: center;
+    align-items: end;
+}
+
+.date {
+    grid-area: a2;
+    color: #bbbbbb;
+    justify-content: center;
+}
+
+.category {
+    grid-area: a3;
+    align-items: end;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.note {
+    grid-area: a4;
+    color: #bbbbbb;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.amount {
+    grid-area: a5;
+    padding-right: 10px;
+    justify-content: end;
+    align-items: end;
+}
+
+.account {
+    grid-area: a6;
+    padding-right: 10px;
+    color: #bbbbbb;
+    justify-content: end;
+}
+
+.id.income .amount {
+    color: #1999FC;
+}
+
+.id.expense .amount {
+    color: #FF6255;
+}
+
+.id.transfer .amount {
+    color: white;
+}
+
+.edit-wrapper {
+    grid-area: a7;
+    justify-content: center;
+    align-items: end;
+}
+
+.del-wrapper {
+    grid-area: a8;
+    justify-content: center;
+}
+
+.edit-btn, .del-btn {
+    background-color: #222222;
+    height: fit-content;
+    width: 60px;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12pt;
+    cursor: pointer;
+}
+
+.edit-btn:hover {
+    background-color: #1999FC;
+}
+
+.del-btn:hover {
+    background-color: #FF6255;
+}
+
+.space {
+    height: 2px;
+    background-color: black;
+}
+
+.space:nth-last-of-type(1) {
+    display: none;
+}

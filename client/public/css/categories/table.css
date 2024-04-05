@@ -1,0 +1,105 @@
+.view .main .table:nth-child(1) {
+	grid-area: a1;
+	min-width: 382px;
+}
+
+.view .main .table:nth-child(3) {
+	grid-area: a2;
+	min-width: 382px;
+}
+
+.view .main .table header {
+	font-size: 18pt;
+}
+
+.view .main .table {
+    min-height: 360px;
+    max-height: calc(100vh - 290px);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.view .main .table .data-income,
+.view .main .table .data-expense {
+    background-color: #444444;
+	height: calc(100% - 60px);
+    width: calc(100% - 40px);
+    border: 2px solid black;
+    overflow-y: auto;
+}
+
+.id {
+	height: 80px;
+    display: grid;
+    grid-template-columns: 1fr 80px;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+    "a1 a2"
+    "a1 a3";
+}
+
+.id:hover {
+    background-color: #666666;
+    transition: 0.1s ease-in;
+}
+
+.id > div {
+    display: flex;
+}
+
+.name {
+    grid-area: a1;
+    padding-left: 10px;
+	align-items: center;
+	white-space: nowrap;
+	text-overflow: hidden;
+}
+
+.id.assets .amount {
+    color: #1999FC;
+}
+
+.edit-wrapper {
+    grid-area: a2;
+    justify-content: center;
+    align-items: end;
+    padding-bottom: 2px;
+    font-size: 16pt;
+}
+
+.del-wrapper {
+    grid-area: a3;
+    justify-content: center;
+    padding-top: 2px;
+    font-size: 12pt;
+}
+
+.edit-income-btn, .edit-expense-btn, .del-btn {
+    background-color: #222222;
+    height: fit-content;
+    width: 60px;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12pt;
+    cursor: pointer;
+}
+
+.edit-income-btn:hover, .edit-expense-btn:hover {
+    background-color: #1999FC;
+}
+
+.del-btn:hover {
+    background-color: #FF6255;
+}
+
+.space {
+    height: 2px;
+    background-color: black;
+}
+
+.space:nth-last-of-type(1) {
+    display: none;
+}
