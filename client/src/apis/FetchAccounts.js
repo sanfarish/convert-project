@@ -14,7 +14,7 @@ async function getAccounts() {
 async function postAccount(body) {
 	try {
 		const res = await accounts.post('/', {
-			account_name: body.account_name,
+			account_name: body,
 			account_balance: 0
 		});
 		return res.data.data;
@@ -24,8 +24,7 @@ async function postAccount(body) {
 async function putAccount(body, id) {
 	try {
 		const res = await accounts.put(`/${id}`, {
-			account_name: body.account_name,
-			account_balance: body.account_balance
+			account_name: body
 		});
 		return res.data.data;
 	} catch (err) {console.log(err)};

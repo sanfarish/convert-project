@@ -1,27 +1,44 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AccountsContext } from '../../context/AccountsContext';
 
 function TableAccounts() {
 	const {
 		accounts,
+		setUpdateID,
 		setPopup,
 		setPopupType,
 		setPopupInput,
 		getAccountsData,
-		deleteAccountData
+		deleteAccountData,
+		transactions,
+		getTransactionsData
 	} = useContext(AccountsContext);
-	// assetsTotal += item.account_balance;
-	// liabilitiesTotal += item.account_balance * -1;
+	const [transactionsAccount, setTransactionsAccount] = useState([]);
 
 	useEffect(() => {
 		getAccountsData();
+		getTransactionsData();
+		transactions.map(item => {
+			setTransactionsAccount(prev => [...prev, item.id_account]);
+			if (item.id_transfer) {
+				setTransactionsAccount(prev => [...prev, item.id_transfer]);
+			};
+		})
 	}, []);
 
 	function editPopup(id, name) {
 		setPopup(true);
 		setPopupType("edit");
-		console.log(id);
 		setPopupInput(name);
+		setUpdateID(id);
+	};
+
+	function handleDeleteAccount(id) {
+		if (transactionsAccount.includes(id)) {
+			alert('Cannot delete account that is in use on transactions!');
+		} else {
+			deleteAccountData(id);
+		};
 	};
 
 	function Item({acc_id, acc_name, acc_bal}) {
@@ -35,8 +52,7 @@ function TableAccounts() {
 							<button className="edit-btn" onClick={() => editPopup(acc_id, acc_name)}>Edit</button>
 						</div>
 						<div className="del-wrapper">
-							{/* <button className="del-btn" onClick={deleteAccount(item.account_id)}>Delete</button> */}
-							<button className="del-btn" onClick={() => {deleteAccountData()}}>Delete</button>
+							<button className="del-btn" onClick={() => {handleDeleteAccount(acc_id)}}>Delete</button>
 						</div>
 					</div>
 					<div className="space"></div>

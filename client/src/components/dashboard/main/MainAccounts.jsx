@@ -4,17 +4,15 @@ import TableAccounts from '../../table/TableAccounts';
 
 function MainAccounts() {
 
-	const { accounts, setPopup, setPopupType, setPopupInput, getAccountsData } = useContext(AccountsContext);
+	const { accounts, setPopup, setPopupType, setPopupInput } = useContext(AccountsContext);
 	const [assets, setAssets] = useState(0);
 	const [liabilities, setLiabilities] = useState(0);
-	let aset = 0, beban = 0;
 
 	useEffect(() => {
-		Liabilities();
-	}, [accounts]);
-
-	useEffect(() => {
+		setAssets(0);
+		setLiabilities(0);
 		Assets();
+		Liabilities();
 	}, [accounts]);
 
 	function addPopup() {
@@ -27,24 +25,20 @@ function MainAccounts() {
 		accounts.map(item => {
 			if (item.account_id !== '') {
 				if (item.account_balance > 0) {
-					aset += item.account_balance;
+					setAssets(prev => prev + item.account_balance);
 				};
 			};
-			return(aset);
 		});
-		setAssets(aset);
 	};
 
 	function Liabilities() {
 		accounts.map(item => {
 			if (item.account_id !== '') {
 				if (item.account_balance < 0) {
-					beban += (item.account_balance * -1);
+					setLiabilities(prev => prev + (item.account_balance * -1));
 				};
 			};
-			return(beban);
 		});
-		setLiabilities(beban);
 	};
 
 	return (

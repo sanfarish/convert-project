@@ -1,18 +1,53 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AccountsContext } from '../../../context/AccountsContext';
 
 function PopupAccounts() {
-	const { popup, popupInput, popupType, setPopup, setPopupInput } = useContext(AccountsContext);
+	const {
+		accounts,
+		updateID,
+		popup,
+		popupInput,
+		popupType,
+		setPopup,
+		setPopupInput,
+		postAccountData,
+		updateAccountData
+	} = useContext(AccountsContext);
+	const [accountsName, setAccountsName] = useState([]);
+
+	useEffect(() => {
+		setAccountsName([]);
+		accounts.map(item => {
+			setAccountsName(prev => [...prev, item.account_name]);
+		});
+	}, [accounts]);
+
 	function closePopup() {
 		setPopup(false);
 	};
+
 	function activation() {
 		return popup ? "active" : "";
 	};
+
 	function handleAddAccount() {
-		// postData(accountName);
-		setPopup(false);
+		if (accountsName.includes(popupInput)) {
+			alert('There are already account with that name! Change with another unique name!');
+		} else {
+			postAccountData(popupInput);
+			setPopup(false);
+		};
 	};
+
+	function handleEditAccount() {
+		if (accountsName.includes(popupInput)) {
+			alert('There are already account with that name! Change with another unique name!');
+		} else {
+			updateAccountData(popupInput, updateID);
+			setPopup(false);
+		};
+	};
+
 	return (
 		<div className={`popup ${activation()} ${popupType}`}>
 			<button id="close-btn" onClick={closePopup}>x</button>
@@ -33,9 +68,8 @@ function PopupAccounts() {
 						/>
 					</div>
 				</div>
-				{/* <button id="save-add-btn" onClick={addAccount()}>Add</button> */}
 				<button id="save-add-btn" onClick={() => handleAddAccount()}>Add</button>
-				<button id="save-edit-btn">Edit</button>
+				<button id="save-edit-btn" onClick={() => handleEditAccount()}>Edit</button>
 			</div>
 		</div>
 	);
