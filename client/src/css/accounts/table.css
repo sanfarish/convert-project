@@ -1,3 +1,5 @@
+.accounts {
+
 .view .main .table {
 	grid-area: a1;
     min-height: 530px;
@@ -16,11 +18,11 @@
 .id {
 	height: 80px;
     display: grid;
-    grid-template-columns: 100px 1fr 160px 80px;
+    grid-template-columns: 1fr 160px 80px;
     grid-template-rows: 1fr 1fr;
     grid-template-areas:
-    "a1 a3 a5 a7"
-    "a2 a4 a6 a8";
+    "a1 a2 a3"
+    "a1 a2 a4";
 }
 
 .id:hover {
@@ -32,77 +34,46 @@
     display: flex;
 }
 
-.day, .category, .amount, .edit-wrapper {
-    padding-bottom: 2px;
-    font-size: 16pt;
-}
-
-.date, .note, .account, .delete-wrapper {
-    padding-top: 2px;
-    font-size: 12pt;
-}
-
-.day {
+.account {
     grid-area: a1;
-    justify-content: center;
-    align-items: end;
-}
-
-.date {
-    grid-area: a2;
-    color: #bbbbbb;
-    justify-content: center;
-}
-
-.category {
-    grid-area: a3;
-    align-items: end;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.note {
-    grid-area: a4;
-    color: #bbbbbb;
-    white-space: nowrap;
-    overflow: hidden;
+    padding-left: 10px;
+	align-items: center;
+	white-space: nowrap;
+	text-overflow: hidden;
 }
 
 .amount {
-    grid-area: a5;
+    grid-area: a2;
     padding-right: 10px;
     justify-content: end;
-    align-items: end;
+    align-items: center;
 }
 
-.account {
-    grid-area: a6;
-    padding-right: 10px;
-    color: #bbbbbb;
-    justify-content: end;
-}
-
-.id.income .amount {
+.id.assets .amount {
     color: #1999FC;
 }
 
-.id.expense .amount {
+.id.liabilities .amount {
     color: #FF6255;
 }
 
-.id.transfer .amount {
+.id.empty .amount {
     color: white;
 }
 
 .edit-wrapper {
-    grid-area: a7;
+    grid-area: a3;
     justify-content: center;
     align-items: end;
+    padding-bottom: 2px;
+    font-size: 16pt;
 }
 
 .del-wrapper {
-    grid-area: a8;
+    grid-area: a4;
     justify-content: center;
+    padding-top: 2px;
+    font-size: 12pt;
 }
 
 .edit-btn, .del-btn {
@@ -130,4 +101,6 @@
 
 .space:nth-last-of-type(1) {
     display: none;
+}
+
 }

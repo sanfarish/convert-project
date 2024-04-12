@@ -1,21 +1,29 @@
-import { Helmet } from 'react-helmet';
+import { useContext, useEffect } from 'react';
+import { CategoriesContext } from '../context/CategoriesContext';
+import '../css/dashboard.css';
+import '../css/categories/main.css';
+import '../css/categories/popup.css';
+import '../css/categories/table.css';
 import Header from '../components/dashboard/Header';
 import Nav from '../components/dashboard/Nav';
 import Main from '../components/dashboard/main/MainCategories';
 import Popup from '../components/dashboard/popup/PopupCategories';
-import Title from '../components/Title';
 
-function Categories() {
-	Title('Categories | Expense Manager');
+const Categories = () => {
+
+	const { popup } = useContext(CategoriesContext);
+
+	useEffect(() => {
+		document.title = 'Categories | Expense Manager';
+	}, []);
+
+	function popupBlur() {
+		return popup ? 'blur' : '';
+	};
+
 	return (
 		<div className='categories'>
-			{ <Helmet>
-				<link rel="stylesheet" href="/css/dashboard.css" />
-				<link rel="stylesheet" href="/css/categories/main.css" />
-				<link rel="stylesheet" href="/css/categories/table.css" />
-				<link rel="stylesheet" href="/css/categories/popup.css" />
-			</Helmet> }
-			<div className="view">
+			<div className={`view ${popupBlur()}`}>
 				<Header Title="Categories" />
 				<Main />
 				<Nav />

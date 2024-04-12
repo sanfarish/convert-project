@@ -1,6 +1,8 @@
+.accounts {
+
 .popup {
     background-color: #444444;
-    height: 350px;
+    height: 200px;
     width: 450px;
     opacity: 0;
     position: absolute;
@@ -46,16 +48,11 @@
     width: 100%;
     padding-top: 30px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 
 .popup .form .form-header header {
-    background-color: #666666;
-    color: #222222;
-    padding: 10px 15px;
-    border: 2px solid #222222;
-    border-radius: 10px;
-    cursor: pointer;
+	font-size: 20pt;
 }
 
 .popup .form.income .form-header .income-head,
@@ -76,20 +73,6 @@
     color: black;
 }
 
-.popup .form .form-header .income-head:hover {
-    color: #1999FC;
-    border: 2px solid #1999FC;
-}
-
-.popup .form .form-header .expense-head:hover {
-    color: #FF6255;
-    border: 2px solid #FF6255;
-}
-
-.popup .form .form-header .transfer-head:hover {
-    color: white;
-    border: 2px solid white;
-}
 
 .popup .form .form-content {
     height: 100%;
@@ -107,20 +90,14 @@
     justify-content: space-between;
 }
 
-.popup .form.income .form-content .form-input:nth-child(5),
-.popup .form.expense .form-content .form-input:nth-child(5),
-.popup .form.income .form-content .form-input:nth-child(4),
-.popup .form.expense .form-content .form-input:nth-child(3),
-.popup .form.transfer .form-content .form-input:nth-child(3),
-.popup .form.transfer .form-content .form-input:nth-child(4),
+.popup.add .form .form-header header:nth-child(2),
+.popup.edit .form .form-header header:nth-child(1),
 .popup.add .form #save-edit-btn,
 .popup.edit .form #save-add-btn {
     display: none;
 }
 
-.popup .form .form-content .form-input input,
-.popup .form .form-content .form-input select,
-.popup .form .form-content .form-input select option {
+.popup .form .form-content .form-input input {
     color: black;
 	width: 250px;
     padding: 0px;
@@ -141,7 +118,9 @@
     color: black;
 }
 
-.popup .form.transfer #save-add-btn,
-.popup .form.transfer #save-edit-btn {
+.popup .form #save-add-btn,
+.popup .form #save-edit-btn {
 	background-color: #888888
+}
+
 }

@@ -4,7 +4,7 @@ import { getTransactions } from '../apis/FetchTransactions';
 
 const AccountsContext = createContext();
 
-function AccountsContextProvider(props) {
+const AccountsContextProvider = (props) => {
 
 	const [accounts, setAccounts ] = useState([]);
 	const [updateID, setUpdateID] = useState("");

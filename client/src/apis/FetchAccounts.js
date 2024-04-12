@@ -11,20 +11,27 @@ async function getAccounts() {
 	} catch (err) {console.log(err)};
 };
 
-async function postAccount(body) {
+async function getAccount(id) {
+	try {
+		const res = await accounts.get(`/${id}`);
+		return res.data;
+	} catch (err) {console.log(err)};
+};
+
+async function postAccount(name) {
 	try {
 		const res = await accounts.post('/', {
-			account_name: body,
+			account_name: name,
 			account_balance: 0
 		});
 		return res.data.data;
 	} catch (err) {console.log(err)};
 };
 
-async function putAccount(body, id) {
+async function putAccount(name, id) {
 	try {
 		const res = await accounts.put(`/${id}`, {
-			account_name: body
+			account_name: name
 		});
 		return res.data.data;
 	} catch (err) {console.log(err)};
@@ -37,4 +44,4 @@ async function deleteAccount(id) {
 	} catch (err) {console.log(err)};
 };
 
-export { getAccounts, postAccount, putAccount, deleteAccount };
+export { getAccounts, getAccount, postAccount, putAccount, deleteAccount };

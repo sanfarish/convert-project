@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { AccountsContext } from '../../context/AccountsContext';
 
 function TableAccounts() {
+
 	const {
 		accounts,
 		setUpdateID,
@@ -10,21 +11,24 @@ function TableAccounts() {
 		setPopupInput,
 		getAccountsData,
 		deleteAccountData,
-		transactions,
-		getTransactionsData
+		transactions
 	} = useContext(AccountsContext);
 	const [transactionsAccount, setTransactionsAccount] = useState([]);
 
 	useEffect(() => {
+	
 		getAccountsData();
-		getTransactionsData();
-		transactions.map(item => {
+		setTransactionsAccount([]);
+	
+		transactions.forEach(item => {
 			setTransactionsAccount(prev => [...prev, item.id_account]);
 			if (item.id_transfer) {
 				setTransactionsAccount(prev => [...prev, item.id_transfer]);
 			};
-		})
-	}, []);
+		});
+	
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [transactions]);
 
 	function editPopup(id, name) {
 		setPopup(true);
@@ -41,18 +45,18 @@ function TableAccounts() {
 		};
 	};
 
-	function Item({acc_id, acc_name, acc_bal}) {
-		if (acc_id !== "") {
+	function Item({Id, Name, Bal}) {
+		if (Id !== "") {
 			return(
 				<>
-					<div className={`id ${acc_bal > 0 ? 'assets' : acc_bal < 0 ? 'liabilities' : 'empty'}`}>
-						<div className="account">{acc_name}</div>
-						<div className="amount">Rp {(acc_bal > 0 ? acc_bal : acc_bal < 0 ? acc_bal * -1 : 0).toLocaleString()},-</div>
+					<div className={`id ${Bal > 0 ? 'assets' : Bal < 0 ? 'liabilities' : 'empty'}`}>
+						<div className="account">{Name}</div>
+						<div className="amount">Rp {(Bal > 0 ? Bal : Bal < 0 ? Bal * -1 : 0).toLocaleString()},-</div>
 						<div className="edit-wrapper">
-							<button className="edit-btn" onClick={() => editPopup(acc_id, acc_name)}>Edit</button>
+							<button className="edit-btn" onClick={() => editPopup(Id, Name)}>Edit</button>
 						</div>
 						<div className="del-wrapper">
-							<button className="del-btn" onClick={() => {handleDeleteAccount(acc_id)}}>Delete</button>
+							<button className="del-btn" onClick={() => {handleDeleteAccount(Id)}}>Delete</button>
 						</div>
 					</div>
 					<div className="space"></div>
@@ -65,9 +69,9 @@ function TableAccounts() {
 		accounts && accounts.map(item => {
 			return(
 				<Item
-					acc_id={item.account_id}
-					acc_name={item.account_name}
-					acc_bal={item.account_balance}
+					Id={item.account_id}
+					Name={item.account_name}
+					Bal={item.account_balance}
 					key={item.account_id}
 				/>
 			);

@@ -11,14 +11,14 @@ async function getTransactions() {
 	} catch (err) {console.log(err)};
 };
 
-async function postTransaction(datetime, account, categoryIncome, amount, note) {
+async function postTransaction(datetime, account, income, expense, transfer, amount, note) {
 	try {
 		const res = await transactions.post('/', {
 			transaction_time: datetime,
 			id_account: account,
-			id_income: categoryIncome,
-			id_expense: "",
-			id_transfer: "",
+			id_income: income,
+			id_expense: expense,
+			id_transfer: transfer,
 			transaction_amount: amount,
 			transaction_note: note
 		});
@@ -26,14 +26,14 @@ async function postTransaction(datetime, account, categoryIncome, amount, note) 
 	} catch (err) {console.log(err)};
 };
 
-async function putTransaction(id, datetime, account, categoryIncome, amount, note) {
+async function putTransaction(id, datetime, account, income, expense, transfer, amount, note) {
 	try {
 		const res = await transactions.put(`/${id}`, {
 			transaction_time: datetime,
 			id_account: account,
-			id_income: categoryIncome,
-			id_expense: "",
-			id_transfer: "",
+			id_income: income,
+			id_expense: expense,
+			id_transfer: transfer,
 			transaction_amount: amount,
 			transaction_note: note
 		});

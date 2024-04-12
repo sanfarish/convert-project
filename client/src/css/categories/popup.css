@@ -1,3 +1,5 @@
+.categories {
+
 .popup {
     background-color: #444444;
     height: 200px;
@@ -53,16 +55,48 @@
 	font-size: 20pt;
 }
 
-.popup .form.income .form-header .income-head,
-.popup .form.income #save-add-btn,
-.popup .form.income #save-edit-btn {
+.popup.add .form.income .form-header div:nth-child(2),
+.popup.add .form.income .form-header div:nth-child(3),
+.popup.add .form.income .form-header div:nth-child(4),
+.popup.add .form.income button:nth-child(4),
+.popup.add .form.income button:nth-child(5),
+.popup.add .form.income button:nth-child(6),
+.popup.add .form.expense .form-header div:nth-child(1),
+.popup.add .form.expense .form-header div:nth-child(3),
+.popup.add .form.expense .form-header div:nth-child(4),
+.popup.add .form.expense button:nth-child(3),
+.popup.add .form.expense button:nth-child(5),
+.popup.add .form.expense button:nth-child(6),
+.popup.edit .form.income .form-header div:nth-child(1),
+.popup.edit .form.income .form-header div:nth-child(2),
+.popup.edit .form.income .form-header div:nth-child(4),
+.popup.edit .form.income button:nth-child(3),
+.popup.edit .form.income button:nth-child(4),
+.popup.edit .form.income button:nth-child(6),
+.popup.edit .form.expense .form-header div:nth-child(1),
+.popup.edit .form.expense .form-header div:nth-child(2),
+.popup.edit .form.expense .form-header div:nth-child(3),
+.popup.edit .form.expense button:nth-child(3),
+.popup.edit .form.expense button:nth-child(4),
+.popup.edit .form.expense button:nth-child(5) {
+	display: none;
+}
+
+.popup .form button {
+    position: relative;
+    bottom: 15px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px black;
+    cursor: pointer;
+}
+
+.popup .form.income button {
     background-color: #1999FC;
 }
 
 .popup #close-btn:hover,
-.popup .form.expense .form-header .expense-head,
-.popup .form.expense #save-add-btn,
-.popup .form.expense #save-edit-btn {
+.popup .form.expense button {
     background-color: #FF6255;
 }
 
@@ -70,7 +104,6 @@
     background-color: white;
     color: black;
 }
-
 
 .popup .form .form-content {
     height: 100%;
@@ -88,35 +121,19 @@
     justify-content: space-between;
 }
 
-.popup.add .form .form-header header:nth-child(2),
-.popup.edit .form .form-header header:nth-child(1),
-.popup.add .form #save-edit-btn,
-.popup.edit .form #save-add-btn {
-    display: none;
-}
-
 .popup .form .form-content .form-input input {
     color: black;
 	width: 250px;
     padding: 0px;
 }
 
-.popup .form #save-add-btn,
-.popup .form #save-edit-btn {
-    position: relative;
-    bottom: 15px;
-    padding: 10px 15px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px black;
-    cursor: pointer;
-}
-
-.popup .form #save-add-btn:hover,
-.popup .form #save-edit-btn:hover {
+.popup .form button:hover {
     color: black;
 }
 
 .popup .form #save-add-btn,
 .popup .form #save-edit-btn {
 	background-color: #888888
+}
+
 }

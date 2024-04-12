@@ -17,8 +17,10 @@ function PopupAccounts() {
 
 	useEffect(() => {
 		setAccountsName([]);
-		accounts.map(item => {
-			setAccountsName(prev => [...prev, item.account_name]);
+		accounts.forEach(item => {
+			if (item.account_name !== '') {
+				setAccountsName(prev => [...prev, item.account_name]);
+			};
 		});
 	}, [accounts]);
 
@@ -26,30 +28,34 @@ function PopupAccounts() {
 		setPopup(false);
 	};
 
-	function activation() {
-		return popup ? "active" : "";
-	};
-
-	function handleAddAccount() {
-		if (accountsName.includes(popupInput)) {
-			alert('There are already account with that name! Change with another unique name!');
+	const handleAddAccount = async() => {
+		if (popupInput.trim() === '') {
+			alert('Name cannot being empty!');
 		} else {
-			postAccountData(popupInput);
-			setPopup(false);
+			if (accountsName.includes(popupInput)) {
+				alert('There are already account with that name! Change with another unique name!');
+			} else {
+				await postAccountData(popupInput.trim());
+				setPopup(false);
+			};
 		};
 	};
 
-	function handleEditAccount() {
-		if (accountsName.includes(popupInput)) {
-			alert('There are already account with that name! Change with another unique name!');
+	const handleEditAccount = async() => {
+		if (popupInput.trim() === '') {
+			alert('Name cannot being empty!');
 		} else {
-			updateAccountData(popupInput, updateID);
-			setPopup(false);
+			if (accountsName.includes(popupInput)) {
+				alert('There are already account with that name! Change with another unique name!');
+			} else {
+				await updateAccountData(popupInput.trim(), updateID);
+				setPopup(false);
+			};
 		};
 	};
 
 	return (
-		<div className={`popup ${activation()} ${popupType}`}>
+		<div className={`popup ${popup ? "active" : ""} ${popupType}`}>
 			<button id="close-btn" onClick={closePopup}>x</button>
 			<div className="form">
 				<div className="form-header">
@@ -68,8 +74,8 @@ function PopupAccounts() {
 						/>
 					</div>
 				</div>
-				<button id="save-add-btn" onClick={() => handleAddAccount()}>Add</button>
-				<button id="save-edit-btn" onClick={() => handleEditAccount()}>Edit</button>
+				<button id="save-add-btn" onClick={handleAddAccount}>Add</button>
+				<button id="save-edit-btn" onClick={handleEditAccount}>Edit</button>
 			</div>
 		</div>
 	);
