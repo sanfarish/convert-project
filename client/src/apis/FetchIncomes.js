@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const incomes = axios.create({
-	baseURL: "http://localhost:3500/api/v1/categories-income"
+	baseURL: "http://localhost:3500/api/v1/incomes"
 });
 
 async function getIncomes() {

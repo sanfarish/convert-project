@@ -1,122 +1,49 @@
-/////////////////////////////////////
-// Modules & Variables Declaration //
-/////////////////////////////////////
-const Transaction = require('../models/transactions');
+const transaction = require('../models/transactions');
 
-//////////////////////////
-// Get All Transactions //
-//////////////////////////
 exports.getTransactions = async (req, res) => {
-    try {
-        const data = await Transaction.findAll();
-        res.status(200).send(data);
-    } catch (error) {
-        console.log(error);
-    }
+	try {
+		const data = await transaction.findAll();
+		res.status(200).send(data);
+	} catch (err) {console.error(err)};
 };
 
-////////////////////////////
-// Get Single Transaction //
-////////////////////////////
 exports.getTransaction = async (req, res) => {
-    try {
-        const data = await Transaction.findByID(req.params.id);
-        res.status(200).send(data);
-    } catch (error) {
-        console.log(error);
-    }
+	try {
+		const data = await transaction.findByID(req.params.id);
+		res.status(200).send(data);
+	} catch (err) {console.error(err)};
 };
 
-////////////////////////////////
-// Get All Transactions (RAW) //
-////////////////////////////////
-exports.getTransactionsRaw = async (req, res) => {
-    try {
-        const data = await Transaction.findAllRaw();
-        res.status(200).send(data);
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-//////////////////////////////////
-// Get Single Transaction (RAW) //
-//////////////////////////////////
-exports.getTransactionRaw = async (req, res) => {
-    try {
-        const data = await Transaction.findByIDRaw(req.params.id);
-        res.status(200).send(data);
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-//////////////////////////
-// Create a Transaction //
-//////////////////////////
 exports.createTransaction = async (req, res) => {
-    try {
-        const body = {
-            transaction_id: crypto.randomUUID(),
-            transaction_time: req.body.transaction_time,
-            id_account: req.body.id_account,
-            id_income: req.body.id_income,
-            id_expense: req.body.id_expense,
-            id_transfer: req.body.id_transfer,
-            transaction_amount: req.body.transaction_amount,
-            transaction_note: req.body.transaction_note
-        };
-        await Transaction.create(body);
-        const data = await Transaction.findAll();
-        res.status(201).json({
-            status: 201,
-            message: 'transactions data successfully created',
-            data: data
-        });
-    } catch (error) {
-        console.log(error);
-    }
+	try {
+		const body = {transaction_id: crypto.randomUUID(), ...req.body};
+		await transaction.create(body);
+		res.status(201).json({
+			status: 201,
+			message: 'transactions data successfully created',
+			data: body
+		});
+	} catch (err) {console.error(err)};
 };
 
-//////////////////////////
-// Update a Transaction //
-//////////////////////////
 exports.updateTransaction = async (req, res) => {
-    try {
-        const body = {
-            transaction_time: req.body.transaction_time,
-            id_account: req.body.id_account,
-            id_income: req.body.id_income,
-            id_expense: req.body.id_expense,
-            id_transfer: req.body.id_transfer,
-            transaction_amount: req.body.transaction_amount,
-            transaction_note: req.body.transaction_note
-        };
-        await Transaction.update(req.params.id, body);
-        const data = await Transaction.findAll();
-        res.status(200).json({
-            status: 200,
-            message: 'transaction data successfully updated',
-            data: data
-        });
-    } catch (error) {
-        console.log(error);
-    }
+	try {
+		await transaction.update(req.params.id, req.body);
+		res.status(200).json({
+			status: 200,
+			message: 'transaction data successfully updated',
+			data: {transaction_id: req.params.id, ...req.body}
+		});
+	} catch (err) {console.error(err)};
 };
 
-//////////////////////////
-// Delete a Transaction //
-//////////////////////////
 exports.deleteTransaction = async (req, res) => {
-    try {
-        await Transaction.remove(req.params.id);
-        const data = await Transaction.findAll();
-        res.status(200).json({
-            status: 200,
-            message: 'transactions data successfully deleted',
-            data: data
-        });
-    } catch (error) {
-        console.log(error);
-    }
+	try {
+		await transaction.remove(req.params.id);
+		res.status(200).json({
+			status: 200,
+			message: 'transactions data successfully deleted',
+			data: req.params.id
+		});
+	} catch (err) {console.error(err)};
 };

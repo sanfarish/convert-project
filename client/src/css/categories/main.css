@@ -1,6 +1,6 @@
 .categories {
 
-.view .main {
+.dashboard .main {
 	grid-area: a3;
 	background-color: #222222;
 	display: grid;
@@ -13,7 +13,7 @@
 	padding: 0 20px 20px 20px
 }
 
-.view .main > div {
+.dashboard .main > div {
 	background-color: #666666;
 	border-radius: 10px;
 	box-shadow: 2px 2px 2px 2px black;
@@ -22,13 +22,13 @@
 	align-items: center;
 }
 
-.view .main .income-add {
+.dashboard .main .income-add {
 	grid-area: a3;
     flex-direction: column;
     gap: 30px;
 }
 
-.view .main .expense-add {
+.dashboard .main .expense-add {
 	grid-area: a4;
     flex-direction: column;
     gap: 30px;
@@ -52,7 +52,7 @@
     transition: all 0.1s ease-out;
 }
 
-.view .main .total {
+.dashboard .main .total {
 	grid-area: a3;
     flex-direction: column;
 	justify-content: space-around;

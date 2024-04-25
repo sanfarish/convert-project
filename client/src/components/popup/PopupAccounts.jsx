@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { AccountsContext } from '../../../context/AccountsContext';
+import { AccountsContext } from '../../context/AccountsContext';
 
 function PopupAccounts() {
 	const {

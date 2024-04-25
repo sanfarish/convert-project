@@ -4,7 +4,14 @@ import { TransactionsContext } from '../../../context/TransactionsContext';
 
 function MainTransactions() {
 
-	const { transactions, setPopup } = useContext(TransactionsContext);
+	const {
+		transactions,
+		setPopup,
+		setPopupAdd,
+		setFormType,
+		setPopupInput,
+		datetimeFormat
+	} = useContext(TransactionsContext);
 	const [income, setIncome] = useState(0);
 	const [expense, setExpense] = useState(0);
 
@@ -21,9 +28,19 @@ function MainTransactions() {
 	}, [transactions]);
 
 	function addPopup() {
+		setPopupInput({
+			transaction_time: datetimeFormat(new Date()),
+			id_account: '',
+			id_income: '',
+			id_expense: '',
+			id_transfer: '',
+			transaction_amount: '',
+			transaction_note: ''
+		});
+		setFormType('expense');
+		setPopupAdd(true);
 		setPopup(true);
 	};
-
 
 	return (
 		<main className="main">

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { CategoriesContext } from '../../../context/CategoriesContext';
+import { CategoriesContext } from '../../context/CategoriesContext';
 
 function PopupCategories() {
 

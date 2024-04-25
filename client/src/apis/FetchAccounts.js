@@ -18,21 +18,18 @@ async function getAccount(id) {
 	} catch (err) {console.log(err)};
 };
 
-async function postAccount(name) {
+async function postAccount(body) {
 	try {
-		const res = await accounts.post('/', {
-			account_name: name,
-			account_balance: 0
-		});
+		const jsonAccount = Object.fromEntries(body.entries());
+		const res = await accounts.post('/', jsonAccount);
 		return res.data.data;
 	} catch (err) {console.log(err)};
 };
 
-async function putAccount(name, id) {
+async function putAccount(id, body) {
 	try {
-		const res = await accounts.put(`/${id}`, {
-			account_name: name
-		});
+		const jsonAccount = Object.fromEntries(body.entries());
+		const res = await accounts.put(`/${id}`, jsonAccount);
 		return res.data.data;
 	} catch (err) {console.log(err)};
 };

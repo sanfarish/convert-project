@@ -1,93 +1,96 @@
-import { Fragment, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { TransactionsContext } from '../../context/TransactionsContext';
 
 function TableTransactions() {
 
-	const { transactions, getTransactionsData } = useContext(TransactionsContext);
+	const {
+		transactions,
+		setPopup,
+		setPopupAdd,
+		setFormType,
+		setPopupInput,
+		accounts,
+		datetimeFormat,
+		getTransactionsData,
+		deleteTransactionData,
+		putAccountData
+	} = useContext(TransactionsContext);
 
 	useEffect(() => {
 		getTransactionsData();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	function days(day) {
-		switch (day.getDay()) {
-			case 0: return('Minggu');
-			case 1: return('Senin')
-			case 2: return('Selasa');
-			case 3: return('Rabu');
-			case 4: return('Kamis');
-			case 5: return('Jumat');
-			case 6: return('Sabtu');
-			default: return null;
-		};
+	const days = (day) => {
+		const arr = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+		return arr[new Date(day).getDay()];
 	};
 
 	function Dates({ Time }) {
+		const time = new Date(Time);
 		return(
-			<>
-			{Time.getDate()}/
-			{Time.getMonth() + 1}/
-			{Time.getFullYear()}
-			</>
+			<>{time.getDate()}/{time.getMonth() + 1}/{time.getFullYear()}</>
 		);
 	};
 
-	function Render({ Title, Item, Time }) {
+	const editPopup = (item) => {
+		setPopupInput({...item, transaction_id: item.transaction_id, transaction_time: datetimeFormat(item.transaction_time)});
+		setFormType(item.id_income !== '' ? 'income' : item.id_expense !== '' ? 'expense' : item.id_transfer !== '' && 'transfer');
+		setPopupAdd(false);
+		setPopup(true);
+	};
+
+	const handleDelete = (key) => {
+
+		const formTrans = new FormData();
+
+		if (key.id_income !== '') {
+			const sum = accounts.find(item => item.account_id === key.id_account).account_balance - key.transaction_amount;
+			formTrans.append('account_balance', sum);
+			putAccountData(key.id_account, formTrans);
+		}
+
+		else if (key.id_expense !== '') {
+			const sum = accounts.find(item => item.account_id === key.id_account).account_balance + key.transaction_amount;
+			formTrans.append('account_balance', sum);
+			putAccountData(key.id_account, formTrans);
+		}
+
+		else if (key.id_transfer !== '') {
+			const sum = accounts.find(item => item.account_id === key.id_account).account_balance + key.transaction_amount;
+			formTrans.append('account_balance', sum);
+			putAccountData(key.id_account, formTrans);
+			const sum2 = accounts.find(item => item.account_id === key.id_transfer).account_balance - key.transaction_amount;
+			formTrans.set('account_balance', sum2);
+			putAccountData(key.id_transfer, formTrans);
+		};
+		deleteTransactionData(key.transaction_id);
+	};
+
+	function Render({ Title, Item }) {
 		return(
 			<>
 				<div className={`id ${Title}`}>
-                    <div className="day">{days(Time)}</div>
-                    <div className="date"><Dates Time={Time} /></div>
-                    <div className="category">
-						{
-							(
-								Item.id_income !== ''
-							) ? (
-								Item.income_name
-							) : (
-								Item.id_expense
-							) ? (
-								Item.expense_name
-							) : (
-								Item.id_transfer
-							) && (
-								`${Item.account_name} → ${Item.transfer_name}`
-							)
-						}
-					</div>
+                    <div className="day">{days(Item.transaction_time)}</div>
+                    <div className="date"><Dates Time={Item.transaction_time} /></div>
+                    <div className="category">{
+						Item.id_income !== ''
+						? Item.income_name
+						: Item.id_expense
+						? Item.expense_name
+						: Item.id_transfer
+						&& `${Item.account_name} \u2192 ${Item.transfer_name}`
+					}</div>
                     <div className="note">{Item.transaction_note}</div>
                     <div className="amount">Rp {Item.transaction_amount.toLocaleString()},-</div>
                     <div className="account">
 						{(Item.id_income !== '' || Item.id_expense !== '') && Item.account_name}
 					</div>
-                    {/* <div className="edit-wrapper">
-                        <button className="edit-btn" onclick="editPopup(
-                            '${item.transaction_time}',
-                            '${item.id_acc}',
-                            '${item.id_inc}',
-                            '${item.id_exp}',
-                            '${item.id_tra}',
-                            '${item.transaction_amount}',
-                            '${item.transaction_note}',
-                            '${item.transaction_id}'
-                        )">Edit</button>
-                    </div> */}
-                    {/* <div className="del-wrapper">
-                        <button className="del-btn" onclick="deleteTransaction(
-                            '${item.transaction_id}',
-                            '${item.id_acc}',
-                            '${item.id_inc}',
-                            '${item.id_exp}',
-                            '${item.id_tra}',
-                            '${item.transaction_amount}'
-                            )">Delete</button>
-                    </div> */}
                     <div className="edit-wrapper">
-                        <button className="edit-btn">Edit</button>
+                        <button className="edit-btn" onClick={() => editPopup(Item)}>Edit</button>
                     </div>
                     <div className="del-wrapper">
-                        <button className="del-btn">Delete</button>
+                        <button className="del-btn" onClick={() => handleDelete(Item)}>Delete</button>
                     </div>
                 </div>
                 <div className="space"></div>
@@ -98,34 +101,12 @@ function TableTransactions() {
 	return (
 		transactions.map(item => {
 			return(
-				(
-					item.id_income !== ''
-				) ? (
-					<Render
-						Title="income"
-						Item={item}
-						Time={new Date(item.transaction_time)}
-						key={item.transaction_id}
-					/>
-				) : (
-					item.id_expense !== ''
-				) ? (
-					<Render
-						Title="expense"
-						Item={item}
-						Time={new Date(item.transaction_time)}
-						key={item.transaction_id}
-					/>
-				) : (
-					item.id_transfer !== ''
-				) && (
-					<Render
-						Title="transfer"
-						Item={item}
-						Time={new Date(item.transaction_time)}
-						key={item.transaction_id}
-					/>
-				)
+				item.id_income !== ''
+				? <Render Title="income" Item={item} key={item.transaction_id} />
+				: item.id_expense !== ''
+				? <Render Title="expense" Item={item} key={item.transaction_id} />
+				: item.id_transfer !== ''
+				&& <Render Title="transfer" Item={item} key={item.transaction_id} />
 			);
 		})
 	);

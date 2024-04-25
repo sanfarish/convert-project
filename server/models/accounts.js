@@ -1,28 +1,34 @@
-/////////////////////////////////////
-// Modules & Variables Declaration //
-/////////////////////////////////////
 const knexfile = require('../knexfile')
 const knex = require('knex')(knexfile.development);
 
-//////////////////////
-// Models Functions //
-//////////////////////
 exports.findAll = () => {
-    return knex('accounts').select('*').orderBy('account_name', 'asc');
+	return knex('accounts')
+	.select('account_id', 'id_user', 'user_name', 'account_name', 'account_balance')
+	.innerJoin('users', 'accounts.id_user', '=', 'users.user_id')
+	.orderBy('account_name', 'asc');
 };
 
 exports.findByID = (id) => {
-    return knex('accounts').select('*').where('account_id', id);
+	return knex('accounts')
+	.select('account_id', 'id_user', 'user_name', 'account_name', 'account_balance')
+	.innerJoin('users', 'accounts.id_user', '=', 'users.user_id')
+	.where('account_id', id);
 };
 
 exports.create =  async (body) => {
-    await knex('accounts').insert(body);
+	try {
+		await knex('accounts').insert(body);
+	} catch (err) {console.error(err)};
 };
 
 exports.update = async (id, body) => {
-    await knex('accounts').where('account_id', id).update(body);
+	try {
+		await knex('accounts').where('account_id', id).update(body);
+	} catch (err) {console.error(err)};
 };
 
 exports.remove = async (id) => {
-    await knex('accounts').where('account_id', id).del();
+	try {
+		await knex('accounts').where('account_id', id).del();
+	} catch (err) {console.error(err)};
 };

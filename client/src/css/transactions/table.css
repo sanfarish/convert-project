@@ -1,13 +1,13 @@
 .transactions {
 
-    .view .main .table {
+    .dashboard .main .table {
 	grid-area: a1;
     min-height: 530px;
     max-height: calc(100vh - 120px);
 	min-width: 464px;
 }
 
-.view .main .table .data {
+.dashboard .main .table .data {
     background-color: #444444;
 	height: calc(100% - 40px);
     width: calc(100% - 40px);

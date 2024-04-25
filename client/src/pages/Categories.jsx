@@ -7,23 +7,25 @@ import '../css/categories/table.css';
 import Header from '../components/dashboard/Header';
 import Nav from '../components/dashboard/Nav';
 import Main from '../components/dashboard/main/MainCategories';
-import Popup from '../components/dashboard/popup/PopupCategories';
+import Popup from '../components/popup/PopupCategories';
 
 const Categories = () => {
 
 	const { popup } = useContext(CategoriesContext);
+	const styleBlur = {
+		filter: 'blur(2px) brightness(75%)',
+		transition: '0.4s',
+		pointerEvents: 'none',
+		userSelect: 'none'
+	};
 
 	useEffect(() => {
 		document.title = 'Categories | Expense Manager';
 	}, []);
 
-	function popupBlur() {
-		return popup ? 'blur' : '';
-	};
-
 	return (
 		<div className='categories'>
-			<div className={`view ${popupBlur()}`}>
+			<div className='dashboard' style={popup ? styleBlur : {}}>
 				<Header Title="Categories" />
 				<Main />
 				<Nav />

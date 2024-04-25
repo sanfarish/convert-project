@@ -3,50 +3,70 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-  return knex.schema.dropTableIfExists('transactions')
+  return knex.schema
+  .dropTableIfExists('transactions')
   .dropTableIfExists('accounts')
-  .dropTableIfExists('category_income')
-  .dropTableIfExists('category_expense')
-  .createTable('category_expense', (table) => {
-      table.string('expense_id', 36).notNullable().primary();
-      table.string('expense_name', 50).notNullable();
+  .dropTableIfExists('incomes')
+  .dropTableIfExists('expenses')
+  .dropTableIfExists('users')
+  .createTable('users', (table) => {
+    table.string('user_id', 36).notNullable().primary();
+    table.boolean('user_admin').notNullable();
+    table.string('user_name');
   })
-  .createTable('category_income', (table) => {
+  .createTable('expenses', (table) => {
+      table.string('expense_id', 36).notNullable().primary();
+      table.string('id_user', 36).notNullable();
+      table.string('expense_name');
+      table.foreign('id_user').references('user_id').inTable('users');
+  })
+  .createTable('incomes', (table) => {
       table.string('income_id', 36).notNullable().primary();
-      table.string('income_name', 50).notNullable();
+      table.string('id_user', 36).notNullable();
+      table.string('income_name');
+      table.foreign('id_user').references('user_id').inTable('users');
   })
   .createTable('accounts', (table) => {
       table.string('account_id', 36).notNullable().primary();
-      table.string('account_name', 50).notNullable();
-      table.integer('account_balance').notNullable();
+      table.string('id_user', 36).notNullable();
+      table.string('account_name');
+      table.integer('account_balance');
+      table.foreign('id_user').references('user_id').inTable('users');
   })
   .createTable('transactions', (table) => {
       table.string('transaction_id', 36).notNullable().primary();
-      table.timestamp('transaction_time').notNullable();
+      table.string('id_user', 36).notNullable();
+      table.timestamp('transaction_time');
       table.string('id_account', 36).notNullable();
       table.string('id_income', 36).notNullable();
       table.string('id_expense', 36).notNullable();
       table.string('id_transfer', 36).notNullable();
-      table.integer('transaction_amount').notNullable();
-      table.string('transaction_note', 50).notNullable();
+      table.integer('transaction_amount');
+      table.string('transaction_note');
       table.foreign('id_account').references('account_id').inTable('accounts');
-      table.foreign('id_income').references('income_id').inTable('category_income');
-      table.foreign('id_expense').references('expense_id').inTable('category_expense');
+      table.foreign('id_income').references('income_id').inTable('incomes');
+      table.foreign('id_expense').references('expense_id').inTable('expenses');
       table.foreign('id_transfer').references('account_id').inTable('accounts');
+      table.foreign('id_user').references('user_id').inTable('users');
   })
   .then( () => {
-    return knex('category_expense').insert([
-      {expense_id: '', expense_name: ''}
+    return knex('users').insert([
+      {user_id: '', user_admin: false, user_name: null}
     ]);
   })
   .then( () => {
-    return knex('category_income').insert([
-      {income_id: '', income_name: ''}
-    ])
+    return knex('expenses').insert([
+      {expense_id: '', id_user: '', expense_name: null}
+    ]);
+  })
+  .then( () => {
+    return knex('incomes').insert([
+      {income_id: '', id_user: '', income_name: null}
+    ]);
   })
   .then( () => {
     return knex('accounts').insert([
-      {account_id: '', account_name: '', account_balance: 0}
+      {account_id: '', id_user: '', account_name: null, account_balance: null}
     ]);
   });
 };
@@ -56,8 +76,10 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists('transactions')
+  return knex.schema
+  .dropTableIfExists('transactions')
   .dropTableIfExists('accounts')
-  .dropTableIfExists('category_income')
-  .dropTableIfExists('category_expense');
+  .dropTableIfExists('incomes')
+  .dropTableIfExists('expenses')
+  .dropTableIfExists('users');
 };

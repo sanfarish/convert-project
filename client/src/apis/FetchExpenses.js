@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const expenses = axios.create({
-	baseURL: "http://localhost:3500/api/v1/categories-expense"
+	baseURL: "http://localhost:3500/api/v1/expenses"
 });
 
 async function getExpenses() {

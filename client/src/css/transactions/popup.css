@@ -1,151 +1,97 @@
 .transactions {
 
-    .popup {
-    background-color: #444444;
-    height: 350px;
-    width: 450px;
-    opacity: 0;
-    position: absolute;
-    top: -150%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1.25);
-    border-radius: 20px;
-    box-shadow: 2px 2px 2px 2px black;
-    transition: opacity 0.2s ease-in-out,
-                top 0s ease-in-out 0.2s,
-                transform 0.2s ease-in-out;
-}
+	.popup {
 
-.popup.active {
-    opacity: 1;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(1);
-    transition: opacity 0.2s ease-in-out,
-                top 0s ease-in-out,
-                transform 0.2s ease-in-out;
-}
+		background-color: #444444;
+		height: 380px;
+		width: 450px;
+		opacity: 0;
+		position: absolute;
+		top: -150%;
+		left: 50%;
+		transform: translate(-50%, -50%) scale(1.25);
+		border-radius: 20px;
+		box-shadow: 2px 2px 2px 2px black;
+		transition: opacity 0.2s ease-in-out, top 0s ease-in-out 0.2s, transform 0.2s ease-in-out;
 
-.popup #close-btn {
-    background-color: #666666;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    height: 20px;
-    width: 20px;
-    border-radius: 10px;
-    box-shadow: 1px 1px 1px 1px black;
-    cursor: pointer;
-}
+		> button {
+			background-color: #666666;
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			height: 30px;
+			width: 30px;
+			border-radius: 15px;
+			cursor: pointer;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
 
-.popup .form {
-    height: inherit;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+		> button:hover {
+			background-color: #FF6255;
+		}
 
-.popup .form .form-header {
-    width: 100%;
-    padding-top: 30px;
-    display: flex;
-    justify-content: space-evenly;
-}
+		.form-header {
+			position: relative;
+			left: calc((450px - 450px * 80 / 100) / 2);
+			width: 80%;
+			padding-top: 30px;
+			display: flex;
+			justify-content: space-between;
+		}
 
-.popup .form .form-header header {
-    background-color: #666666;
-    color: #222222;
-    padding: 10px 15px;
-    border: 2px solid #222222;
-    border-radius: 10px;
-    cursor: pointer;
-}
+		.form-header button {
+			background-color: #666666;
+			color: #222222;
+			padding: 10px 15px;
+			border: 2px solid #222222;
+			border-radius: 10px;
+			cursor: pointer;
+		}
 
-.popup .form.income .form-header .income-head,
-.popup .form.income #save-add-btn,
-.popup .form.income #save-edit-btn {
-    background-color: #1999FC;
-}
+		.form-header button:nth-child(1):hover {
+			border: 2px solid #1999FC;
+		}
+		
+		.form-header button:nth-child(2):hover {
+			border: 2px solid #FF6255;
+		}
 
-.popup #close-btn:hover,
-.popup .form.expense .form-header .expense-head,
-.popup .form.expense #save-add-btn,
-.popup .form.expense #save-edit-btn {
-    background-color: #FF6255;
-}
+		.form-header button:nth-child(3):hover {
+			border: 2px solid white;
+		}
 
-.popup .form.transfer .form-header .transfer-head {
-    background-color: white;
-    color: black;
-}
+		form {
+			height: fit-content;
+			margin-top: 20px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 20px;
 
-.popup .form .form-header .income-head:hover {
-    color: #1999FC;
-    border: 2px solid #1999FC;
-}
+			input, select, option {
+				color: black;
+				width: 250px;
+			}
+		
+			label {
+				width: 80%;
+				display: flex;
+				justify-content: space-between;
+			}
+		
+			button {
+				padding: 10px 15px;
+				border-radius: 10px;
+				box-shadow: 2px 2px 2px 2px black;
+				cursor: pointer;
+			}
 
-.popup .form .form-header .expense-head:hover {
-    color: #FF6255;
-    border: 2px solid #FF6255;
-}
-
-.popup .form .form-header .transfer-head:hover {
-    color: white;
-    border: 2px solid white;
-}
-
-.popup .form .form-content {
-    height: 100%;
-    width: 100%;
-    padding-top: 20px;
-    padding-bottom: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.popup .form .form-content .form-input {
-    padding: 0 30px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.popup .form.income .form-content .form-input:nth-child(5),
-.popup .form.expense .form-content .form-input:nth-child(5),
-.popup .form.income .form-content .form-input:nth-child(4),
-.popup .form.expense .form-content .form-input:nth-child(3),
-.popup .form.transfer .form-content .form-input:nth-child(3),
-.popup .form.transfer .form-content .form-input:nth-child(4),
-.popup.add .form #save-edit-btn,
-.popup.edit .form #save-add-btn {
-    display: none;
-}
-
-.popup .form .form-content .form-input input,
-.popup .form .form-content .form-input select,
-.popup .form .form-content .form-input select option {
-    color: black;
-	width: 250px;
-    padding: 0px;
-}
-
-.popup .form #save-add-btn,
-.popup .form #save-edit-btn {
-    position: relative;
-    bottom: 15px;
-    padding: 10px 15px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px black;
-    cursor: pointer;
-}
-
-.popup .form #save-add-btn:hover,
-.popup .form #save-edit-btn:hover {
-    color: black;
-}
-
-.popup .form.transfer #save-add-btn,
-.popup .form.transfer #save-edit-btn {
-	background-color: #888888
-}
+			button:hover {
+				color: black;
+			}
+		}
+	}
 
 }

@@ -1,6 +1,6 @@
 .accounts {
 
-.view .main {
+.dashboard .main {
 	grid-area: a3;
 	background-color: #222222;
 	display: grid;
@@ -13,7 +13,7 @@
 	padding: 0 20px 20px 20px
 }
 
-.view .main > div {
+.dashboard .main > div {
 	background-color: #666666;
 	border-radius: 10px;
 	box-shadow: 2px 2px 2px 2px black;
@@ -22,7 +22,7 @@
 	align-items: center;
 }
 
-.view .main .add {
+.dashboard .main .add {
 	grid-area: a2;
     flex-direction: column;
     gap: 30px;
@@ -50,7 +50,7 @@
     text-align: center;
 }
 
-.view .main .total {
+.dashboard .main .total {
 	grid-area: a3;
     flex-direction: column;
 	justify-content: space-evenly;

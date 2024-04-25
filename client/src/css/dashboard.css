@@ -1,4 +1,4 @@
-.view {
+.dashboard {
     height: 100vh;
 	width: 100vw;
 	display: grid;
@@ -7,29 +7,23 @@
 	grid-template-areas:
 	"a1 a2"
 	"a1 a3";
-}
-
-.view.blur {
-	filter: blur(2px);
 	transition: 0.4s;
-	pointer-events: none;
-	user-select: none;
 }
 
-.view .sidebar {
+.dashboard .sidebar {
 	grid-area: a1;
 	background-color: #FF6255;
 	box-shadow: 2px 2px 2px 2px black;
 }
 
-.view .sidebar .logo {
+.dashboard .sidebar .logo {
 	height: 100px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.view .sidebar .menu ul {
+.dashboard .sidebar .menu ul {
     padding-top: 10px;
     padding-left: 20px;
 	list-style: none;
@@ -38,12 +32,16 @@
 	gap:40px;
 }
 
+.menu ul li a {
+	text-decoration: none;
+}
+
 .menu ul li a i {
     display: inline-block;
     width: 30px;
 }
 
-.view .header {
+.dashboard .header {
 	grid-area: a2;
 	background-color: #222222;
 	padding-left: 50px;

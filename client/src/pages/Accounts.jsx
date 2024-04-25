@@ -7,23 +7,25 @@ import '../css/accounts/table.css';
 import Header from '../components/dashboard/Header';
 import Nav from '../components/dashboard/Nav';
 import Main from '../components/dashboard/main/MainAccounts';
-import Popup from '../components/dashboard/popup/PopupAccounts';
+import Popup from '../components/popup/PopupAccounts';
 
 const Accounts = () => {
 
 	const { popup } = useContext(AccountsContext);
+	const styleBlur = {
+		filter: 'blur(2px) brightness(75%)',
+		transition: '0.4s',
+		pointerEvents: 'none',
+		userSelect: 'none'
+	};
 
 	useEffect(() => {
 		document.title = 'Accounts | Expense Manager';
 	}, []);
 
-	function popupBlur() {
-		return popup ? 'blur' : '';
-	};
-
 	return (
 		<div className='accounts'>
-			<div className={`view ${popupBlur()}`}>
+			<div className='dashboard' style={popup ? styleBlur : {}}>
 				<Header Title="Accounts" />
 				<Main />
 				<Nav />
