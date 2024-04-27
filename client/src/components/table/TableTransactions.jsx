@@ -99,7 +99,7 @@ function TableTransactions() {
 	};
 
 	return (
-		transactions.map(item => {
+		transactions && transactions.map(item => {
 			return(
 				item.id_income !== ''
 				? <Render Title="income" Item={item} key={item.transaction_id} />

@@ -1,126 +1,118 @@
 .accounts {
+	.popup {
+		background-color: #444444;
+		height: 200px;
+		width: 450px;
+		opacity: 0;
+		position: absolute;
+		top: -150%;
+		left: 50%;
+		transform: translate(-50%, -50%) scale(1.25);
+		border-radius: 20px;
+		box-shadow: 2px 2px 2px 2px black;
+		transition: opacity 0.2s ease-in-out, top 0s ease-in-out 0.2s, transform 0.2s ease-in-out;
 
-.popup {
-    background-color: #444444;
-    height: 200px;
-    width: 450px;
-    opacity: 0;
-    position: absolute;
-    top: -150%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1.25);
-    border-radius: 20px;
-    box-shadow: 2px 2px 2px 2px black;
-    transition: opacity 0.2s ease-in-out,
-                top 0s ease-in-out 0.2s,
-                transform 0.2s ease-in-out;
-}
+		> button {
+			background-color: #666666;
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			height: 30px;
+			width: 30px;
+			border-radius: 15px;
+			cursor: pointer;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
 
-.popup.active {
-    opacity: 1;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(1);
-    transition: opacity 0.2s ease-in-out,
-                top 0s ease-in-out,
-                transform 0.2s ease-in-out;
-}
+		> button:hover {
+			background-color: #FF6255;
+		}
 
-.popup #close-btn {
-    background-color: #666666;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    height: 20px;
-    width: 20px;
-    border-radius: 10px;
-    box-shadow: 1px 1px 1px 1px black;
-    cursor: pointer;
-}
+		.form-header {
+			width: 100%;
+			padding-top: 30px;
+			display: flex;
+			justify-content: center;
+		}
+	}
 
-.popup .form {
-    height: inherit;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+	.popup .form {
+		height: inherit;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
 
-.popup .form .form-header {
-    width: 100%;
-    padding-top: 30px;
-    display: flex;
-    justify-content: center;
-}
+	.popup .form .form-header header {
+		font-size: 20pt;
+	}
 
-.popup .form .form-header header {
-	font-size: 20pt;
-}
-
-.popup .form.income .form-header .income-head,
-.popup .form.income #save-add-btn,
-.popup .form.income #save-edit-btn {
-    background-color: #1999FC;
-}
-
-.popup #close-btn:hover,
-.popup .form.expense .form-header .expense-head,
-.popup .form.expense #save-add-btn,
-.popup .form.expense #save-edit-btn {
-    background-color: #FF6255;
-}
-
-.popup .form.transfer .form-header .transfer-head {
-    background-color: white;
-    color: black;
-}
-
-
-.popup .form .form-content {
-    height: 100%;
-    width: 100%;
-    padding-top: 20px;
-    padding-bottom: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.popup .form .form-content .form-input {
-    padding: 0 30px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.popup.add .form .form-header header:nth-child(2),
-.popup.edit .form .form-header header:nth-child(1),
-.popup.add .form #save-edit-btn,
-.popup.edit .form #save-add-btn {
-    display: none;
-}
-
-.popup .form .form-content .form-input input {
-    color: black;
-	width: 250px;
-    padding: 0px;
-}
-
-.popup .form #save-add-btn,
-.popup .form #save-edit-btn {
-    position: relative;
-    bottom: 15px;
-    padding: 10px 15px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px black;
-    cursor: pointer;
-}
-
-.popup .form #save-add-btn:hover,
-.popup .form #save-edit-btn:hover {
-    color: black;
-}
-
-.popup .form #save-add-btn,
-.popup .form #save-edit-btn {
-	background-color: #888888
-}
-
+	.popup .form.income .form-header .income-head,
+	.popup .form.income #save-add-btn,
+	.popup .form.income #save-edit-btn {
+		background-color: #1999FC;
+	}
+	
+	.popup .form.expense .form-header .expense-head,
+	.popup .form.expense #save-add-btn,
+	.popup .form.expense #save-edit-btn {
+		background-color: #FF6255;
+	}
+	
+	.popup .form.transfer .form-header .transfer-head {
+		background-color: white;
+		color: black;
+	}
+	
+	
+	.popup .form .form-content {
+		height: 100%;
+		width: 100%;
+		padding-top: 20px;
+		padding-bottom: 30px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	
+	.popup .form .form-content .form-input {
+		padding: 0 30px;
+		display: flex;
+		justify-content: space-between;
+	}
+	
+	.popup.add .form .form-header header:nth-child(2),
+	.popup.edit .form .form-header header:nth-child(1),
+	.popup.add .form #save-edit-btn,
+	.popup.edit .form #save-add-btn {
+		display: none;
+	}
+	
+	.popup .form .form-content .form-input input {
+		color: black;
+		width: 250px;
+		padding: 0px;
+	}
+	
+	.popup .form #save-add-btn,
+	.popup .form #save-edit-btn {
+		position: relative;
+		bottom: 15px;
+		padding: 10px 15px;
+		border-radius: 10px;
+		box-shadow: 2px 2px 2px 2px black;
+		cursor: pointer;
+	}
+	
+	.popup .form #save-add-btn:hover,
+	.popup .form #save-edit-btn:hover {
+		color: black;
+	}
+	
+	.popup .form #save-add-btn,
+	.popup .form #save-edit-btn {
+		background-color: #888888
+	}
 }

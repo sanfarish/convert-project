@@ -10,10 +10,10 @@ exports.seed = async function(knex) {
   await knex('expenses').del();
   await knex('users').del();
   await knex('users').insert([
-    {user_id: '', user_admin: false, user_name: null},
-    {user_id: '08b680c7-3c47-485c-ba81-cf58821cbd7c', user_admin: false, user_name: 'Faris Hasan'},
-    {user_id: 'a43e0896-1f23-478c-9bce-130889686ef4', user_admin: true, user_name: 'Mariana'},
-    {user_id: '0409f0ab-8154-469d-8c69-21d8b97685c2', user_admin: true, user_name: 'Nur Rifqi'}
+    {user_id: '', user_name: null},
+    {user_id: '08b680c7-3c47-485c-ba81-cf58821cbd7c', user_name: 'Faris Hasan'},
+    {user_id: 'a43e0896-1f23-478c-9bce-130889686ef4', user_name: 'Mariana'},
+    {user_id: '0409f0ab-8154-469d-8c69-21d8b97685c2', user_name: 'Nur Rifqi'}
   ]);
   await knex('expenses').insert([
     {expense_id: '', id_user: '', expense_name: null},

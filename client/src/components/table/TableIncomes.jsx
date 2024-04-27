@@ -21,7 +21,7 @@ function TableIncomes() {
 		getIncomesData();
 		setTransactionsIncomes([]);
 	
-		transactions.forEach(item => {
+		transactions && transactions.forEach(item => {
 			if (item.id_income !== '') {
 				setTransactionsIncomes(prev => [...prev, item.id_income]);
 			};
@@ -67,7 +67,7 @@ function TableIncomes() {
 	};
 
 	return (
-		incomes.map(item => {
+		incomes && incomes.map(item => {
 			return(
 				item.income_id !== '' && <Render Item={item} key={item.income_id} />
 			);

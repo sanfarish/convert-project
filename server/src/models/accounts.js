@@ -1,16 +1,16 @@
-const knexfile = require('../knexfile')
+const knexfile = require('../../knexfile')
 const knex = require('knex')(knexfile.development);
 
 exports.findAll = () => {
 	return knex('accounts')
-	.select('account_id', 'id_user', 'user_name', 'account_name', 'account_balance')
+	.select('account_id', 'id_user', 'account_name', 'account_balance')
 	.innerJoin('users', 'accounts.id_user', '=', 'users.user_id')
 	.orderBy('account_name', 'asc');
 };
 
 exports.findByID = (id) => {
 	return knex('accounts')
-	.select('account_id', 'id_user', 'user_name', 'account_name', 'account_balance')
+	.select('account_id', 'id_user', 'account_name', 'account_balance')
 	.innerJoin('users', 'accounts.id_user', '=', 'users.user_id')
 	.where('account_id', id);
 };

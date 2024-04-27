@@ -1,5 +1,4 @@
 import { createContext, useState } from 'react';
-// eslint-disable-next-line no-unused-vars
 import { getTransactions, postTransaction, putTransaction, deleteTransaction } from '../apis/FetchTransactions';
 import { getAccounts, putAccount } from '../apis/FetchAccounts';
 import { getIncomes } from '../apis/FetchIncomes';
@@ -27,13 +26,6 @@ const TransactionsContextProvider = (props) => {
 	const [incomes, setIncomes] = useState([]);
 	const [expenses, setExpenses] = useState([]);
 
-	const datetimeFormat = (date) => {
-		let local = new Date(date);
-		let offset = local.getTimezoneOffset();
-		let utc = new Date(local.getTime() - offset * 60000).toISOString().slice(0, 16);
-		return utc;
-	};
-
 	const getTransactionsData = async() => {
 		const data = await getTransactions();
 		setTransactions(data);
@@ -57,11 +49,13 @@ const TransactionsContextProvider = (props) => {
 	const getAccountsData = async() => {
 		const data = await getAccounts();
 		setAccounts(data);
+		return data;
 	};
 
 	const putAccountData = async(id, body) => {
 		await putAccount(id, body);
-		await getAccountsData();
+		const data = await getAccountsData();
+		return data;
 	};
 
 	const getIncomesData = async() => {
@@ -72,6 +66,13 @@ const TransactionsContextProvider = (props) => {
 	const getExpensesData = async() => {
 		const data = await getExpenses();
 		setExpenses(data);
+	};
+
+	const datetimeFormat = (date) => {
+		let local = new Date(date);
+		let offset = local.getTimezoneOffset();
+		let utc = new Date(local.getTime() - offset * 60000).toISOString().slice(0, 16);
+		return utc;
 	};
 
 	return (
@@ -87,18 +88,18 @@ const TransactionsContextProvider = (props) => {
 				setFormType,
 				popupInput,
 				setPopupInput,
-				datetimeFormat,
+				accounts,
+				incomes,
+				expenses,
 				getTransactionsData,
 				postTransactionData,
 				putTransactionData,
 				deleteTransactionData,
-				accounts,
-				incomes,
-				expenses,
 				getAccountsData,
 				putAccountData,
 				getIncomesData,
-				getExpensesData
+				getExpensesData,
+				datetimeFormat
 			}}
 		>
 			{props.children}

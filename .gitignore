@@ -1,0 +1,6 @@
+/.vscode
+expense_manager.session.sql
+
+/client/.unused
+/client/public/.unused
+/client/src/.unused

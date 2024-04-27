@@ -18,20 +18,18 @@ async function getIncome(id) {
 	} catch (err) {console.log(err)};
 };
 
-async function postIncome(name) {
+async function postIncome(body) {
 	try {
-		const res = await incomes.post('/', {
-			income_name: name
-		});
+		const jsonAccount = Object.fromEntries(body.entries());
+		const res = await incomes.post('/', jsonAccount);
 		return res.data.data;
 	} catch (err) {console.log(err)};
 };
 
-async function putIncome(name, id) {
+async function putIncome(id, body) {
 	try {
-		const res = await incomes.put(`/${id}`, {
-			income_name: name
-		});
+		const jsonAccount = Object.fromEntries(body.entries());
+		const res = await incomes.put(`/${id}`, jsonAccount);
 		return res.data.data;
 	} catch (err) {console.log(err)};
 };

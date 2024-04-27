@@ -21,7 +21,7 @@ function TableExpenses() {
 		getExpensesData();
 		setTransactionsExpenses([]);
 
-		transactions.forEach(item => {
+		transactions && transactions.forEach(item => {
 			if (item.id_expense !== '') {
 				setTransactionsExpenses(prev => [...prev, item.id_expense]);
 			};
@@ -67,7 +67,7 @@ function TableExpenses() {
 	};
 
 	return (
-		expenses.map(item => {
+		expenses && expenses.map(item => {
 			return(
 				item.expense_id !== '' && <Render Item={item} key={item.expense_id} />
 			);

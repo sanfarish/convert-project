@@ -1,82 +1,104 @@
 import { useContext, useEffect, useState } from 'react';
 import { AccountsContext } from '../../context/AccountsContext';
 
-function PopupAccounts() {
+const PopupAccounts = () => {
 	const {
 		accounts,
-		updateID,
 		popup,
-		popupInput,
-		popupType,
 		setPopup,
+		popupAdd,
+		formType,
+		popupInput,
 		setPopupInput,
 		postAccountData,
-		updateAccountData
+		putAccountData
 	} = useContext(AccountsContext);
 	const [accountsName, setAccountsName] = useState([]);
+	const stylePopup = {
+		opacity: '1',
+		top: '50%',
+		transform: 'translate(-50%, -50%) scale(1)',
+		transition: 'opacity 0.2s ease-in-out, top 0s ease-in-out, transform 0.2s ease-in-out'
+	};
 
 	useEffect(() => {
 		setAccountsName([]);
-		accounts.forEach(item => {
+		accounts && accounts.forEach(item => {
 			if (item.account_name !== '') {
 				setAccountsName(prev => [...prev, item.account_name]);
 			};
 		});
 	}, [accounts]);
 
-	function closePopup() {
-		setPopup(false);
-	};
+	const handleSubmit = (e) => {
 
-	const handleAddAccount = async() => {
-		if (popupInput.trim() === '') {
-			alert('Name cannot being empty!');
-		} else {
-			if (accountsName.includes(popupInput)) {
-				alert('There are already account with that name! Change with another unique name!');
+		e.preventDefault();
+		const formAccount = new FormData(e.target);
+		formAccount.append('id_user', '08b680c7-3c47-485c-ba81-cf58821cbd7c');
+
+		if (popupAdd) {
+			if (popupInput.account_name.trim() === '') {
+				alert('Name cannot being empty!');
 			} else {
-				await postAccountData(popupInput.trim());
-				setPopup(false);
+				if (accountsName.includes(popupInput.account_name)) {
+					alert('There are already account with that name! Change with another unique name!');
+				} else {
+					postAccountData(formAccount);
+					setPopup(false);
+				};
 			};
-		};
-	};
+		}
 
-	const handleEditAccount = async() => {
-		if (popupInput.trim() === '') {
-			alert('Name cannot being empty!');
-		} else {
-			if (accountsName.includes(popupInput)) {
-				alert('There are already account with that name! Change with another unique name!');
+		else {
+			if (popupInput.account_name.trim() === '') {
+				alert('Name cannot being empty!');
 			} else {
-				await updateAccountData(popupInput.trim(), updateID);
-				setPopup(false);
+				if (accountsName.includes(popupInput.account_name)) {
+					alert('There are already account with that name! Change with another unique name!');
+				} else {
+					putAccountData(popupInput.account_id, formAccount);
+					setPopup(false);
+				};
 			};
 		};
 	};
 
 	return (
-		<div className={`popup ${popup ? "active" : ""} ${popupType}`}>
-			<button id="close-btn" onClick={closePopup}>x</button>
-			<div className="form">
-				<div className="form-header">
-					<header>Add Account:</header>
-					<header>Edit Account:</header>
-				</div>
-				<div className="form-content">
-					<div className="form-input">
-						<label htmlFor="name">Name:</label>
-						<input
-							type="text"
-							id="name"
-							value={popupInput}
-							onChange={(e) => setPopupInput(e.target.value)}
-							autoComplete='name'
-						/>
-					</div>
-				</div>
-				<button id="save-add-btn" onClick={handleAddAccount}>Add</button>
-				<button id="save-edit-btn" onClick={handleEditAccount}>Edit</button>
+		<div className='popup' style={popup ? stylePopup : {}}>
+
+			<button onClick={() => setPopup(false)}>{'\u2716'}</button>
+
+			<div className="form-header">
+				{popupAdd ? 'Add Account:' : 'Edit Account:'}
 			</div>
+
+			<form onSubmit={handleSubmit}>
+
+				<label>
+					Name:
+					<input
+						type="text"
+						name='account_name'
+						autoComplete='name'
+						value={popupInput.account_name}
+						onChange={(e) => setPopupInput({...popupInput, account_name: e.target.value})}
+					/>
+				</label>
+
+				<button
+				type='submit'
+					style={
+						formType === 'assets'
+						? {backgroundColor: '#1999FC'}
+						: formType === 'liabilities'
+						? {backgroundColor: '#FF6255'}
+						: formType === 'empty'
+						&& {backgroundColor: '#888888'}
+					}
+				>{popupAdd ? 'Add' : 'Save'}</button>
+
+			</form>
+
 		</div>
 	);
 };

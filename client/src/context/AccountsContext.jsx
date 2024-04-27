@@ -7,33 +7,36 @@ const AccountsContext = createContext();
 const AccountsContextProvider = (props) => {
 
 	const [accounts, setAccounts ] = useState([]);
-	const [updateID, setUpdateID] = useState("");
 	const [popup, setPopup] = useState(false);
-	const [popupType, setPopupType] = useState("");
-	const [popupInput, setPopupInput] = useState("");
+	const [popupAdd, setPopupAdd] = useState(true);
+	const [formType, setFormType] = useState('empty');
+	const [popupInput, setPopupInput] = useState({
+		account_id: '',
+		account_name: ''
+	});
 	const [transactions, setTransactions] = useState([]);
 
-	async function getAccountsData() {
+	const getAccountsData = async() => {
 		const data = await getAccounts();
 		setAccounts(data);
 	};
 
-	async function postAccountData(body) {
+	const postAccountData = async(body) => {
 		await postAccount(body);
 		await getAccountsData();
 	};
 
-	async function updateAccountData(body, id) {
-		await putAccount(body, id);
+	const putAccountData = async(id, body) => {
+		await putAccount(id, body);
 		await getAccountsData();
 	};
 
-	async function deleteAccountData(id) {
+	const deleteAccountData = async(id) => {
 		await deleteAccount(id);
 		await getAccountsData();
 	};
 
-	async function getTransactionsData() {
+	const getTransactionsData = async() => {
 		const data = await getTransactions();
 		setTransactions(data);
 	};
@@ -42,19 +45,19 @@ const AccountsContextProvider = (props) => {
 		<AccountsContext.Provider
 		value={{
 			accounts,
-			updateID,
-			setUpdateID,
 			popup,
 			setPopup,
-			popupType,
-			setPopupType,
+			popupAdd,
+			setPopupAdd,
+			formType,
+			setFormType,
 			popupInput,
 			setPopupInput,
+			transactions,
 			getAccountsData,
 			postAccountData,
-			updateAccountData,
+			putAccountData,
 			deleteAccountData,
-			transactions,
 			getTransactionsData
 		}}>
 			{props.children}

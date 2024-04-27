@@ -10,7 +10,7 @@ exports.getUsers = async (req, res) => {
 exports.getUser = async (req, res) => {
 	try {
 		const data = await users.findByID(req.params.id);
-		res.status(200).send(data);
+		res.status(200).send(data[0]);
 	} catch (err) {console.error(err)};
 };
 

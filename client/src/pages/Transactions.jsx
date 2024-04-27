@@ -25,7 +25,6 @@ const Transactions = () => {
 
 	return (
 		<div className='transactions'>
-			{/* <meta name="google" content="notranslate" /> */}
 			<div className='dashboard' style={popup ? styleBlur : {}}>
 				<Header Title="Transactions" />
 				<Main />

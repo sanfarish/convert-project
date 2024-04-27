@@ -10,6 +10,7 @@ function MainTransactions() {
 		setPopupAdd,
 		setFormType,
 		setPopupInput,
+		popupInput,
 		datetimeFormat
 	} = useContext(TransactionsContext);
 	const [income, setIncome] = useState(0);
@@ -27,8 +28,9 @@ function MainTransactions() {
 		});
 	}, [transactions]);
 
-	function addPopup() {
+	const addPopup = () => {
 		setPopupInput({
+			...popupInput,
 			transaction_time: datetimeFormat(new Date()),
 			id_account: '',
 			id_income: '',

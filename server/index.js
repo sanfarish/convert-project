@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const router = require('./routes');
+const router = require('./src/routes');
 const logger = (req, res, next) => {
 	console.log(req.method, req.url);
 	next();

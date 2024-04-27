@@ -11,6 +11,13 @@ async function getTransactions() {
 	} catch (err) {console.log(err)};
 };
 
+async function getTransaction(id) {
+	try {
+		const res = await transactions.get(`/${id}`);
+		return res.data;
+	} catch (err) {console.log(err)};
+};
+
 async function postTransaction(body) {
 	try {
 		const res = await transactions.post('/', body);
@@ -32,4 +39,4 @@ async function deleteTransaction(id) {
 	} catch (err) {console.log(err)};
 };
 
-export { getTransactions, postTransaction, putTransaction, deleteTransaction };
+export { getTransactions, getTransaction, postTransaction, putTransaction, deleteTransaction };

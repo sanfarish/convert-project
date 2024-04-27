@@ -30,14 +30,14 @@ function TableAccounts() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [transactions]);
 
-	function editPopup(id, name) {
+	const editPopup = (id, name) => {
 		setPopup(true);
 		setPopupType("edit");
 		setPopupInput(name);
 		setUpdateID(id);
 	};
 
-	function handleDeleteAccount(id) {
+	const handleDeleteAccount = (id) => {
 		if (transactionsAccount.includes(id)) {
 			alert('Cannot delete account that is in use on transactions!');
 		} else {
@@ -45,7 +45,7 @@ function TableAccounts() {
 		};
 	};
 
-	function Item({Id, Name, Bal}) {
+	const Render = ({Id, Name, Bal}) => {
 		if (Id !== "") {
 			return(
 				<>
@@ -68,7 +68,7 @@ function TableAccounts() {
 	return (
 		accounts && accounts.map(item => {
 			return(
-				<Item
+				<Render
 					Id={item.account_id}
 					Name={item.account_name}
 					Bal={item.account_balance}

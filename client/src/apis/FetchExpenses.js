@@ -18,20 +18,18 @@ async function getExpense(id) {
 	} catch (err) {console.log(err)};
 };
 
-async function postExpense(name) {
+async function postExpense(body) {
 	try {
-		const res = await expenses.post('/', {
-			expense_name: name
-		});
+		const jsonAccount = Object.fromEntries(body.entries());
+		const res = await expenses.post('/', jsonAccount);
 		return res.data.data;
 	} catch (err) {console.log(err)};
 };
 
-async function putExpense(name, id) {
+async function putExpense(id, body) {
 	try {
-		const res = await expenses.put(`/${id}`, {
-			expense_name: name
-		});
+		const jsonAccount = Object.fromEntries(body.entries());
+		const res = await expenses.put(`/${id}`, jsonAccount);
 		return res.data.data;
 	} catch (err) {console.log(err)};
 };

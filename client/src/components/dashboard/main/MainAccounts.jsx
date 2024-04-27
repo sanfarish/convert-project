@@ -2,12 +2,14 @@ import { useContext, useEffect, useState } from 'react';
 import { AccountsContext } from '../../../context/AccountsContext';
 import TableAccounts from '../../table/TableAccounts';
 
-function MainAccounts() {
+const MainAccounts = () => {
 
 	const {
 		accounts,
 		setPopup,
-		setPopupType,
+		setPopupAdd,
+		setFormType,
+		popupInput,
 		setPopupInput,
 		getTransactionsData
 	} = useContext(AccountsContext);
@@ -20,10 +22,8 @@ function MainAccounts() {
 	}, [])
 
 	useEffect(() => {
-
 		setAssets(0);
 		setLiabilities(0);
-
 		accounts.forEach(item => {
 			if (item.account_id !== '') {
 				if (item.account_balance > 0) {
@@ -33,15 +33,13 @@ function MainAccounts() {
 				};
 			};
 		});
-
 	}, [accounts]);
 
-	function addPopup() {
-
+	const addPopup = () => {
+		setPopupInput({...popupInput, account_name: ''});
+		setFormType('empty');
+		setPopupAdd(true);
 		setPopup(true);
-		setPopupType('add');
-		setPopupInput('');
-
 	};
 
 	return (

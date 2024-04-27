@@ -11,7 +11,6 @@ exports.up = function(knex) {
   .dropTableIfExists('users')
   .createTable('users', (table) => {
     table.string('user_id', 36).notNullable().primary();
-    table.boolean('user_admin').notNullable();
     table.string('user_name');
   })
   .createTable('expenses', (table) => {
@@ -51,7 +50,7 @@ exports.up = function(knex) {
   })
   .then( () => {
     return knex('users').insert([
-      {user_id: '', user_admin: false, user_name: null}
+      {user_id: '', user_name: null}
     ]);
   })
   .then( () => {
