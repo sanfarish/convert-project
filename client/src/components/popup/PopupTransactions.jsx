@@ -4,7 +4,6 @@ import { TransactionsContext } from '../../context/TransactionsContext';
 function PopupTransactions() {
 
 	const {
-		transactions,
 		popup,
 		setPopup,
 		popupAdd,
@@ -19,8 +18,7 @@ function PopupTransactions() {
 		getIncomesData,
 		getExpensesData,
 		postTransactionData,
-		putTransactionData,
-		putAccountData
+		putTransactionData
 	} = useContext(TransactionsContext);
 	const stylePopup = {
 		opacity: '1',
@@ -49,196 +47,35 @@ function PopupTransactions() {
 		);
 	};
 
-	const oldTransaction = () => {
-		return transactions.find(item => item.transaction_id === popupInput.transaction_id);
-	};
-
-	const oldAccount = () => {
-		return accounts.find(item => item.account_id === oldTransaction().id_account);
-	};
-
-	const AddAccountBal = (item) => {
-		return item.find(item => item.account_id === popupInput.id_account).account_balance + Number(popupInput.transaction_amount);
-	};
-
-	const subtractAccountBal = (item) => {
-		return item.find(item => item.account_id === popupInput.id_account).account_balance - Number(popupInput.transaction_amount);
-	};
-
-	const AddTransferBal = (item) => {
-		return item.find(item => item.account_id === popupInput.id_transfer).account_balance + Number(popupInput.transaction_amount);
-	};
-
-	const updateBalance = (data, item) => {
-		if (formType === 'income') {
-			item.set('account_balance', AddAccountBal(data));
-			putAccountData(popupInput.id_account, item);
-		} else if (formType === 'expense') {
-			item.set('account_balance', subtractAccountBal(data));
-			putAccountData(popupInput.id_account, item);
-		} else if (formType === 'transfer') {
-			item.set('account_balance', subtractAccountBal(data));
-			putAccountData(popupInput.id_account, item);
-			item.set('account_balance', AddTransferBal(data));
-			putAccountData(popupInput.id_transfer, item);
-		};
-	};
-
-	const appendForm = (item) => {
-		if (formType === 'income') {
-			item.append('id_expense', '');
-			item.append('id_transfer', '');
-		} else if (formType === 'expense') {
-			item.append('id_income', '');
-			item.append('id_transfer', '');
-		} else if (formType === 'transfer') {
-			item.append('id_income', '');
-			item.append('id_expense', '');
-		};
-	};
-
-	const setFormMin = (item) => {
-		const sum = oldAccount().account_balance - oldTransaction().transaction_amount;
-		item.set('account_balance', sum);
-	};
-
-	const setFormPlus = (item) => {
-		const sum = oldAccount().account_balance + oldTransaction().transaction_amount;
-		item.set('account_balance', sum);
-	};
-
-	const setFormTransfer = (item) => {
-		const sum = accounts.find(item => item.account_id === oldTransaction().id_transfer).account_balance - oldTransaction().transaction_amount;
-		item.set('account_balance', sum);
-	};
-
 	const handleSubmit = (e) => {
 
 		e.preventDefault();
 		const formTrans = new FormData(e.target);
-		const formAccount = new FormData();
-		formAccount.append('account_balance', 0);
-		formTrans.append('id_user', '08b680c7-3c47-485c-ba81-cf58821cbd7c');
 
 		if (emptyInputHandler(formTrans)) {
-			alert('Please fill all input form!');
+			alert('Please fill required input with appropriate value!');
 		} else {
 			if (popupAdd) {
-
-				if (formType === 'income') {
-					appendForm(formTrans);
-					formAccount.set('account_balance', AddAccountBal(accounts));
-					putAccountData(popupInput.id_account, formAccount);
+				if (formType === 'income' || formType === 'expense') {
 					postTransactionData(formTrans);
 					setPopup(false);
-				}
-
-				else if (formType === 'expense') {
-					appendForm(formTrans);
-					formAccount.set('account_balance', subtractAccountBal(accounts));
-					putAccountData(popupInput.id_account, formAccount);
-					postTransactionData(formTrans);
-					setPopup(false);
-				}
-
-				else if (formType === 'transfer') {
+				} else if (formType === 'transfer') {
 					if (popupInput.id_account === popupInput.id_transfer) {
 						alert('"From" account and "To" account cannot be the same!');
 					} else {
-						appendForm(formTrans);
-						formAccount.set('account_balance', subtractAccountBal(accounts));
-						putAccountData(popupInput.id_account, formAccount);
-						formAccount.set('account_balance', AddTransferBal(accounts));
-						putAccountData(popupInput.id_transfer, formAccount);
 						postTransactionData(formTrans);
 						setPopup(false);
 					};
 				};
-			}
-
-			else {
-				if (formType === 'income') {
-					appendForm(formTrans);
-
-					if (oldTransaction().id_income !== '') {
-						setFormMin(formAccount);
-						putAccountData(oldTransaction().id_account, formAccount).then((data) => updateBalance(data, formAccount));
-						putTransactionData(popupInput.transaction_id, formTrans);
-					}
-
-					else if (oldTransaction().id_expense !== '') {
-						setFormPlus(formAccount);
-						putAccountData(oldTransaction().id_account, formAccount).then((data) => updateBalance(data, formAccount));
-						putTransactionData(popupInput.transaction_id, formTrans);
-					}
-
-					else if (oldTransaction().id_transfer !== '') {
-						setFormPlus(formAccount);
-						putAccountData(oldTransaction().id_account, formAccount).then((data) => updateBalance(data, formAccount));
-						setFormTransfer(formAccount);
-						putAccountData(oldTransaction().id_transfer, formAccount);
-						putTransactionData(popupInput.transaction_id, formTrans);
-					};
+			} else {
+				if (formType === 'income' || formType === 'expense') {
+					putTransactionData(popupInput.transaction_id, formTrans);
 					setPopup(false);
-				}
-
-				else if (formType === 'expense') {
-					appendForm(formTrans);
-
-					if (oldTransaction().id_income !== '') {
-						setFormMin(formAccount);
-						putAccountData(oldTransaction().id_account, formAccount).then((data) => updateBalance(data, formAccount));
-						putTransactionData(popupInput.transaction_id, formTrans);
-					}
-
-					else if (oldTransaction().id_expense !== '') {
-						setFormPlus(formAccount);
-						putAccountData(oldTransaction().id_account, formAccount).then((data) => updateBalance(data, formAccount));
-						putTransactionData(popupInput.transaction_id, formTrans);
-					}
-
-					else if (oldTransaction().id_transfer !== '') {
-						setFormPlus(formAccount);
-						putAccountData(oldTransaction().id_account, formAccount).then((data) => updateBalance(data, formAccount));
-						setFormTransfer(formAccount);
-						putAccountData(oldTransaction().id_transfer, formAccount);
-						putTransactionData(popupInput.transaction_id, formTrans);
-					};
-					setPopup(false);
-				}
-
-				else if (formType === 'transfer') {
+				} else if (formType === 'transfer') {
 					if (popupInput.id_account === popupInput.id_transfer) {
 						alert('"From" account and "To" account cannot be the same!');
 					} else {
-						appendForm(formTrans);
-
-						if (oldTransaction().id_income !== '') {
-							setFormMin(formAccount);
-							putAccountData(oldTransaction().id_account, formAccount).then((data) => updateBalance(data, formAccount));
-							putTransactionData(popupInput.transaction_id, formTrans);
-						}
-
-						else if (oldTransaction().id_expense !== '') {
-							setFormPlus(formAccount);
-							putAccountData(oldTransaction().id_account, formAccount).then((data) => updateBalance(data, formAccount));
-							putTransactionData(popupInput.transaction_id, formTrans);
-						}
-
-						else if (oldTransaction().id_transfer !== '') {
-							setFormPlus(formAccount);
-							putAccountData(oldTransaction().id_account, formAccount).then((data) => {
-								formAccount.set('account_balance', subtractAccountBal(data));
-								putAccountData(popupInput.id_account, formAccount);
-							});
-							setFormTransfer(formAccount);
-							putAccountData(oldTransaction().id_transfer, formAccount).then((data) => {
-								formAccount.set('account_balance', AddTransferBal(data));
-								putAccountData(popupInput.id_transfer, formAccount);
-							});
-							putTransactionData(popupInput.transaction_id, formTrans);
-						};
-						setPopup(false);
+						putTransactionData(popupInput.transaction_id, formTrans);
 					};
 				};
 			};

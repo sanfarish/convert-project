@@ -1,18 +1,18 @@
-const knexfile = require('../../knexfile')
+const knexfile = require('../../knexfile');
 const knex = require('knex')(knexfile.development);
 
-exports.findAll = () => {
+exports.findAll = (userid) => {
 	return knex('expenses')
-	.select('expense_id', 'id_user', 'expense_name')
-	.innerJoin('users', 'expenses.id_user', '=', 'users.user_id')
+	.select('expense_id', 'expense_name')
+	.where('id_user', userid)
 	.orderBy('expense_name', 'asc');
 };
 
-exports.findByID = (id) => {
+exports.findByID = (userid, id) => {
 	return knex('expenses')
-	.select('expense_id', 'id_user', 'expense_name')
-	.innerJoin('users', 'expenses.id_user', '=', 'users.user_id')
-	.where('expense_id', id);
+	.select('expense_id', 'expense_name')
+	.where('id_user', userid)
+	.andWhere('expense_id', id);
 };
 
 exports.create =  async (body) => {
@@ -30,5 +30,11 @@ exports.update = async (id, body) => {
 exports.remove = async (id) => {
 	try {
 		await knex('expenses').where('expense_id', id).del();
+	} catch (err) {console.error(err)};
+};
+
+exports.removeAll = async (userid) => {
+	try {
+		await knex('expenses').where('id_user', userid).del();
 	} catch (err) {console.error(err)};
 };

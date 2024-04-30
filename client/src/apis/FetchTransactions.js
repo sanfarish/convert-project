@@ -4,9 +4,17 @@ const transactions = axios.create({
 	baseURL: "http://localhost:3500/api/v1/transactions"
 });
 
+const token = 'Mariana';
+// eslint-disable-next-line no-unused-vars
+const tokenTest = 'Test';
+
+const config = {
+	headers: { Authorization: `Bearer ${token}` }
+};
+
 async function getTransactions() {
 	try {
-		const res = await transactions.get('/');
+		const res = await transactions.get('/', config);
 		return res.data;
 	} catch (err) {console.log(err)};
 };

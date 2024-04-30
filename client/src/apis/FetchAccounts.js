@@ -4,9 +4,17 @@ const accounts = axios.create({
 	baseURL: "http://localhost:3500/api/v1/accounts"
 });
 
+const token = 'Mariana';
+// eslint-disable-next-line no-unused-vars
+const tokenTest = 'Test';
+
+const config = {
+	headers: { Authorization: `Bearer ${token}` }
+};
+
 async function getAccounts() {
 	try {
-		const res = await accounts.get('/');
+		const res = await accounts.get('/', config);
 		return res.data;
 	} catch (err) {console.log(err)};
 };

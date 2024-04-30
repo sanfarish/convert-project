@@ -11,36 +11,36 @@ exports.up = function(knex) {
   .dropTableIfExists('users')
   .createTable('users', (table) => {
     table.string('user_id', 36).notNullable().primary();
-    table.string('user_name');
+    table.string('user_name').notNullable();
   })
   .createTable('expenses', (table) => {
       table.string('expense_id', 36).notNullable().primary();
       table.string('id_user', 36).notNullable();
-      table.string('expense_name');
+      table.string('expense_name').notNullable();
       table.foreign('id_user').references('user_id').inTable('users');
   })
   .createTable('incomes', (table) => {
       table.string('income_id', 36).notNullable().primary();
       table.string('id_user', 36).notNullable();
-      table.string('income_name');
+      table.string('income_name').notNullable();
       table.foreign('id_user').references('user_id').inTable('users');
   })
   .createTable('accounts', (table) => {
       table.string('account_id', 36).notNullable().primary();
       table.string('id_user', 36).notNullable();
-      table.string('account_name');
-      table.integer('account_balance');
+      table.string('account_name').notNullable();
+      table.integer('account_balance').notNullable();
       table.foreign('id_user').references('user_id').inTable('users');
   })
   .createTable('transactions', (table) => {
       table.string('transaction_id', 36).notNullable().primary();
       table.string('id_user', 36).notNullable();
-      table.timestamp('transaction_time');
+      table.timestamp('transaction_time').notNullable();
       table.string('id_account', 36).notNullable();
       table.string('id_income', 36).notNullable();
       table.string('id_expense', 36).notNullable();
       table.string('id_transfer', 36).notNullable();
-      table.integer('transaction_amount');
+      table.integer('transaction_amount').notNullable();
       table.string('transaction_note');
       table.foreign('id_account').references('account_id').inTable('accounts');
       table.foreign('id_income').references('income_id').inTable('incomes');
@@ -50,22 +50,22 @@ exports.up = function(knex) {
   })
   .then( () => {
     return knex('users').insert([
-      {user_id: '', user_name: null}
+      {user_id: '', user_name: ''}
     ]);
   })
   .then( () => {
     return knex('expenses').insert([
-      {expense_id: '', id_user: '', expense_name: null}
+      {expense_id: '', id_user: '', expense_name: ''}
     ]);
   })
   .then( () => {
     return knex('incomes').insert([
-      {income_id: '', id_user: '', income_name: null}
+      {income_id: '', id_user: '', income_name: ''}
     ]);
   })
   .then( () => {
     return knex('accounts').insert([
-      {account_id: '', id_user: '', account_name: null, account_balance: null}
+      {account_id: '', id_user: '', account_name: '', account_balance: 0}
     ]);
   });
 };

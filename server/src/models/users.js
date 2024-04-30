@@ -5,8 +5,8 @@ exports.findAll = () => {
 	return knex('users').select('*').orderBy('user_name', 'asc');
 };
 
-exports.findByID = (id) => {
-	return knex('users').select('*').where('user_id', id);
+exports.findByID = (userid) => {
+	return knex('users').select('*').where('user_id', userid);
 };
 
 exports.create =  async (body) => {
@@ -15,14 +15,14 @@ exports.create =  async (body) => {
 	} catch (err) {console.error(err)};
 };
 
-exports.update = async (id, body) => {
+exports.update = async (userid, body) => {
 	try {
-		await knex('users').where('user_id', id).update(body);
+		await knex('users').where('user_id', userid).update(body);
 	} catch (err) {console.error(err)};
 };
 
-exports.remove = async (id) => {
+exports.remove = async (userid) => {
 	try {
-		await knex('users').where('user_id', id).del();
+		await knex('users').where('user_id', userid).del();
 	} catch (err) {console.error(err)};
 };

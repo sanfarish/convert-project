@@ -4,9 +4,17 @@ const expenses = axios.create({
 	baseURL: "http://localhost:3500/api/v1/expenses"
 });
 
+const token = 'Mariana';
+// eslint-disable-next-line no-unused-vars
+const tokenTest = 'Test';
+
+const config = {
+	headers: { Authorization: `Bearer ${token}` }
+};
+
 async function getExpenses() {
 	try {
-		const res = await expenses.get('/');
+		const res = await expenses.get('/', config);
 		return res.data;
 	} catch (err) {console.log(err)};
 };

@@ -18,7 +18,7 @@
 .id {
 	height: 80px;
     display: grid;
-    grid-template-columns: 100px 1fr 160px 80px;
+    grid-template-columns: 100px 1fr 170px 80px;
     grid-template-rows: 1fr 1fr;
     grid-template-areas:
     "a1 a3 a5 a7"

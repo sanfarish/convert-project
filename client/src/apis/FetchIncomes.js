@@ -4,9 +4,17 @@ const incomes = axios.create({
 	baseURL: "http://localhost:3500/api/v1/incomes"
 });
 
+const token = 'Mariana';
+// eslint-disable-next-line no-unused-vars
+const tokenTest = 'Test';
+
+const config = {
+	headers: { Authorization: `Bearer ${token}` }
+};
+
 async function getIncomes() {
 	try {
-		const res = await incomes.get('/');
+		const res = await incomes.get('/', config);
 		return res.data;
 	} catch (err) {console.log(err)};
 };
