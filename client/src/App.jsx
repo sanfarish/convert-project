@@ -1,11 +1,9 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { CategoriesContextProvider } from "./context/CategoriesContext";
-import { AccountsContextProvider } from "./context/AccountsContext";
-import { TransactionsContextProvider } from "./context/TransactionsContext";
+import { GlobalContextProvider } from "./context/GlobalContext";
 import NotFound from "./pages/NotFound";
-import Categories from "./pages/Categories";
-import Accounts from "./pages/Accounts";
-import Transactions from "./pages/Transactions";
+import Category from "./pages/Category";
+import Account from "./pages/Account";
+import Transaction from "./pages/Transaction";
 
 const App = () => {
 	return (
@@ -14,19 +12,19 @@ const App = () => {
 				<Route path="*" element={<NotFound />} />
 				<Route path="/" element={<Navigate to='/transactions' />} />
 				<Route path="/categories" element={
-					<CategoriesContextProvider>
-						<Categories />
-					</CategoriesContextProvider>
+					<GlobalContextProvider>
+						<Category />
+					</GlobalContextProvider>
 				} />
 				<Route path="/accounts" element={
-					<AccountsContextProvider>
-						<Accounts />
-					</AccountsContextProvider>
+					<GlobalContextProvider>
+						<Account />
+					</GlobalContextProvider>
 				} />
 				<Route path="/transactions" element={
-					<TransactionsContextProvider>
-						<Transactions />
-					</TransactionsContextProvider>
+					<GlobalContextProvider>
+						<Transaction />
+					</GlobalContextProvider>
 				} />
 			</Routes>
 		</BrowserRouter>

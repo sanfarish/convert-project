@@ -1,0 +1,68 @@
+.accounts {
+
+    .dashboard {
+        height: 100vh;
+        width: 100vw;
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        grid-template-rows: 100px 1fr;
+        grid-template-areas:
+        "nav header"
+        "nav main";
+        transition: 0.4s;
+    }
+
+    nav {
+        grid-area: nav;
+        background-color: #FF6255;
+        box-shadow: 2px 2px 2px 2px black;
+    }
+
+    .logo {
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .menu ul {
+        padding-top: 10px;
+        padding-left: 20px;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap:40px;
+    }
+
+    header {
+        grid-area: header;
+        background-color: #222222;
+        padding-left: 50px;
+        font-size: 30pt;
+        display: flex;
+        align-items: center;
+        text-shadow: 5px 5px black;
+    }
+
+    main {
+        grid-area: main;
+        background-color: #222222;
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        grid-template-rows: 200px 1fr;
+        grid-template-areas:
+        "table button"
+        "table summary";
+        gap: 20px;
+        padding: 0 20px 20px 20px;
+
+        > div {
+            background-color: #666666;
+            border-radius: 10px;
+            box-shadow: 2px 2px 2px 2px black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}

@@ -1,106 +1,106 @@
 .accounts {
 
-.dashboard .main .table {
-	grid-area: a1;
-    min-height: 530px;
-    max-height: calc(100vh - 120px);
-	min-width: 464px;
-}
+    .table {
+        grid-area: table;
+        min-height: 530px;
+        max-height: calc(100vh - 120px);
+        min-width: 464px;
 
-.dashboard .main .table .data {
-    background-color: #444444;
-	height: calc(100% - 40px);
-    width: calc(100% - 40px);
-    border: 2px solid black;
-    overflow-y: auto;
-}
+        .data {
+            background-color: #444444;
+            height: calc(100% - 40px);
+            width: calc(100% - 40px);
+            border: 2px solid black;
+            overflow-y: auto;
 
-.id {
-	height: 80px;
-    display: grid;
-    grid-template-columns: 1fr 160px 80px;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas:
-    "a1 a2 a3"
-    "a1 a2 a4";
-}
+            .id {
+                height: 80px;
+                display: grid;
+                grid-template-columns: 1fr 160px 80px;
+                grid-template-rows: 1fr 1fr;
+                grid-template-areas:
+                "a1 a2 a3"
+                "a1 a2 a4";
 
-.id:hover {
-    background-color: #666666;
-    transition: 0.1s ease-in;
-}
+                .account {
+                    grid-area: a1;
+                    padding-left: 10px;
+                    align-items: center;
+                    white-space: nowrap;
+                    text-overflow: hidden;
+                }
 
-.id > div {
-    display: flex;
-}
+                .amount {
+                    grid-area: a2;
+                    padding-right: 10px;
+                    justify-content: end;
+                    align-items: center;
+                }
 
-.account {
-    grid-area: a1;
-    padding-left: 10px;
-	align-items: center;
-	white-space: nowrap;
-	text-overflow: hidden;
-}
+                .edit-wrapper {
+                    grid-area: a3;
+                    justify-content: center;
+                    align-items: end;
+                    padding-bottom: 2px;
+                    font-size: 16pt;
+                }
+                
+                .del-wrapper {
+                    grid-area: a4;
+                    justify-content: center;
+                    padding-top: 2px;
+                    font-size: 12pt;
+                }
 
-.amount {
-    grid-area: a2;
-    padding-right: 10px;
-    justify-content: end;
-    align-items: center;
-}
+                .edit-btn, .del-btn {
+                    background-color: #222222;
+                    height: fit-content;
+                    width: 60px;
+                    padding: 5px;
+                    border-radius: 5px;
+                    font-size: 12pt;
+                    color: white;
+                    cursor: pointer;
+                }
 
-.id.assets .amount {
-    color: #1999FC;
-}
+                .edit-btn:hover {
+                    background-color: #1999FC;
+                }
+                
+                .del-btn:hover {
+                    background-color: #FF6255;
+                }
+            }
 
-.id.liabilities .amount {
-    color: #FF6255;
-}
+            .id:hover {
+                background-color: #666666;
+                transition: 0.1s ease-in;
+            }
 
-.id.empty .amount {
-    color: white;
-}
+            .id > div {
+                display: flex;
+            }
 
-.edit-wrapper {
-    grid-area: a3;
-    justify-content: center;
-    align-items: end;
-    padding-bottom: 2px;
-    font-size: 16pt;
-}
+            .id.assets .amount {
+                color: #1999FC;
+            }
+            
+            .id.liabilities .amount {
+                color: #FF6255;
+            }
+            
+            .id.empty .amount {
+                color: white;
+            }
 
-.del-wrapper {
-    grid-area: a4;
-    justify-content: center;
-    padding-top: 2px;
-    font-size: 12pt;
-}
-
-.edit-btn, .del-btn {
-    background-color: #222222;
-    height: fit-content;
-    width: 60px;
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 12pt;
-    cursor: pointer;
-}
-
-.edit-btn:hover {
-    background-color: #1999FC;
-}
-
-.del-btn:hover {
-    background-color: #FF6255;
-}
-
-.space {
-    height: 2px;
-    background-color: black;
-}
-
-.space:nth-last-of-type(1) {
-    display: none;
-}
-
+            .space {
+                height: 2px;
+                background-color: black;
+            }
+            
+            .space:nth-last-of-type(1) {
+                display: none;
+            }
+        }
+    }
 }

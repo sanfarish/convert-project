@@ -1,6 +1,6 @@
-function Header(props) {
+const Header = (props) => {
 	return (
-		<header className="header">
+		<header>
 			{props.Title}
 		</header>
 	);

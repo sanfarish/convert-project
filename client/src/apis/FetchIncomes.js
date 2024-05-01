@@ -1,16 +1,9 @@
 import axios from "axios";
+import { config } from "./config";
 
 const incomes = axios.create({
 	baseURL: "http://localhost:3500/api/v1/incomes"
 });
-
-const token = 'Mariana';
-// eslint-disable-next-line no-unused-vars
-const tokenTest = 'Test';
-
-const config = {
-	headers: { Authorization: `Bearer ${token}` }
-};
 
 async function getIncomes() {
 	try {
@@ -19,34 +12,29 @@ async function getIncomes() {
 	} catch (err) {console.log(err)};
 };
 
-async function getIncome(id) {
-	try {
-		const res = await incomes.get(`/${id}`);
-		return res.data;
-	} catch (err) {console.log(err)};
-};
-
 async function postIncome(body) {
 	try {
 		const jsonAccount = Object.fromEntries(body.entries());
-		const res = await incomes.post('/', jsonAccount);
-		return res.data.data;
-	} catch (err) {console.log(err)};
+		jsonAccount.income_name = jsonAccount.income_name.trim();
+		const res = await incomes.post('/', jsonAccount, config);
+		return res;
+	} catch (err) {return err};
 };
 
 async function putIncome(id, body) {
 	try {
 		const jsonAccount = Object.fromEntries(body.entries());
-		const res = await incomes.put(`/${id}`, jsonAccount);
-		return res.data.data;
-	} catch (err) {console.log(err)};
+		jsonAccount.income_name = jsonAccount.income_name.trim();
+		const res = await incomes.put(`/${id}`, jsonAccount, config);
+		return res;
+	} catch (err) {return err};
 };
 
 async function deleteIncome(id) {
 	try {
-		const res = await incomes.delete(`/${id}`);
-		return res.data.data;
-	} catch (err) {console.log(err)};
+		const res = await incomes.delete(`/${id}`, config);
+		return res;
+	} catch (err) {return err};
 };
 
-export { getIncomes, getIncome, postIncome, putIncome, deleteIncome };
+export { getIncomes, postIncome, putIncome, deleteIncome };

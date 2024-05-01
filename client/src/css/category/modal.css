@@ -1,0 +1,76 @@
+.categories {
+
+    .modal {
+        background-color: #444444;
+        height: 200px;
+        width: 450px;
+        opacity: 0;
+        position: absolute;
+        top: -150%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1.25);
+        border-radius: 20px;
+        box-shadow: 2px 2px 2px 2px black;
+        transition: opacity 0.2s ease-in-out, top 0s ease-in-out 0.2s, transform 0.2s ease-in-out;
+        display: flex;
+		flex-direction: column;
+		align-items: center;
+
+        > button {
+            background-color: #666666;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            height: 30px;
+            width: 30px;
+            border-radius: 15px;
+            cursor: pointer;
+            display: flex;
+			justify-content: center;
+			align-items: center;
+        }
+
+        > button:hover {
+            background-color: #FF6255;
+        }
+
+        .form-header {
+            padding-top: 30px;
+            display: flex;
+            justify-content: center;
+            font-size: 20pt;
+        }
+
+        form {
+            height: fit-content;
+            width: 80%;
+			margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+
+            label {
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+			}
+
+            input {
+				width: 250px;
+			}
+
+            button {
+                padding: 10px 15px;
+                border-radius: 10px;
+                box-shadow: 2px 2px 2px 2px black;
+                cursor: pointer;
+                color: white;
+            }
+
+            button:hover {
+                color: black;
+            }
+        }
+    }
+}

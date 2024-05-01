@@ -1,16 +1,9 @@
 import axios from "axios";
+import { config } from "./config";
 
 const expenses = axios.create({
 	baseURL: "http://localhost:3500/api/v1/expenses"
 });
-
-const token = 'Mariana';
-// eslint-disable-next-line no-unused-vars
-const tokenTest = 'Test';
-
-const config = {
-	headers: { Authorization: `Bearer ${token}` }
-};
 
 async function getExpenses() {
 	try {
@@ -19,34 +12,29 @@ async function getExpenses() {
 	} catch (err) {console.log(err)};
 };
 
-async function getExpense(id) {
-	try {
-		const res = await expenses.get(`/${id}`);
-		return res.data;
-	} catch (err) {console.log(err)};
-};
-
 async function postExpense(body) {
 	try {
 		const jsonAccount = Object.fromEntries(body.entries());
-		const res = await expenses.post('/', jsonAccount);
-		return res.data.data;
-	} catch (err) {console.log(err)};
+		jsonAccount.expense_name = jsonAccount.expense_name.trim();
+		const res = await expenses.post('/', jsonAccount, config);
+		return res;
+	} catch (err) {return err};
 };
 
 async function putExpense(id, body) {
 	try {
 		const jsonAccount = Object.fromEntries(body.entries());
-		const res = await expenses.put(`/${id}`, jsonAccount);
-		return res.data.data;
-	} catch (err) {console.log(err)};
+		jsonAccount.expense_name = jsonAccount.expense_name.trim();
+		const res = await expenses.put(`/${id}`, jsonAccount, config);
+		return res;
+	} catch (err) {return err};
 };
 
 async function deleteExpense(id) {
 	try {
-		const res = await expenses.delete(`/${id}`);
-		return res.data.data;
-	} catch (err) {console.log(err)};
+		const res = await expenses.delete(`/${id}`, config);
+		return res;
+	} catch (err) {return err};
 };
 
-export { getExpenses, getExpense, postExpense, putExpense, deleteExpense };
+export { getExpenses, postExpense, putExpense, deleteExpense };

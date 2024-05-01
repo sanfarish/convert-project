@@ -1,0 +1,31 @@
+.transactions {
+
+    .add-btn {
+        grid-area: button;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .add-btn button {
+		background-color: #222222;
+		font-size: 16pt;
+		padding: 20px;
+		border-radius: 10px;
+		cursor: pointer;
+		color: white;
+	}
+
+	.add-btn button:hover {
+		background-color: #FF6255;
+		transition: all 0.1s ease-out;
+	}
+
+	.add-btn .add-notes {
+		background-color: #444444;
+		width: 275px;
+		padding: 5px 0;
+		border-radius: 5px;
+		font-size: 12pt;
+		text-align: center;
+	}
+}
