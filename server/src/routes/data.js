@@ -32,10 +32,8 @@ router.post('/expenses', expense.createExpense);
 router.put('/expenses/:id', expense.updateExpense);
 router.delete('/expenses/:id', expense.deleteExpense);
 
-router.get('/users', users.getUsers);
-router.get('/users/:id', users.getUser);
-router.post('/users', users.createUser);
-router.put('/users/:id', users.updateUser);
-router.delete('/users/:id', users.deleteUser);
+router.get('/users', users.getUser);
+router.put('/users', users.updateUser);
+router.delete('/users', users.deleteUser);
 
 module.exports = router;

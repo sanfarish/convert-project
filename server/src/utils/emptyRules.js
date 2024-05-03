@@ -3,7 +3,7 @@ const income = require('../models/incomes');
 const account = require('../models/accounts');
 const transaction = require('../models/transactions');
 
-exports.nameEmptyRule = (body) => {
+exports.emptyName = (body) => {
 	return (
 		typeof body !== 'string'
 		|| body === ''
@@ -12,7 +12,7 @@ exports.nameEmptyRule = (body) => {
 	);
 };
 
-exports.balanceEmptyRule = (body) => {
+exports.emptyBalance = (body) => {
 	return (
 		typeof body !== 'number'
 		|| !Number.isInteger(body)
@@ -20,8 +20,8 @@ exports.balanceEmptyRule = (body) => {
 	);
 };
 
-exports.transactionEmptyRule = (body) => {
-	return(
+exports.emptyTransaction = (body) => {
+	return (
 		!body.transaction_time
 		|| !body.id_account
 		|| (!body.id_income && !body.id_expense && !body.id_transfer)
@@ -29,34 +29,26 @@ exports.transactionEmptyRule = (body) => {
 	);
 };
 
-exports.expenseIdEmptyRule = async (userid, id) => {
-	try {
-		const res = await expense.findAll(userid);
-		const data = res.some(item => item.expense_id === id);
-		return data;
-	} catch (err) {console.error(err)};
+exports.emptyExpenseId = async (userid, id) => {
+	const res = await expense.findAll(userid);
+	const data = res.some(item => item.expense_id === id);
+	return data;
 };
 
-exports.incomeIdEmptyRule = async (userid, id) => {
-	try {
-		const res = await income.findAll(userid);
-		const data = res.some(item => item.income_id === id);
-		return data;
-	} catch (err) {console.error(err)};
+exports.emptyIncomeId = async (userid, id) => {
+	const res = await income.findAll(userid);
+	const data = res.some(item => item.income_id === id);
+	return data;
 };
 
-exports.accountIdEmptyRule = async (userid, id) => {
-	try {
-		const res = await account.findAll(userid);
-		const data = res.some(item => item.account_id === id);
-		return data;
-	} catch (err) {console.error(err)};
+exports.emptyAccountId = async (userid, id) => {
+	const res = await account.findAll(userid);
+	const data = res.some(item => item.account_id === id);
+	return data;
 };
 
-exports.transactionIdEmptyRule = async (userid, id) => {
-	try {
-		const res = await transaction.findAll(userid);
-		const data = res.some(item => item.transaction_id === id);
-		return data;
-	} catch (err) {console.error(err)};
+exports.emptyTransactionId = async (userid, id) => {
+	const res = await transaction.findAll(userid);
+	const data = res.some(item => item.transaction_id === id);
+	return data;
 };

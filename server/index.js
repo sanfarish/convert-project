@@ -1,8 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const router = require('./src/routes');
-const { logger, auth, notFound } = require('./src/middlewares');
+const morgan = require('morgan');
+const data = require('./src/routes/data');
+const auth = require('./src/routes/auth');
+const { authorization, notFound } = require('./src/middlewares');
 
 app.use(express.json({
     verify: (req, res, buf, encoding) => {
@@ -17,12 +20,15 @@ app.use(express.json({
 }));
 // app.use(express.urlencoded({ extended: false }));
 app.use(cors());
-app.use(logger);
-app.use(auth);
+app.use(morgan('dev'));
 
-app.use('/api/v1', router)
+app.use('/api/v1', auth);
+
+app.use(authorization);
+
+app.use('/api/v1', data);
 
 app.use(notFound);
 
-const port = 3500;
-app.listen(port, 'localhost', () => console.log("Expense Manager API Server running on port", port));
+const port = process.env.PORT || 3500;
+app.listen(port, process.env.HOST || 'localhost', () => console.log("Expense Manager API Server running on port", port));

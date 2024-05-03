@@ -1,24 +1,25 @@
 const transaction = require('../models/transactions');
-const { transactionEmptyRule, transactionIdEmptyRule } = require('../utils/emptyRules');
+const { emptyTransaction, emptyTransactionId } = require('../utils/emptyRules');
 const { multipleRule, bodyAppend, addBalance, removeBalance, idAccountRule, idExpenseRule, idIncomeRule } = require('../utils/transactionRules');
+const { catchError } = require('../utils/errorCatch');
 
 exports.getTransactions = async (req, res) => {
 	try {
 		const data = await transaction.findAll(req.userid);
 		res.status(200).send(data);
-	} catch (err) {console.error(err)};
+	} catch (err) {catchError(err, res)};
 };
 
 exports.getTransaction = async (req, res) => {
 	try {
 		const data = await transaction.findByID(req.userid, req.params.id);
 		res.status(200).send(data[0]);
-	} catch (err) {console.error(err)};
+	} catch (err) {catchError(err, res)};
 };
 
 exports.createTransaction = async (req, res) => {
 	try {
-		const emptyCheck = transactionEmptyRule(req.body);
+		const emptyCheck = emptyTransaction(req.body);
 		if (emptyCheck) {
 			res.status(400).json({
 				message: 'please fill required input with appropriate value'
@@ -67,19 +68,19 @@ exports.createTransaction = async (req, res) => {
 				};
 			};
 		};
-	} catch (err) {console.error(err)};
+	} catch (err) {catchError(err, res)};
 };
 
 exports.updateTransaction = async (req, res) => {
 	try {
-		const idCheck = await transactionIdEmptyRule(req.userid, req.params.id);
+		const idCheck = await emptyTransactionId(req.userid, req.params.id);
 		if (!idCheck) {
 			res.status(400).json({
 				message: 'There are no transaction data with requested id!',
 				data: req.params.id
 			});
 		} else {
-			const emptyCheck = transactionEmptyRule(req.body);
+			const emptyCheck = emptyTransaction(req.body);
 			if (emptyCheck) {
 				res.status(400).json({
 					message: 'please fill required input with appropriate value'
@@ -127,12 +128,12 @@ exports.updateTransaction = async (req, res) => {
 				};
 			};
 		};
-	} catch (err) {console.error(err)};
+	} catch (err) {catchError(err, res)};
 };
 
 exports.deleteTransaction = async (req, res) => {
 	try {
-		const idCheck = await transactionIdEmptyRule(req.userid, req.params.id);
+		const idCheck = await emptyTransactionId(req.userid, req.params.id);
 		if (!idCheck) {
 			res.status(400).json({
 				message: 'there are no transaction data with requested id',
@@ -147,5 +148,5 @@ exports.deleteTransaction = async (req, res) => {
 				data: req.params.id
 			});
 		};
-	} catch (err) {console.error(err)};
+	} catch (err) {catchError(err, res)};
 };

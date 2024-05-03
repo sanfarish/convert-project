@@ -9,7 +9,8 @@ exports.findAll = (userid) => {
 	.innerJoin('expenses', 'transactions.id_expense', '=', 'expenses.expense_id')
 	.innerJoin(knex.raw('accounts B ON transactions.id_transfer = B.account_id'))
 	.where('transactions.id_user', userid)
-	.orderBy('transaction_time', 'desc');
+	.orderBy('transaction_time', 'desc')
+	.orderBy('updated_at', 'desc');
 };
 
 exports.findByID = (userid, id) => {
@@ -24,25 +25,17 @@ exports.findByID = (userid, id) => {
 };
 
 exports.create =  async (body) => {
-	try {
-		await knex('transactions').insert(body);
-	} catch (err) {console.error(err)};
+	await knex('transactions').insert(body);
 };
 
 exports.update = async (id, body) => {
-	try {
-		await knex('transactions').where('transaction_id', id).update(body);
-	} catch (err) {console.error(err)};
+	await knex('transactions').where('transaction_id', id).update(body);
 };
 
 exports.remove = async (id) => {
-	try {
-		await knex('transactions').where('transaction_id', id).del();
-	} catch (err) {console.error(err)};
+	await knex('transactions').where('transaction_id', id).del();
 };
 
 exports.removeAll = async (userid) => {
-	try {
-		await knex('transactions').where('id_user', userid).del();
-	} catch (err) {console.error(err)};
+	await knex('transactions').where('id_user', userid).del();
 };

@@ -10,10 +10,10 @@ exports.seed = async function(knex) {
   await knex('expenses').del();
   await knex('users').del();
   await knex('users').insert([
-    {user_id: '', user_name: ''},
-    {user_id: '08b680c7-3c47-485c-ba81-cf58821cbd7c', user_name: 'Faris Hasan'},
-    {user_id: 'a43e0896-1f23-478c-9bce-130889686ef4', user_name: 'Mariana'},
-    {user_id: '0409f0ab-8154-469d-8c69-21d8b97685c2', user_name: 'Nur Rifqi'}
+    {user_id: '', user_name: '', user_email: '', user_password: ''},
+    {user_id: '08b680c7-3c47-485c-ba81-cf58821cbd7c', user_name: 'Faris Hasan', user_email: 'faris@mail.com', user_password: '$2b$10$G8kU8nv9pejIWW2k3hTGEOPoy3fT0yNq5UuYSqCoYPuX7TlAyDwne'},
+    {user_id: 'a43e0896-1f23-478c-9bce-130889686ef4', user_name: 'Mariana', user_email: 'mariana@mail.com', user_password: '$2b$10$zZF80hEQvX87iIsiWSs7MeU0V/QXNZF534lXjjBT4fT8c9RJ1pz46'},
+    {user_id: '0409f0ab-8154-469d-8c69-21d8b97685c2', user_name: 'Nur Rifqi', user_email: 'nurrifqi@mail.com', user_password: '$2b$10$bXf/HIL1d7GKNdjNk4.CWuExDQPkpxex.ll2mBnOVZW9TT0Fkkmom'}
   ]);
   await knex('expenses').insert([
     {expense_id: '', id_user: '', expense_name: ''},

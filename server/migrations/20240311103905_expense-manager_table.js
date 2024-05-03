@@ -12,6 +12,8 @@ exports.up = function(knex) {
   .createTable('users', (table) => {
     table.string('user_id', 36).notNullable().primary();
     table.string('user_name').notNullable();
+    table.string('user_email').notNullable();
+    table.string('user_password').notNullable();
   })
   .createTable('expenses', (table) => {
       table.string('expense_id', 36).notNullable().primary();
@@ -42,6 +44,7 @@ exports.up = function(knex) {
       table.string('id_transfer', 36).notNullable();
       table.integer('transaction_amount').notNullable();
       table.string('transaction_note');
+      table.timestamps(true, true);
       table.foreign('id_account').references('account_id').inTable('accounts');
       table.foreign('id_income').references('income_id').inTable('incomes');
       table.foreign('id_expense').references('expense_id').inTable('expenses');
@@ -50,7 +53,7 @@ exports.up = function(knex) {
   })
   .then( () => {
     return knex('users').insert([
-      {user_id: '', user_name: ''}
+      {user_id: '', user_name: '', user_email: '', user_password: ''}
     ]);
   })
   .then( () => {

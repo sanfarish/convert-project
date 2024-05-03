@@ -16,25 +16,17 @@ exports.findByID = (userid, id) => {
 };
 
 exports.create =  async (body) => {
-	try {
-		await knex('expenses').insert(body);
-	} catch (err) {console.error(err)};
+	await knex('expenses').insert(body);
 };
 
 exports.update = async (id, body) => {
-	try {
-		await knex('expenses').where('expense_id', id).update(body);
-	} catch (err) {console.error(err)};
+	await knex('expenses').where('expense_id', id).update(body);
 };
 
 exports.remove = async (id) => {
-	try {
-		await knex('expenses').where('expense_id', id).del();
-	} catch (err) {console.error(err)};
+	await knex('expenses').where('expense_id', id).del();
 };
 
 exports.removeAll = async (userid) => {
-	try {
-		await knex('expenses').where('id_user', userid).del();
-	} catch (err) {console.error(err)};
+	await knex('expenses').where('id_user', userid).del();
 };

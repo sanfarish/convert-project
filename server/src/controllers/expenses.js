@@ -1,32 +1,33 @@
 const expense = require('../models/expenses');
-const { expenseNameRule } = require('../utils/nameRules');
-const { expenseDelRule } = require('../utils/deleteRules');
-const { nameEmptyRule, expenseIdEmptyRule } = require('../utils/emptyRules');
+const { nameExpense } = require('../utils/nameRules');
+const { deleteExpense } = require('../utils/deleteRules');
+const { emptyName, emptyExpenseId } = require('../utils/emptyRules');
+const { catchError } = require('../utils/errorCatch');
 
 exports.getExpenses = async (req, res) => {
 	try {
 		const data = await expense.findAll(req.userid);
 		res.status(200).send(data);
-	} catch (err) {console.error(err)};
+	} catch (err) {catchError(err, res)};
 };
 
 exports.getExpense = async (req, res) => {
 	try {
 		const data = await expense.findByID(req.userid, req.params.id);
 		res.status(200).send(data[0]);
-	} catch (err) {console.error(err)};
+	} catch (err) {catchError(err, res)};
 };
 
 exports.createExpense = async (req, res) => {
 	try {
-		const emptyCheck = nameEmptyRule(req.body.expense_name);
+		const emptyCheck = emptyName(req.body.expense_name);
 		if (emptyCheck) {
 			res.status(400).json({
 				message: 'please fill required input with appropriate value'
 			});
 		} else {
 			const body = { expense_id: crypto.randomUUID(), id_user: req.userid, expense_name: req.body.expense_name };
-			const nameCheck = await expenseNameRule(req.userid, false, body.expense_name);
+			const nameCheck = await nameExpense(req.userid, false, body.expense_name);
 			if (nameCheck) {
 				res.status(500).json({
 					message: 'there are already category with that name, change with another unique name',
@@ -40,26 +41,26 @@ exports.createExpense = async (req, res) => {
 				});
 			};
 		};
-	} catch (err) {console.error(err)};
+	} catch (err) {catchError(err, res)};
 };
 
 exports.updateExpense = async (req, res) => {
 	try {
-		const idCheck = await expenseIdEmptyRule(req.userid, req.params.id);
+		const idCheck = await emptyExpenseId(req.userid, req.params.id);
 		if (!idCheck) {
 			res.status(400).json({
 				message: 'there are no expense data with requested id',
 				data: req.params.id
 			});
 		} else {
-			const emptyCheck = nameEmptyRule(req.body.expense_name);
+			const emptyCheck = emptyName(req.body.expense_name);
 			if (emptyCheck) {
 				res.status(400).json({
 					message: 'please fill required input with appropriate value'
 				});
 			} else {
 				const body = { expense_name: req.body.expense_name };
-				const nameCheck = await expenseNameRule(req.userid, req.params.id, body.expense_name);
+				const nameCheck = await nameExpense(req.userid, req.params.id, body.expense_name);
 				if (nameCheck) {
 					res.status(500).json({
 						message: 'there are already category with that name, change with another unique name',
@@ -74,19 +75,19 @@ exports.updateExpense = async (req, res) => {
 				};
 			};
 		};
-	} catch (err) {console.error(err)};
+	} catch (err) {catchError(err, res)};
 };
 
 exports.deleteExpense = async (req, res) => {
 	try {
-		const idCheck = await expenseIdEmptyRule(req.userid, req.params.id);
+		const idCheck = await emptyExpenseId(req.userid, req.params.id);
 		if (!idCheck) {
 			res.status(400).json({
 				message: 'there are no expense data with requested id',
 				data: req.params.id
 			});
 		} else {
-			const deleteCheck = await expenseDelRule(req.userid, req.params.id);
+			const deleteCheck = await deleteExpense(req.userid, req.params.id);
 			if (deleteCheck) {
 				res.status(500).json({
 					message: 'cannot delete category that is in use on transactions',
@@ -99,5 +100,5 @@ exports.deleteExpense = async (req, res) => {
 				});
 			};
 		};
-	} catch (err) {console.error(err)};
+	} catch (err) {catchError(err, res)};
 };
