@@ -6,5 +6,6 @@ expense_manager.session.sql
 /client/public/.unused
 /client/src/.unused
 /client/src/components/.unused
+/server/.env
 
 .gitignore
