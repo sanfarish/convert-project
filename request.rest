@@ -1,0 +1,56 @@
+GET http://[::1]:3500/api/v1/users
+
+###
+
+// register
+POST http://[::1]:3500/api/v1/register
+Content-Type: application/json
+
+{
+    "user_name": "Guest",
+    "user_email": "guest@mail.com",
+    "user_password": "guest"
+}
+
+###
+
+// login Faris
+POST http://[::1]:3500/api/v1/login
+Content-Type: application/json
+
+{
+    "user_email": "faris@mail.com",
+    "user_password": "faris"
+}
+
+###
+
+// login Mariana
+POST http://[::1]:3500/api/v1/login
+Content-Type: application/json
+
+{
+    "user_email": "mariana@mail.com",
+    "user_password": "mariana"
+}
+
+###
+
+// login guest
+POST http://[::1]:3500/api/v1/login
+Content-Type: application/json
+
+{
+    "user_email": "guest@mail.com",
+    "user_password": "guest"
+}
+
+###
+
+DELETE http://[::1]:3500/api/v1/users/
+Authorization: Bearer 
+
+###
+
+GET http://[::1]:3500/api/v1/transactions
+Authorization: Bearer 
