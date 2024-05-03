@@ -24,7 +24,7 @@ const AccountTable = () => {
 		getData();
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [localStorage.getItem('accessToken')]);
 
 	const handleEditModal = (id, name, bal) => {
 		setModal(true);

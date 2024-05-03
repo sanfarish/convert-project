@@ -5,14 +5,14 @@ const expenses = axios.create({
 	baseURL: "http://localhost:3500/api/v1/expenses"
 });
 
-async function getExpenses() {
+const getExpenses = async () => {
 	try {
 		const res = await expenses.get('/', config);
 		return res.data;
 	} catch (err) {console.log(err)};
 };
 
-async function postExpense(body) {
+const postExpense = async (body) => {
 	try {
 		const jsonAccount = Object.fromEntries(body.entries());
 		jsonAccount.expense_name = jsonAccount.expense_name.trim();
@@ -21,7 +21,7 @@ async function postExpense(body) {
 	} catch (err) {return err};
 };
 
-async function putExpense(id, body) {
+const putExpense = async (id, body) => {
 	try {
 		const jsonAccount = Object.fromEntries(body.entries());
 		jsonAccount.expense_name = jsonAccount.expense_name.trim();
@@ -30,7 +30,7 @@ async function putExpense(id, body) {
 	} catch (err) {return err};
 };
 
-async function deleteExpense(id) {
+const deleteExpense = async (id) => {
 	try {
 		const res = await expenses.delete(`/${id}`, config);
 		return res;

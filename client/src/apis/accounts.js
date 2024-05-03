@@ -5,14 +5,14 @@ const accounts = axios.create({
 	baseURL: "http://localhost:3500/api/v1/accounts"
 });
 
-async function getAccounts() {
+const getAccounts = async () => {
 	try {
 		const res = await accounts.get('/', config);
 		return res.data;
 	} catch (err) {console.log(err)};
 };
 
-async function postAccount(body) {
+const postAccount = async (body) => {
 	try {
 		const jsonAccount = Object.fromEntries(body.entries());
 		jsonAccount.account_name = jsonAccount.account_name.trim();
@@ -21,7 +21,7 @@ async function postAccount(body) {
 	} catch (err) {return err};
 };
 
-async function putAccount(id, body) {
+const putAccount = async (id, body) => {
 	try {
 		const jsonAccount = Object.fromEntries(body.entries());
 		jsonAccount.account_name = jsonAccount.account_name.trim();
@@ -30,7 +30,7 @@ async function putAccount(id, body) {
 	} catch (err) {return err};
 };
 
-async function deleteAccount(id) {
+const deleteAccount = async (id) => {
 	try {
 		const res = await accounts.delete(`/${id}`, config);
 		return res;

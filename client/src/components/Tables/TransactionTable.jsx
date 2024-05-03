@@ -25,7 +25,7 @@ const TransactionTable = () => {
 		getData();
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [localStorage.getItem('accessToken')]);
 
 	const dayDate = (datetime) => days[new Date(datetime).getDay()];
 

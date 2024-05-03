@@ -1,8 +1,8 @@
 import { createContext, useState } from "react";
-import { deleteExpense, getExpenses, postExpense, putExpense } from "../apis/FetchExpenses";
-import { deleteIncome, getIncomes, postIncome, putIncome } from "../apis/FetchIncomes";
-import { deleteAccount, getAccounts, postAccount, putAccount } from "../apis/FetchAccounts";
-import { deleteTransaction, getTransactions, postTransaction, putTransaction } from "../apis/FetchTransactions";
+import { deleteExpense, getExpenses, postExpense, putExpense } from "../apis/expenses";
+import { deleteIncome, getIncomes, postIncome, putIncome } from "../apis/incomes";
+import { deleteAccount, getAccounts, postAccount, putAccount } from "../apis/accounts";
+import { deleteTransaction, getTransactions, postTransaction, putTransaction } from "../apis/transactions";
 
 const GlobalContext = createContext();
 

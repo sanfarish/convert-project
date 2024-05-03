@@ -27,6 +27,10 @@ const Nav = () => {
 							<span>Categories</span>
 						</NavLink>
 					</li>
+					<li style={{color: 'white', textDecoration: 'none'}}>
+							<i className="fa-solid fa-layer-group" style={{display: 'inline-block', width: '30px'}}></i>
+							<span>Logout</span>
+					</li>
 				</ul>
 			</div>
 		</nav>

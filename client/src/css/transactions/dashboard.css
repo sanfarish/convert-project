@@ -40,7 +40,9 @@
         padding-left: 50px;
         font-size: 30pt;
         display: flex;
+        flex-direction: row;
         align-items: center;
+        justify-content: space-between;
         text-shadow: 5px 5px black;
     }
 

@@ -45,7 +45,7 @@ const TransactionModal = () => {
 		getData();
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, [localStorage.getItem('accessToken')])
 
 	const handleSubmit = async (e) => {
 	
@@ -127,7 +127,7 @@ const TransactionModal = () => {
 						onChange={e => setModalInput({...modalInput, id_account: e.target.value})}
 					>
 						<option value="">-account-</option>
-						{accounts.map(item => (
+						{accounts && accounts.map(item => (
 							item.account_id !== ''
 							&& <option value={item.account_id} key={item.account_id}>{item.account_name}</option>
 						))}
@@ -144,7 +144,7 @@ const TransactionModal = () => {
 							onChange={e => setModalInput({...modalInput, id_income: e.target.value})}
 						>
 							<option value="">-category-</option>
-							{incomes.map(item => (
+							{incomes && incomes.map(item => (
 								item.income_id !== ''
 								&& <option value={item.income_id} key={item.income_id}>{item.income_name}</option>
 							))}
@@ -162,7 +162,7 @@ const TransactionModal = () => {
 							onChange={e => setModalInput({...modalInput, id_expense: e.target.value})}
 						>
 							<option value="">-category-</option>
-							{expenses.map(item => (
+							{expenses && expenses.map(item => (
 								item.expense_id !== ''
 								&& <option value={item.expense_id} key={item.expense_id}>{item.expense_name}</option>
 							))}
@@ -180,7 +180,7 @@ const TransactionModal = () => {
 							onChange={e => setModalInput({...modalInput, id_transfer: e.target.value})}
 						>
 							<option value="">-account-</option>
-							{accounts.map(item => (
+							{accounts && accounts.map(item => (
 								item.account_id !== ''
 								&& <option value={item.account_id} key={item.account_id}>{item.account_name}</option>
 							))}

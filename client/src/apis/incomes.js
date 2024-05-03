@@ -5,14 +5,14 @@ const incomes = axios.create({
 	baseURL: "http://localhost:3500/api/v1/incomes"
 });
 
-async function getIncomes() {
+const getIncomes = async () => {
 	try {
 		const res = await incomes.get('/', config);
 		return res.data;
 	} catch (err) {console.log(err)};
 };
 
-async function postIncome(body) {
+const postIncome = async (body) => {
 	try {
 		const jsonAccount = Object.fromEntries(body.entries());
 		jsonAccount.income_name = jsonAccount.income_name.trim();
@@ -21,7 +21,7 @@ async function postIncome(body) {
 	} catch (err) {return err};
 };
 
-async function putIncome(id, body) {
+const putIncome = async (id, body) => {
 	try {
 		const jsonAccount = Object.fromEntries(body.entries());
 		jsonAccount.income_name = jsonAccount.income_name.trim();
@@ -30,7 +30,7 @@ async function putIncome(id, body) {
 	} catch (err) {return err};
 };
 
-async function deleteIncome(id) {
+const deleteIncome = async (id) => {
 	try {
 		const res = await incomes.delete(`/${id}`, config);
 		return res;
