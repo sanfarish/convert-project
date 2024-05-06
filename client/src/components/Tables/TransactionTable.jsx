@@ -4,6 +4,7 @@ import { GlobalContext } from '../../context/GlobalContext';
 const TransactionTable = () => {
 
 	const {
+		token,
 		transactions,
 		setTransactions,
 		setModal,
@@ -19,13 +20,13 @@ const TransactionTable = () => {
 
 	useEffect(() => {
 		const getData = async () => {
-			const data = await getTransactions();
+			const data = await getTransactions(token);
 			setTransactions(data);
 		};
 		getData();
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [localStorage.getItem('accessToken')]);
+	}, [token]);
 
 	const dayDate = (datetime) => days[new Date(datetime).getDay()];
 

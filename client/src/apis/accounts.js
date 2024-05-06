@@ -5,34 +5,34 @@ const accounts = axios.create({
 	baseURL: "http://localhost:3500/api/v1/accounts"
 });
 
-const getAccounts = async () => {
+const getAccounts = async (token) => {
 	try {
-		const res = await accounts.get('/', config);
+		const res = await accounts.get('/', config(token));
 		return res.data;
 	} catch (err) {console.log(err)};
 };
 
-const postAccount = async (body) => {
+const postAccount = async (body, token) => {
 	try {
 		const jsonAccount = Object.fromEntries(body.entries());
 		jsonAccount.account_name = jsonAccount.account_name.trim();
-		const res = await accounts.post('/', jsonAccount, config);
+		const res = await accounts.post('/', jsonAccount, config(token));
 		return res;
 	} catch (err) {return err};
 };
 
-const putAccount = async (id, body) => {
+const putAccount = async (id, body, token) => {
 	try {
 		const jsonAccount = Object.fromEntries(body.entries());
 		jsonAccount.account_name = jsonAccount.account_name.trim();
-		const res = await accounts.put(`/${id}`, jsonAccount, config);
+		const res = await accounts.put(`/${id}`, jsonAccount, config(token));
 		return res;
 	} catch (err) {return err};
 };
 
-const deleteAccount = async (id) => {
+const deleteAccount = async (id, token) => {
 	try {
-		const res = await accounts.delete(`/${id}`, config);
+		const res = await accounts.delete(`/${id}`, config(token));
 		return res;
 	} catch (err) {return err};
 };

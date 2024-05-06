@@ -1,7 +1,15 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../logo.png';
 
 const Nav = () => {
+
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+		navigate('/login');
+		localStorage.removeItem('accessToken');
+	};
+
 	return (
 		<nav>
 			<div className='logo'>
@@ -27,11 +35,10 @@ const Nav = () => {
 							<span>Categories</span>
 						</NavLink>
 					</li>
-					<li style={{color: 'white', textDecoration: 'none'}}>
-							<i className="fa-solid fa-layer-group" style={{display: 'inline-block', width: '30px'}}></i>
-							<span>Logout</span>
-					</li>
 				</ul>
+			</div>
+			<div>
+				<button type="button" onClick={handleLogout}>Logout</button>
 			</div>
 		</nav>
 	);

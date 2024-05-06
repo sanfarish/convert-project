@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
-const upload = multer();
+const { fileUpload } = require('../middlewares');
 const transaction = require('../controllers/transactions');
 const account = require('../controllers/accounts');
 const income = require('../controllers/incomes');
@@ -10,8 +9,8 @@ const users = require('../controllers/users');
 
 router.get('/transactions', transaction.getTransactions);
 router.get('/transactions/:id', transaction.getTransaction);
-router.post('/transactions', upload.none(), transaction.createTransaction);
-router.put('/transactions/:id', upload.none(), transaction.updateTransaction);
+router.post('/transactions', fileUpload('transaction_bill'), transaction.createTransaction);
+router.put('/transactions/:id', fileUpload('transaction_bill'), transaction.updateTransaction);
 router.delete('/transactions/:id', transaction.deleteTransaction);
 
 router.get('/accounts', account.getAccounts);

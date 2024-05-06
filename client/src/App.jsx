@@ -22,7 +22,7 @@ const App = () => {
 					<AuthContextProvider> <Register /> </AuthContextProvider>
 				} />
 
-				<Route element={ <PrivateRoute /> }>
+				<Route element={ <GlobalContextProvider> <PrivateRoute /> </GlobalContextProvider> }>
 					<Route path="/transactions" element={
 						<GlobalContextProvider> <Transaction /> </GlobalContextProvider>
 					} />

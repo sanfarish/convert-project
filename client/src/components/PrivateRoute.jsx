@@ -1,8 +1,12 @@
+import { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import { GlobalContext } from '../context/GlobalContext';
 
 const PrivateRoute = () => {
 
-	return localStorage.getItem('accessToken') ? <Outlet /> : <Navigate to='/login' />;
+	const { token } = useContext(GlobalContext);
+
+	return token ? <Outlet /> : <Navigate to='/login' />;
 };
 
 export default PrivateRoute;

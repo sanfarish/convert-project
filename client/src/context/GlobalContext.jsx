@@ -8,6 +8,7 @@ const GlobalContext = createContext();
 
 const GlobalContextProvider = (props) => {
 
+	const [token, setToken] = useState(localStorage.getItem('accessToken'));
 	const [expenses, setExpenses] = useState([]);
 	const [incomes, setIncomes] = useState([]);
 	const [accounts, setAccounts] = useState([]);
@@ -34,13 +35,15 @@ const GlobalContextProvider = (props) => {
 		id_expense: '',
 		id_transfer: '',
 		transaction_amount: '',
-		transaction_note: ''
-
+		transaction_note: '',
+		transaction_bill: ''
 	});
 
 	return (
 		<GlobalContext.Provider
 			value={{
+				token,
+				setToken,
 				expenses,
 				setExpenses,
 				incomes,

@@ -13,7 +13,7 @@ const LoginModal = () => {
 		const formLogin = new FormData(e.target);
 		const res = await postLogin(formLogin);
 
-		if (res.message) {
+		if (res.response) {
 			alert (res.response.data.message);
 		} else {
 			localStorage.setItem('accessToken', res.data.data.accessToken);

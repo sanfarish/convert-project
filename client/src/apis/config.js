@@ -1,5 +1,3 @@
-const accessToken = localStorage.getItem('accessToken');
-
-exports.config = {
-	headers: { Authorization: `Bearer ${accessToken}` }
+exports.config = (token) => {
+	return { headers: { Authorization: `Bearer ${token}` } }
 };

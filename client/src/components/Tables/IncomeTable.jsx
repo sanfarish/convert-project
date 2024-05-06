@@ -4,6 +4,7 @@ import { GlobalContext } from '../../context/GlobalContext';
 const IncomeTable = () => {
 
 	const {
+		token,
 		incomes,
 		setIncomes,
 		setModal,
@@ -18,13 +19,13 @@ const IncomeTable = () => {
 
 	useEffect(() => {
 		const getData = async () => {
-			const data = await getIncomes();
+			const data = await getIncomes(token);
 			setIncomes(data);
 		};
 		getData();
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [localStorage.getItem('accessToken')]);
+	}, [token]);
 
 	const handleEditModal = (id, name) => {
 		setModal(true);

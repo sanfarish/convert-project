@@ -5,30 +5,30 @@ const transactions = axios.create({
 	baseURL: "http://localhost:3500/api/v1/transactions"
 });
 
-const getTransactions = async () => {
+const getTransactions = async (token) => {
 	try {
-		const res = await transactions.get('/', config);
+		const res = await transactions.get('/', config(token));
 		return res.data;
 	} catch (err) {console.log(err)};
 };
 
-const postTransaction = async (body) => {
+const postTransaction = async (body, token) => {
 	try {
-		const res = await transactions.post('/', body, config);
+		const res = await transactions.post('/', body, config(token));
 		return res;
 	} catch (err) {return err};
 };
 
-const putTransaction = async (id, body) => {
+const putTransaction = async (id, body, token) => {
 	try {
-		const res = await transactions.put(`/${id}`, body, config);
+		const res = await transactions.put(`/${id}`, body, config(token));
 		return res;
 	} catch (err) {return err};
 };
 
-const deleteTransaction = async (id) => {
+const deleteTransaction = async (id, token) => {
 	try {
-		const res = await transactions.delete(`/${id}`, config);
+		const res = await transactions.delete(`/${id}`, config(token));
 		return res;
 	} catch (err) {return err};
 };

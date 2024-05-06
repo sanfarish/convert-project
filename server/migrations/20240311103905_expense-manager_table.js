@@ -44,6 +44,7 @@ exports.up = function(knex) {
       table.string('id_transfer', 36).notNullable();
       table.integer('transaction_amount').notNullable();
       table.string('transaction_note');
+      table.string('transaction_bill');
       table.timestamps(true, true);
       table.foreign('id_account').references('account_id').inTable('accounts');
       table.foreign('id_income').references('income_id').inTable('incomes');

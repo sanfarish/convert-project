@@ -19,6 +19,6 @@ exports.buildToken = async (email) => {
     const allUsers = await users.findAll();
     const user = allUsers.find(item => item.user_email === email);
     const body = { user_id: user.user_id };
-    const data = jwt.sign(body, process.env.ACCESS_SECRET_TOKEN, { expiresIn: '15m'});
+    const data = jwt.sign(body, process.env.ACCESS_SECRET_TOKEN, { expiresIn: '24h'});
     return data;
 };

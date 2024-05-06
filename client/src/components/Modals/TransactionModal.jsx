@@ -4,6 +4,7 @@ import { GlobalContext } from '../../context/GlobalContext';
 const TransactionModal = () => {
 
 	const {
+		token,
 		setTransactions,
 		accounts,
 		setAccounts,
@@ -35,9 +36,9 @@ const TransactionModal = () => {
 
 	useEffect(() => {
 		const getData = async () => {
-			const expenseData = await getExpenses();
-			const incomeData = await getIncomes();
-			const accountData = await getAccounts();
+			const expenseData = await getExpenses(token);
+			const incomeData = await getIncomes(token);
+			const accountData = await getAccounts(token);
 			setExpenses(expenseData);
 			setIncomes(incomeData);
 			setAccounts(accountData);
@@ -45,7 +46,9 @@ const TransactionModal = () => {
 		getData();
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [localStorage.getItem('accessToken')])
+	}, [token])
+
+	const handleBill = () => {};
 
 	const handleSubmit = async (e) => {
 	
@@ -210,6 +213,15 @@ const TransactionModal = () => {
 					/>
 				</label>
 
+				<label>
+					Upload bill
+					<input
+						type="file"
+						name='transaction_bill'
+						onChange={e => setModalInput({...modalInput, transaction_bill: e.target.files[0]})}
+					/>
+				</label>
+
 				<button
 					type='submit'
 					style={
@@ -222,6 +234,8 @@ const TransactionModal = () => {
 					}
 				>{modalAdd ? 'Add' : 'Save'}</button>
 			</form>
+
+			{modalInput.transaction_bill !== '' && <button type="button" onClick={handleBill}>See uploaded bill</button>}
 		</div>
 	);
 };

@@ -4,6 +4,7 @@ import { GlobalContext } from '../../context/GlobalContext';
 const AccountTable = () => {
 
 	const {
+		token,
 		accounts,
 		setAccounts,
 		setModal,
@@ -18,13 +19,13 @@ const AccountTable = () => {
 
 	useEffect(() => {
 		const getData = async () => {
-			const data = await getAccounts();
+			const data = await getAccounts(token);
 			setAccounts(data);
 		};
 		getData();
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [localStorage.getItem('accessToken')]);
+	}, [token]);
 
 	const handleEditModal = (id, name, bal) => {
 		setModal(true);

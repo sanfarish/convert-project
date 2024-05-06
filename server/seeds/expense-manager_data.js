@@ -55,7 +55,8 @@ exports.seed = async function(knex) {
       id_expense: '',
       id_transfer: '',
       transaction_amount: 6500000,
-      transaction_note: 'Gaji pertama sebagai software engineer'
+      transaction_note: 'Gaji pertama sebagai software engineer',
+      transaction_bill: ''
     },
     {
       transaction_id: 'a567ca38-c0c3-4de5-bbe1-baa53b3f5253',
@@ -66,7 +67,8 @@ exports.seed = async function(knex) {
       id_expense: '',
       id_transfer: '281f1213-d4a9-4973-8b1d-aab19e795c39',
       transaction_amount: 800000,
-      transaction_note: 'Tarik tunai buat pegangan cash'
+      transaction_note: 'Tarik tunai buat pegangan cash',
+      transaction_bill: ''
     },
     {
       transaction_id: '131189c7-a5a7-42da-98d9-4abc1ab5dff0',
@@ -77,7 +79,8 @@ exports.seed = async function(knex) {
       id_expense: '9c3b186b-063b-4ae3-b0ea-32aeb0f93cf8',
       id_transfer: '',
       transaction_amount: 300000,
-      transaction_note: 'Traktiran selesai kontrak dari freelance drafter'
+      transaction_note: 'Traktiran selesai kontrak dari freelance drafter',
+      transaction_bill: ''
     },
     {
       transaction_id: 'c65d054e-9d53-4bfd-a19f-f0b22bb0bf96',
@@ -88,7 +91,8 @@ exports.seed = async function(knex) {
       id_expense: '65e11036-3720-497e-9b2a-25f8b2a92ae4',
       id_transfer: '',
       transaction_amount: 1300000,
-      transaction_note: 'Minjem rekan buat pesawat pulang'
+      transaction_note: 'Minjem rekan buat pesawat pulang',
+      transaction_bill: ''
     },
     {
       transaction_id: '1671ae23-2e24-4b4f-924a-355c336abdcc',
@@ -99,7 +103,8 @@ exports.seed = async function(knex) {
       id_expense: '297e1d19-9988-43f5-a29e-e76121a279ff',
       id_transfer: '',
       transaction_amount: 65000,
-      transaction_note: 'Beli 3 galon air'
+      transaction_note: 'Beli 3 galon air',
+      transaction_bill: ''
     },
     {
       transaction_id: 'd0b91a1f-39f6-4cab-8cd8-5fcd6098ada7',
@@ -110,7 +115,8 @@ exports.seed = async function(knex) {
       id_expense: '',
       id_transfer: '',
       transaction_amount: 30000000,
-      transaction_note: 'Sell saham ADRO'
+      transaction_note: 'Sell saham ADRO',
+      transaction_bill: ''
     },
     {
       transaction_id: 'e33a7bfa-3153-4008-b404-73766e4a5ef7',
@@ -121,7 +127,8 @@ exports.seed = async function(knex) {
       id_expense: '4cdb86f1-b2f2-4f96-b15a-5d8ef26c01ee',
       id_transfer: '',
       transaction_amount: 10000000,
-      transaction_note: 'Buy saham ACES'
+      transaction_note: 'Buy saham ACES',
+      transaction_bill: ''
     }
   ]);
 };
