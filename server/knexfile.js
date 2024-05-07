@@ -6,13 +6,13 @@
 module.exports = {
 
   development: {
-    client: 'pg',
+    client: process.env.D_CLIENT || 'pg',
     connection: {
-      host : process.env.HOST || 'localhost',
-      port : process.env.PGPORT || 5432,
-      user : process.env.USER || 'postgres',
-      password : process.env.PASSWORD || 'admin',
-      database : process.env.DATABASE || 'postgres'
+      host : process.env.D_HOST || 'localhost',
+      port : process.env.D_PORT || 5432,
+      user : process.env.D_USER || 'postgres',
+      password : process.env.D_PASSWORD || 'admin',
+      database : process.env.D_DATABASE || 'postgres'
     }
   },
 

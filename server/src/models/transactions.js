@@ -3,7 +3,7 @@ const knex = require('knex')(knexfile.development);
 
 exports.findAll = (userid) => {
 	return knex('transactions')
-	.select(knex.raw('transaction_id, transaction_time, id_account, A.account_name, id_income, income_name, id_expense, expense_name, id_transfer, B.account_name AS transfer_name, transaction_amount, transaction_note'))
+	.select(knex.raw('transaction_id, transaction_time, id_account, A.account_name, id_income, income_name, id_expense, expense_name, id_transfer, B.account_name AS transfer_name, transaction_amount, transaction_note, transaction_bill'))
 	.innerJoin(knex.raw('accounts A ON transactions.id_account = A.account_id'))
 	.innerJoin('incomes', 'transactions.id_income', '=', 'incomes.income_id')
 	.innerJoin('expenses', 'transactions.id_expense', '=', 'expenses.expense_id')
@@ -15,7 +15,7 @@ exports.findAll = (userid) => {
 
 exports.findByID = (userid, id) => {
 	return knex('transactions')
-	.select(knex.raw('transaction_id, transaction_time, id_account, A.account_name, id_income, income_name, id_expense, expense_name, id_transfer, B.account_name AS transfer_name, transaction_amount, transaction_note'))
+	.select(knex.raw('transaction_id, transaction_time, id_account, A.account_name, id_income, income_name, id_expense, expense_name, id_transfer, B.account_name AS transfer_name, transaction_amount, transaction_note, transaction_bill'))
 	.innerJoin(knex.raw('accounts A ON transactions.id_account = A.account_id'))
 	.innerJoin('incomes', 'transactions.id_income', '=', 'incomes.income_id')
 	.innerJoin('expenses', 'transactions.id_expense', '=', 'expenses.expense_id')

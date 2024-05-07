@@ -4,14 +4,13 @@ const fs = require('fs');
 exports.deleteUpload = (path) => {
 	fs.unlink(path, (err) => {
 		if (err) throw err;
-		console.log(`${path} was deleted`);
 	});
 };
 
 exports.deletePath = async (userid, id) => {
 	const res = await transactions.findByID(userid, id);
-	if (res.transaction_bill !== '') {
-		return res.transaction_bill;
+	if (res[0].transaction_bill !== '') {
+		return res[0].transaction_bill;
 	} else {
 		return false;
 	};

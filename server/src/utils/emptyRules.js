@@ -23,9 +23,13 @@ exports.emptyBalance = (body) => {
 exports.emptyTransaction = (body) => {
 	return (
 		!body.transaction_time
+		|| !(new Date(body.transaction_time) instanceof Date)
+		|| isNaN(new Date(body.transaction_time))
 		|| !body.id_account
 		|| (!body.id_income && !body.id_expense && !body.id_transfer)
 		|| !body.transaction_amount
+		|| Number(body.transaction_amount) === 0
+		|| isNaN(Number(body.transaction_amount))
 	);
 };
 

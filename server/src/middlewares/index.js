@@ -28,14 +28,12 @@ exports.authorization = (req, res, next) => {
 	};
 };
 
-// const upload = (req, res, next) => {}
-
 // Multer upload
 exports.fileUpload = (file) => {
 
 	const storage = multer.diskStorage({
 		destination: (req, file, cb) => {
-			cb(null, './uploads/');
+			cb(null, './temp/');
 		},
 		filename: (req, file, cb) => {
 			const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
@@ -52,13 +50,13 @@ exports.fileUpload = (file) => {
 			cb(null, true);
 		} else {
 			req.fileTypeCheck = {
-				message: 'only accept .jpeg/.png file'
+				message: 'only accept .jpeg / .png file'
 			};
 			return cb(new Error(req.fileTypeCheck.message), false);
 		};
 	};
 
-	const maxSizeMb = 5;
+	const maxSizeMb = 1;
 
 	const upload = multer({
 		storage,
@@ -71,14 +69,13 @@ exports.fileUpload = (file) => {
 		upload (req, res, (err) => {
 
 			if (req.fileTypeCheck) {
-				return res.status(400).json(res.fileTypeCheck);
+				return res.status(400).json(req.fileTypeCheck);
 			}
 
 			else if (err) {
-				console.log(err);
 				if (err.code === 'LIMIT_FILE_SIZE') {
 					return res.status(400).json({
-						message: 'file size exceed maximum 5MB'
+						message: `file size exceed maximum ${maxSizeMb}MB`
 					});
 				} else if(err.code === 'LIMIT_UNEXPECTED_FILE') {
 					next();
