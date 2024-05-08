@@ -25,10 +25,13 @@ exports.emptyTransaction = (body) => {
 		!body.transaction_time
 		|| !(new Date(body.transaction_time) instanceof Date)
 		|| isNaN(new Date(body.transaction_time))
+		|| new Date(body.transaction_time) < new Date('2000')
+		|| new Date(body.transaction_time) > new Date('2050')
 		|| !body.id_account
 		|| (!body.id_income && !body.id_expense && !body.id_transfer)
 		|| !body.transaction_amount
 		|| Number(body.transaction_amount) === 0
+		|| Number(body.transaction_amount) % 1 !== 0
 		|| isNaN(Number(body.transaction_amount))
 	);
 };

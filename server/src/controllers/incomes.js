@@ -1,5 +1,5 @@
 const income = require('../models/incomes');
-const { nameIncome } = require('../utils/nameRules');
+const { nameIncome } = require('../utils/duplicateRules');
 const { deleteIncome } = require('../utils/deleteRules');
 const { emptyName, emptyIncomeId } = require('../utils/emptyRules');
 const { catchError } = require('../utils/errorCatch');

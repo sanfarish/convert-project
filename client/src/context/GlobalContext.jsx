@@ -36,7 +36,8 @@ const GlobalContextProvider = (props) => {
 		id_transfer: '',
 		transaction_amount: '',
 		transaction_note: '',
-		transaction_bill: ''
+		transaction_bill: '',
+		transaction_image: ''
 	});
 
 	return (

@@ -1,5 +1,5 @@
 const users = require("../models/users");
-const { emailUser } = require("../utils/nameRules");
+const { emailUser } = require("../utils/duplicateRules");
 const { hashPassword, comparePassword, buildToken } = require("../utils/authHelper");
 const { catchError } = require("../utils/errorCatch");
 

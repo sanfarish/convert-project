@@ -48,7 +48,9 @@ const TransactionModal = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [token])
 
-	const handleBill = () => {};
+	const handleViewBill = () => {};
+
+	const handleDeleteBill = () => {};
 
 	const handleSubmit = async (e) => {
 	
@@ -213,15 +215,6 @@ const TransactionModal = () => {
 					/>
 				</label>
 
-				<label>
-					Upload bill
-					<input
-						type="file"
-						name='transaction_bill'
-						onChange={e => setModalInput({...modalInput, transaction_bill: e.target.files[0]})}
-					/>
-				</label>
-
 				<button
 					type='submit'
 					style={
@@ -235,7 +228,22 @@ const TransactionModal = () => {
 				>{modalAdd ? 'Add' : 'Save'}</button>
 			</form>
 
-			{modalInput.transaction_bill !== '' && <button type="button" onClick={handleBill}>See uploaded bill</button>}
+			{modalInput.transaction_image === '' && (
+				<label>
+					Upload bill:
+					<input
+						type="file"
+						name='transaction_bill'
+						onChange={e => setModalInput({...modalInput, transaction_bill: e.target.files[0]})}
+					/>
+				</label>
+			)}
+
+			{modalInput.transaction_image !== '' && <button type="button" onClick={handleDeleteBill}>Delete/Change uploaded bill</button>}
+
+			{modalInput.transaction_image !== '' && <button type="button" onClick={handleViewBill}>View uploaded bill</button>}
+
+			{viewBill === true && <img src={modalInput.transaction_image} />}
 		</div>
 	);
 };

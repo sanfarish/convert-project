@@ -3,8 +3,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
-const data = require('./src/routes/data');
-const auth = require('./src/routes/auth');
+const dataRoute = require('./src/routes/data');
+const authRoute = require('./src/routes/auth');
 const { authorization, notFound } = require('./src/middlewares');
 
 app.use(express.json({
@@ -22,11 +22,11 @@ app.use(express.json({
 app.use(cors());
 app.use(morgan('dev'));
 
-app.use('/api/v1', auth);
+app.use('/api/v1', authRoute);
 
 app.use(authorization);
 
-app.use('/api/v1', data);
+app.use('/api/v1', dataRoute);
 
 app.use(notFound);
 

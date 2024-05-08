@@ -1,9 +1,9 @@
 const transaction = require('../models/transactions');
-const { deleteUpload, deletePath } = require('../utils/deleteUpload');
 const { emptyTransaction, emptyTransactionId } = require('../utils/emptyRules');
-const { multipleRule, bodyAppend, addBalance, removeBalance, idAccountRule, idExpenseRule, idIncomeRule } = require('../utils/transactionRules');
+const { multipleRule, idRule } = require('../utils/transactionRules');
+const { deleteTemp, deletePath, bodyAppend, addBalance, removeBalance } = require('../utils/transactionHelper');
+const { cloudinaryUpload, cloudinaryDestroy } = require('../utils/cloudinaryHelper');
 const { catchError } = require('../utils/errorCatch');
-const { cloudinaryUpload, cloudinaryDestroy } = require('../utils/cloudinary');
 
 exports.getTransactions = async (req, res) => {
 	try {
@@ -34,7 +34,7 @@ exports.createTransaction = async (req, res) => {
 		const emptyCheck = emptyTransaction(req.body);
 		if (emptyCheck) {
 			if (req.file) {
-				deleteUpload(req.file.path);
+				deleteTemp(req.file.path);
 			};
 			res.status(400).json({
 				message: 'please fill required input with appropriate value'
@@ -43,19 +43,16 @@ exports.createTransaction = async (req, res) => {
 			const crossCheck = multipleRule(req.body);
 			if (crossCheck) {
 				if (req.file) {
-					deleteUpload(req.file.path);
+					deleteTemp(req.file.path);
 				};
 				res.status(400).json({
 					message: 'only accept one type of transaction either income, expense, or transfer'
 				});
 			} else {
-				const idAccountCheck = await idAccountRule(req.userid, req.body.id_account);
-				const idIncomeCheck = await idIncomeRule(req.userid, req.body.id_income);
-				const idExpenseCheck = await idExpenseRule(req.userid, req.body.id_expense);
-				const idTransferCheck = await idAccountRule(req.userid, req.body.id_transfer);
-				if (!idAccountCheck || !idIncomeCheck || !idExpenseCheck || !idTransferCheck) {
+				const idTypeCheck = await idRule(req.userid, req.body);
+				if (idTypeCheck) {
 					if (req.file) {
-						deleteUpload(req.file.path);
+						deleteTemp(req.file.path);
 					};
 					res.status(400).json({
 						message: 'there are no account or category data with requested id'
@@ -63,7 +60,7 @@ exports.createTransaction = async (req, res) => {
 				} else {
 					if (req.body.id_account === req.body.id_transfer) {
 						if (req.file) {
-							deleteUpload(req.file.path);
+							deleteTemp(req.file.path);
 						};
 						res.status(400).json({
 							status: 400,
@@ -86,7 +83,7 @@ exports.createTransaction = async (req, res) => {
 						if (req.file) {
 							const cloud = await cloudinaryUpload(req.file.path);
 							body.transaction_bill = cloud.public_id;
-							deleteUpload(req.file.path);
+							deleteTemp(req.file.path);
 						};
 						const newBody = bodyAppend(req.body, body);
 						await addBalance(req.userid, newBody);
@@ -109,7 +106,7 @@ exports.updateTransaction = async (req, res) => {
 		const idCheck = await emptyTransactionId(req.userid, req.params.id);
 		if (!idCheck) {
 			if (req.file) {
-				deleteUpload(req.file.path);
+				deleteTemp(req.file.path);
 			};
 			res.status(400).json({
 				message: 'There are no transaction data with requested id!',
@@ -119,7 +116,7 @@ exports.updateTransaction = async (req, res) => {
 			const emptyCheck = emptyTransaction(req.body);
 			if (emptyCheck) {
 				if (req.file) {
-					deleteUpload(req.file.path);
+					deleteTemp(req.file.path);
 				};
 				res.status(400).json({
 					message: 'please fill required input with appropriate value'
@@ -128,19 +125,16 @@ exports.updateTransaction = async (req, res) => {
 				const crossCheck = multipleRule(req.body);
 				if (crossCheck) {
 					if (req.file) {
-						deleteUpload(req.file.path);
+						deleteTemp(req.file.path);
 					};
 					res.status(400).json({
 						message: 'only accept one type of transaction either income, expense, or transfer'
 					});
 				} else {
-					const idAccountCheck = await idAccountRule(req.userid, req.body.id_account);
-					const idIncomeCheck = await idIncomeRule(req.userid, req.body.id_income);
-					const idExpenseCheck = await idExpenseRule(req.userid, req.body.id_expense);
-					const idTransferCheck = await idAccountRule(req.userid, req.body.id_transfer);
-					if (!idAccountCheck || !idIncomeCheck || !idExpenseCheck || !idTransferCheck) {
+					const idTypeCheck = await idRule(req.userid, req.body);
+					if (idTypeCheck) {
 						if (req.file) {
-							deleteUpload(req.file.path);
+							deleteTemp(req.file.path);
 						};
 						res.status(400).json({
 							message: 'there are no account and / or category data with requested id'
@@ -148,7 +142,7 @@ exports.updateTransaction = async (req, res) => {
 					} else {
 						if (req.body.id_account === req.body.id_transfer) {
 							if (req.file) {
-								deleteUpload(req.file.path);
+								deleteTemp(req.file.path);
 							};
 							res.status(500).json({
 								status: 500,
@@ -173,7 +167,7 @@ exports.updateTransaction = async (req, res) => {
 							if (req.file) {
 								const cloud = await cloudinaryUpload(req.file.path);
 								body.transaction_bill = cloud.public_id;
-								deleteUpload(req.file.path);
+								deleteTemp(req.file.path);
 							};
 							const newBody = bodyAppend(req.body, body);
 							await removeBalance(req.userid, req.params.id);

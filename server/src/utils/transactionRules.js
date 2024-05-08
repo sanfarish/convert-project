@@ -1,105 +1,62 @@
 const expense = require('../models/expenses');
 const income = require('../models/incomes');
 const account = require('../models/accounts');
-const transaction = require('../models/transactions');
-
-const balanceFinder = async (userid, id) => {
-	try {
-		const data = await account.findByID(userid, id);
-		return data[0].account_balance;
-	} catch (err) {console.error(err)};
-};
-
-const transactionFinder = async (userid, id) => {
-	try {
-		const data = await transaction.findByID(userid, id);
-		return data[0];
-	} catch (err) {console.error(err)};
-};
-
-exports.addBalance = async (userid, body) => {
-	try {
-		const accountBalance = await balanceFinder(userid, body.id_account);
-		if (body.id_income !== '') {
-			await account.update(body.id_account, {account_balance: accountBalance + body.transaction_amount});
-		} else if (body.id_expense !== '') {
-			await account.update(body.id_account, {account_balance: accountBalance - body.transaction_amount});
-		} else if (body.id_transfer !== '') {
-			const transferBalance = await balanceFinder(userid, body.id_transfer);
-			await account.update(body.id_account, {account_balance: accountBalance - body.transaction_amount});
-			await account.update(body.id_transfer, {account_balance: transferBalance + body.transaction_amount});
-		};
-	} catch (err) {console.error(err)};
-};
-
-exports.removeBalance = async (userid, id) => {
-	try {
-		const data = await transactionFinder(userid, id);
-		const accountBalance = await balanceFinder(userid, data.id_account);
-		if (data.id_income !== '') {
-			await account.update(data.id_account, {account_balance: accountBalance - data.transaction_amount});
-		} else if (data.id_expense !== '') {
-			await account.update(data.id_account, {account_balance: accountBalance + data.transaction_amount});
-		} else if (data.id_transfer !== '') {
-			const transferBalance = await balanceFinder(userid, data.id_transfer);
-			await account.update(data.id_account, {account_balance: accountBalance + data.transaction_amount});
-			await account.update(data.id_transfer, {account_balance: transferBalance - data.transaction_amount});
-		};
-	} catch (err) {console.error(err)};
-};
-
-exports.bodyAppend = (source, body) => {
-	if (source.id_income) {
-		body.id_income = source.id_income;
-		body.id_expense = '';
-		body.id_transfer = '';
-	} else if (source.id_expense) {
-		body.id_income = '';
-		body.id_expense = source.id_expense;
-		body.id_transfer = '';
-	} else if (source.id_transfer) {
-		body.id_income = '';
-		body.id_expense = '';
-		body.id_transfer = source.id_transfer;
-	};
-	return body;
-};
 
 exports.multipleRule = (body) => {
 	return (
-		(body.id_income && body.id_expense)
-		|| (body.id_income && body.id_transfer)
-		|| (body.id_expense && body.id_transfer)
-		|| (body.id_income && body.id_expense && body.id_transfer)
+		(('id_income' in body && body.id_income !== '') && ('id_expense' in body && body.id_expense !== ''))
+		|| (('id_income' in body && body.id_income !== '') && ('id_transfer' in body && body.id_transfer !== ''))
+		|| (('id_expense' in body && body.id_expense !== '') && ('id_transfer' in body && body.id_transfer !== ''))
+		|| (('id_income' in body && body.id_income !== '') && ('id_expense' in body && body.id_expense !== '') && ('id_transfer' in body && body.id_transfer !== ''))
 	);
 };
 
-exports.idAccountRule = async (userid, accountid) => {
-	if (accountid) {
-		const res = await account.findAll(userid);
-		const data = res.some(item => item.account_id === accountid);
-		return data;
-	} else {
-		return true;
-	};
-};
+exports.idRule = async (userid, body) => {
 
-exports.idIncomeRule = async (userid, incomeid) => {
-	if (incomeid) {
-		const res = await income.findAll(userid);
-		const data = res.some(item => item.income_id === incomeid);
-		return data;
-	} else {
-		return true;
+	const idAccount = async () => {
+		if (body.id_account && body.id_account !== '') {
+			const res = await account.findAll(userid);
+			const data = res.some(item => item.account_id === body.id_account);
+			return data;
+		} else {
+			return true;
+		};
 	};
-};
 
-exports.idExpenseRule = async (userid, expenseid) => {
-	if (expenseid) {
-		const res = await expense.findAll(userid);
-		const data = res.some(item => item.expense_id === expenseid);
-		return data;
-	} else {
-		return true;
+	const idIncome = async () => {
+		if (body.id_income && body.id_income !== '') {
+			const res = await income.findAll(userid);
+			const data = res.some(item => item.income_id === body.id_income);
+			return data;
+		} else {
+			return true;
+		};
 	};
+
+	const idExpense = async () => {
+		if (body.id_expense && body.id_expense !== '') {
+			const res = await expense.findAll(userid);
+			const data = res.some(item => item.expense_id === body.id_expense);
+			return data;
+		} else {
+			return true;
+		};
+	};
+
+	const idTransfer = async () => {
+		if (body.id_transfer && body.id_transfer !== '') {
+			const res = await account.findAll(userid);
+			const data = res.some(item => item.account_id === body.id_transfer);
+			return data;
+		} else {
+			return true;
+		};
+	};
+
+	const accountCheck = await idAccount();
+	const incomeCheck = await idIncome();
+	const expenseCheck = await idExpense();
+	const transferCheck = await idTransfer();
+
+	return (!accountCheck || !incomeCheck || !expenseCheck || !transferCheck);
 };

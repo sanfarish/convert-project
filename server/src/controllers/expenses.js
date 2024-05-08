@@ -1,5 +1,5 @@
 const expense = require('../models/expenses');
-const { nameExpense } = require('../utils/nameRules');
+const { nameExpense } = require('../utils/duplicateRules');
 const { deleteExpense } = require('../utils/deleteRules');
 const { emptyName, emptyExpenseId } = require('../utils/emptyRules');
 const { catchError } = require('../utils/errorCatch');

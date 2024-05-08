@@ -1,5 +1,5 @@
 const account = require('../models/accounts');
-const { nameAccount } = require('../utils/nameRules');
+const { nameAccount } = require('../utils/duplicateRules');
 const { deleteAccount } = require('../utils/deleteRules');
 const { emptyName, emptyBalance, emptyAccountId } = require('../utils/emptyRules');
 const { catchError } = require('../utils/errorCatch');

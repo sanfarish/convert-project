@@ -1,7 +1,7 @@
 const transactions = require('../models/transactions');
 const fs = require('fs');
 
-exports.deleteUpload = (path) => {
+exports.deleteTemp = (path) => {
 	fs.unlink(path, (err) => {
 		if (err) throw err;
 	});
