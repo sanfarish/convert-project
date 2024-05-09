@@ -4,6 +4,7 @@ import { GlobalContext } from '../../context/GlobalContext';
 const CategoryModal = () => {
 
 	const {
+		token,
 		setIncomes,
 		setExpenses,
 		modal,
@@ -13,6 +14,7 @@ const CategoryModal = () => {
 		modalForm,
 		modalInput,
 		setModalInput,
+		setLoad,
 		getIncomes,
 		getExpenses,
 		postIncome,
@@ -30,42 +32,51 @@ const CategoryModal = () => {
 	const handleSubmit = async (e) => {
 
 		e.preventDefault();
+		setLoad(true);
 		const formCategory = new FormData(e.target);
 
 		if (modalAdd && modalForm === 'plus') {
-			const res = await postIncome(formCategory);
+			const res = await postIncome(formCategory, token);
 			if (res.response) {
 				alert(res.response.data.message);
+				setLoad(false);
 			} else {
-				const data = await getIncomes();
+				const data = await getIncomes(token);
 				setIncomes(data);
+				setLoad(false);
 				setModal(false);
 			};
 		} else if (modalAdd && modalForm === 'minus') {
-			const res = await postExpense(formCategory);
+			const res = await postExpense(formCategory, token);
 			if (res.response) {
 				alert(res.response.data.message);
+				setLoad(false);
 			} else {
-				const data = await getExpenses();
+				const data = await getExpenses(token);
 				setExpenses(data);
+				setLoad(false);
 				setModal(false);
 			};
 		} else if (!modalAdd && modalForm === 'plus') {
-			const res = await putIncome(modalInput.income_id, formCategory);
+			const res = await putIncome(modalInput.income_id, formCategory, token);
 			if (res.response) {
 				alert(res.response.data.message);
+				setLoad(false);
 			} else {
-				const data = await getIncomes();
+				const data = await getIncomes(token);
 				setIncomes(data);
+				setLoad(false);
 				setModal(false);
 			};
 		} else if (!modalAdd && modalForm === 'minus') {
-			const res = await putExpense(modalInput.expense_id, formCategory);
+			const res = await putExpense(modalInput.expense_id, formCategory, token);
 			if (res.response) {
 				alert(res.response.data.message);
+				setLoad(false);
 			} else {
-				const data = await getExpenses();
+				const data = await getExpenses(token);
 				setExpenses(data);
+				setLoad(false);
 				setModal(false);
 			};
 		};

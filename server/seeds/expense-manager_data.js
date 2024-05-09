@@ -56,7 +56,7 @@ exports.seed = async function(knex) {
       id_transfer: '',
       transaction_amount: 6500000,
       transaction_note: 'Gaji pertama sebagai software engineer',
-      transaction_bill: ''
+      transaction_bill: 'expense_manager/1715231546006-825311226_dd0ula'
     },
     {
       transaction_id: 'a567ca38-c0c3-4de5-bbe1-baa53b3f5253',
@@ -80,7 +80,7 @@ exports.seed = async function(knex) {
       id_transfer: '',
       transaction_amount: 300000,
       transaction_note: 'Traktiran selesai kontrak dari freelance drafter',
-      transaction_bill: ''
+      transaction_bill: 'expense_manager/1715231613942-101085425_q4thbl'
     },
     {
       transaction_id: 'c65d054e-9d53-4bfd-a19f-f0b22bb0bf96',
@@ -92,7 +92,7 @@ exports.seed = async function(knex) {
       id_transfer: '',
       transaction_amount: 1300000,
       transaction_note: 'Minjem rekan buat pesawat pulang',
-      transaction_bill: ''
+      transaction_bill: 'expense_manager/1715231698901-240772897_ret5oh'
     },
     {
       transaction_id: '1671ae23-2e24-4b4f-924a-355c336abdcc',

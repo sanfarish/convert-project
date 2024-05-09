@@ -13,6 +13,7 @@ const IncomeTable = () => {
 		setModalForm,
 		modalInput,
 		setModalInput,
+		setLoad,
 		getIncomes,
 		deleteIncome
 	} = useContext(GlobalContext);
@@ -36,12 +37,15 @@ const IncomeTable = () => {
 	};
 
 	const handleDelete = async (id) => {
-		const res = await deleteIncome(id);
+		setLoad(true);
+		const res = await deleteIncome(id, token);
 		if (res.response) {
 			alert(res.response.data.message);
+			setLoad(false);
 		} else {
-			const data = await getIncomes();
+			const data = await getIncomes(token);
 			setIncomes(data);
+			setLoad(false);
 			setModal(false);
 		};
 	};

@@ -1,9 +1,9 @@
 import axios from "axios";
-import { config } from "./config";
+import { config, hostTarget } from "./config";
 
 const getUser = async (token) => {
 	try {
-		const res = await axios.get('http://localhost:3500/api/v1/users', config(token));
+		const res = await axios.get(`${hostTarget}/api/v1/users`, config(token));
 		return res;
 	} catch (err) {return err};
 };

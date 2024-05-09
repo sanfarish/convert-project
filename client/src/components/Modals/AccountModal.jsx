@@ -4,6 +4,7 @@ import { GlobalContext } from '../../context/GlobalContext';
 const AccountModal = () => {
 
 	const {
+		token,
 		setAccounts,
 		modal,
 		setModal,
@@ -12,6 +13,7 @@ const AccountModal = () => {
 		modalForm,
 		modalInput,
 		setModalInput,
+		setLoad,
 		getAccounts,
 		postAccount,
 		putAccount
@@ -26,24 +28,29 @@ const AccountModal = () => {
 	const handleSubmit = async (e) => {
 
 		e.preventDefault();
+		setLoad(true);
 		const formAccount = new FormData(e.target);
 	
 		if (modalAdd) {
-			const res = await postAccount(formAccount);
+			const res = await postAccount(formAccount, token);
 			if (res.response) {
 				alert(res.response.data.message);
+				setLoad(false);
 			} else {
-				const data = await getAccounts();
+				const data = await getAccounts(token);
 				setAccounts(data);
+				setLoad(false);
 				setModal(false);
 			};
 		} else {
-			const res = await putAccount(modalInput.account_id, formAccount);
+			const res = await putAccount(modalInput.account_id, formAccount, token);
 			if (res.response) {
 				alert(res.response.data.message);
+				setLoad(false);
 			} else {
-				const data = await getAccounts();
+				const data = await getAccounts(token);
 				setAccounts(data);
+				setLoad(false);
 				setModal(false);
 			};
 		};

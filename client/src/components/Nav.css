@@ -1,0 +1,104 @@
+.navbar {
+	background: rgba(10, 10, 10);
+	position: fixed;
+	bottom: 0;
+	width: 5rem;
+	height: 100vh;
+	transition: width 400ms ease;
+	overflow-x: hidden;
+}
+
+.navbar:hover {
+	width: 16rem;
+}
+
+.navbar-nav {
+	height: 100%;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.logo {
+	background: rgb(30, 30, 30);
+	width: 100%;
+	margin-bottom: 1rem;
+}
+
+.logo-small {
+	width: 2.3rem;
+	margin: 0 1.4rem;
+}
+
+.logo-standard {
+	margin-left: 0.4rem;
+	width: 150px;
+}
+
+.nav-item {
+	width: 100%;
+}
+
+.nav-item:last-child {
+	margin-top: auto;
+}
+
+.nav-logo,
+.nav-link {
+	height: 5rem;
+	color: white;
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	transition: 200ms;
+}
+
+.nav-link:hover {
+	background: black;
+	color: crimson;
+}
+
+.nav-link i {
+	font-size: xx-large;
+	min-width: 2.6rem;
+	margin: 0 1.3rem;
+	display: flex;
+	justify-content: center;
+}
+
+.link-text {
+	margin-left: 0.4rem;
+	font-size: 1.2rem;
+	letter-spacing: 0.3ch;
+}
+
+@media only screen and (max-width: 768px) {
+
+	.navbar {
+		height: 5rem;
+		width: 100vw;
+	}
+
+	.navbar:hover {
+		width: 100vw;
+	}
+
+	.navbar-nav {
+		flex-direction: row;
+	}
+
+	.logo {
+		display: none;
+	}
+
+	.nav-link {
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.link-text {
+		margin-top: 0.5rem;
+		font-size: 0.8rem;
+	}
+}

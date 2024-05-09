@@ -1,9 +1,10 @@
 import axios from "axios";
+import { hostTarget } from "./config";
 
 const postRegister = async (body) => {
 	try {
 		const jsonRegister = Object.fromEntries(body.entries());
-		const res = await axios.post('http://localhost:3500/api/v1/register', jsonRegister);
+		const res = await axios.post(`${hostTarget}/api/v1/register`, jsonRegister);
 		return res;
 	} catch (err) {return err};
 };
@@ -11,7 +12,7 @@ const postRegister = async (body) => {
 const postLogin = async (body) => {
 	try {
 		const jsonLogin = Object.fromEntries(body.entries());
-		const res = await axios.post('http://localhost:3500/api/v1/login', jsonLogin);
+		const res = await axios.post(`${hostTarget}/api/v1/login`, jsonLogin);
 		return res;
 	} catch (err) {return err};
 };

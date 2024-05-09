@@ -1,0 +1,67 @@
+.head {
+	background: rgb(20, 20, 20);
+	position: fixed;
+	top: 0;
+	height: 5rem;
+	width: calc(100vw - 5rem);
+	margin-left: 5rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.head-title {
+	height: 100%;
+	padding: 0 1.5rem;
+	font-size: 2rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.1ch;
+	display: flex;
+	align-items: center;
+}
+
+.head-user {
+	height: 100%;
+	max-width: 20rem;
+	padding: 0 1.5rem;
+	display: flex;
+	align-items: center;
+}
+
+.user-name {
+	font-size: 1.5rem;
+	font-weight: 700;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.user-avatar {
+	width: 3.5rem;
+	margin-left: 1rem;
+}
+
+@media only screen and (max-width: 768px) {
+
+	.head {
+		width: 100vw;
+		margin-left: 0;
+	}
+
+	.head-title {
+		font-size: 1.5rem;
+	}
+
+	.head-user {
+		max-width: 15rem;
+	}
+
+	.user-name {
+		font-size: 1.2rem;
+	}
+
+	.user-avatar {
+		width: 3rem;
+	}
+}

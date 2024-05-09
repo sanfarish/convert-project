@@ -20,12 +20,23 @@ exports.getTransactions = async (req, res) => {
 
 exports.getTransaction = async (req, res) => {
 	try {
-		const data = await transaction.findByID(req.userid, req.params.id);
-		const mod = data[0];
-		if (mod.transaction_bill !== '') {
-			mod.transaction_bill = process.env.C_PATH + mod.transaction_bill;
+		const idCheck = await emptyTransactionId(req.userid, req.params.id);
+		if (!idCheck) {
+			if (req.file) {
+				deleteTemp(req.file.path);
+			};
+			res.status(400).json({
+				message: 'There are no transaction data with requested id!',
+				data: req.params.id
+			});
+		} else {
+			const data = await transaction.findByID(req.userid, req.params.id);
+			const mod = data[0];
+			if (mod.transaction_bill !== '') {
+				mod.transaction_bill = process.env.C_PATH + mod.transaction_bill;
+			};
+			res.status(200).send(mod);
 		};
-		res.status(200).send(mod);
 	} catch (err) {catchError(err, res)};
 };
 
@@ -98,7 +109,12 @@ exports.createTransaction = async (req, res) => {
 				};
 			};
 		};
-	} catch (err) {catchError(err, res)};
+	} catch (err) {
+		if (req.file) {
+			deleteTemp(req.file.path);
+		};
+		catchError(err, res);
+	};
 };
 
 exports.updateTransaction = async (req, res) => {
@@ -153,20 +169,26 @@ exports.updateTransaction = async (req, res) => {
 							const body = {
 								transaction_time: req.body.transaction_time,
 								id_account: req.body.id_account,
-								transaction_amount: Number(req.body.transaction_amount),
-								transaction_note: '',
-								transaction_bill: ''
+								transaction_amount: Number(req.body.transaction_amount)
 							};
 							if (req.body.transaction_note) {
-								body.transaction_note = req.body.transaction_note;
+								body['transaction_note'] = req.body.transaction_note;
+							} else {
+								body['transaction_note'] = '';
 							};
-							const deleteCheck = await deletePath(req.userid, req.params.id);
-							if (deleteCheck) {
-								await cloudinaryDestroy(deleteCheck);
-							};
-							if (req.file) {
+							if (req.body.transaction_bill === '' && !req.file) {
+								const deleteCheck = await deletePath(req.userid, req.params.id);
+								if (deleteCheck) {
+									await cloudinaryDestroy(deleteCheck);
+								};
+								body['transaction_bill'] = '';
+							} else if (!req.body.transaction_bill && req.file) {
+								const deleteCheck = await deletePath(req.userid, req.params.id);
+								if (deleteCheck) {
+									await cloudinaryDestroy(deleteCheck);
+								};
 								const cloud = await cloudinaryUpload(req.file.path);
-								body.transaction_bill = cloud.public_id;
+								body['transaction_bill'] = cloud.public_id;
 								deleteTemp(req.file.path);
 							};
 							const newBody = bodyAppend(req.body, body);
@@ -183,7 +205,12 @@ exports.updateTransaction = async (req, res) => {
 				};
 			};
 		};
-	} catch (err) {catchError(err, res)};
+	} catch (err) {
+		if (req.file) {
+			deleteTemp(req.file.path);
+		};
+		catchError(err, res)
+	};
 };
 
 exports.deleteTransaction = async (req, res) => {

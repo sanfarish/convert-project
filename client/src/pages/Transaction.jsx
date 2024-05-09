@@ -6,11 +6,12 @@ import TransactionTable from '../components/Tables/TransactionTable';
 import TransactionAdd from '../components/Buttons/TransactionAdd';
 import TransactionSum from '../components/Summaries/TransactionSum';
 import TransactionModal from '../components/Modals/TransactionModal';
-import '../css/transactions/dashboard.css';
-import '../css/transactions/table.css';
-import '../css/transactions/button.css';
-import '../css/transactions/summary.css';
-import '../css/transactions/modal.css';
+import Loader from '../components/Loader';
+// import '../css/transactions/dashboard.css';
+// import '../css/transactions/table.css';
+// import '../css/transactions/button.css';
+// import '../css/transactions/summary.css';
+// import '../css/transactions/modal.css';
 
 const Transactions = () => {
 
@@ -30,14 +31,15 @@ const Transactions = () => {
 		<div className='transactions'>
 			<div className='dashboard' style={modal ? styleBlur : {}}>
 				<Header Title="Transactions" />
+				<Nav />
 				<main>
 					<TransactionTable />
 					<TransactionAdd />
 					<TransactionSum />
 				</main>
-				<Nav />
 			</div>
 			<TransactionModal />
+			<Loader />
 		</div>
 	);
 };

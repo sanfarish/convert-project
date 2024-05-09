@@ -6,11 +6,12 @@ import AccountTable from '../components/Tables/AccountTable';
 import AccountAdd from '../components/Buttons/AccountAdd';
 import AccountSum from '../components/Summaries/AccountSum';
 import AccountModal from '../components/Modals/AccountModal';
-import '../css/accounts/dashboard.css';
-import '../css/accounts/table.css';
-import '../css/accounts/button.css';
-import '../css/accounts/summary.css';
-import '../css/accounts/modal.css';
+import Loader from '../components/Loader';
+// import '../css/accounts/dashboard.css';
+// import '../css/accounts/table.css';
+// import '../css/accounts/button.css';
+// import '../css/accounts/summary.css';
+// import '../css/accounts/modal.css';
 
 const Accounts = () => {
 
@@ -30,14 +31,15 @@ const Accounts = () => {
 		<div className='accounts'>
 			<div className='dashboard' style={modal ? styleBlur : {}}>
 				<Header Title="Accounts" />
+				<Nav />
 				<main>
 					<AccountTable />
 					<AccountAdd />
 					<AccountSum />
 				</main>
-				<Nav />
 			</div>
 			<AccountModal />
+			<Loader />
 		</div>
 	);
 };

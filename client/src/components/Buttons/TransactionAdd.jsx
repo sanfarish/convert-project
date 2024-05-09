@@ -9,7 +9,8 @@ const TransactionAdd = () => {
 		setModalAdd,
 		setModalForm,
 		modalInput,
-		setModalInput
+		setModalInput,
+		inputFile
 	} = useContext(GlobalContext);
 
 	const datetimeFormat = (date) => {
@@ -32,8 +33,15 @@ const TransactionAdd = () => {
 			id_expense: '',
 			id_transfer: '',
 			transaction_amount: '',
-			transaction_note: ''
+			transaction_note: '',
+			transaction_bill: '',
+			transaction_image: ''
 		});
+		if (inputFile.current) {
+			inputFile.current.value = '';
+			inputFile.current.type = 'text';
+			inputFile.current.type = 'file';
+		};
 	};
 
 	return (

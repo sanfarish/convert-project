@@ -1,8 +1,8 @@
 import axios from "axios";
-import { config } from "./config";
+import { config, hostTarget } from "./config";
 
 const incomes = axios.create({
-	baseURL: "http://localhost:3500/api/v1/incomes"
+	baseURL: `${hostTarget}/api/v1/incomes`
 });
 
 const getIncomes = async (token) => {

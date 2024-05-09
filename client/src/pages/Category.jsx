@@ -7,10 +7,11 @@ import ExpenseTable from '../components/Tables/ExpenseTable';
 import IncomeAdd from '../components/Buttons/IncomeAdd';
 import ExpenseAdd from '../components/Buttons/ExpenseAdd';
 import CategoryModal from '../components/Modals/CategoryModal';
-import '../css/category/dashboard.css';
-import '../css/category/table.css';
-import '../css/category/button.css';
-import '../css/category/modal.css';
+import Loader from '../components/Loader';
+// import '../css/category/dashboard.css';
+// import '../css/category/table.css';
+// import '../css/category/button.css';
+// import '../css/category/modal.css';
 
 const Categories = () => {
 
@@ -30,15 +31,16 @@ const Categories = () => {
 		<div className='categories'>
 			<div className='dashboard' style={modal ? styleBlur : {}}>
 				<Header Title="Categories" />
+				<Nav />
 				<main>
 					<IncomeTable />
 					<IncomeAdd />
 					<ExpenseTable />
 					<ExpenseAdd />
 				</main>
-				<Nav />
 			</div>
 			<CategoryModal />
+			<Loader />
 		</div>
 	);
 };

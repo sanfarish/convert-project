@@ -1,12 +1,16 @@
 .vscode
 cloudinary.txt
 expense_manager.session.sql
-nota-2.jpg
-nota.jpg
-oversize.jpg
+gaji.png
+nota-pizza.jpg
+oversize-test.jpg
 request.rest
+tiket-pesawat.jpg
 
-/client/.unused
+/client/node_modules
+
+/server/node_modules
+/server/.env
+
 /client/public/.unused
 /client/src/.unused
-/client/src/components/.unused

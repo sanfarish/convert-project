@@ -13,6 +13,7 @@ const AccountTable = () => {
 		setModalForm,
 		modalInput,
 		setModalInput,
+		setLoad,
 		getAccounts,
 		deleteAccount
 	} = useContext(GlobalContext);
@@ -36,12 +37,15 @@ const AccountTable = () => {
 	};
 
 	const handleDelete = async (id) => {
-		const res = await deleteAccount(id);
+		setLoad(true);
+		const res = await deleteAccount(id, token);
 		if (res.response) {
 			alert(res.response.data.message);
+			setLoad(false);
 		} else {
-			const data = await getAccounts();
+			const data = await getAccounts(token);
 			setAccounts(data);
+			setLoad(false);
 			setModal(false);
 		};
 	};

@@ -13,6 +13,8 @@ const TransactionTable = () => {
 		setModalForm,
 		modalInput,
 		setModalInput,
+		inputFile,
+		setLoad,
 		getTransactions,
 		deleteTransaction
 	} = useContext(GlobalContext);
@@ -56,17 +58,27 @@ const TransactionTable = () => {
 			id_expense: item.id_expense,
 			id_transfer: item.id_transfer,
 			transaction_amount: item.transaction_amount,
-			transaction_note: item.transaction_note
+			transaction_note: item.transaction_note,
+			transaction_bill: '',
+			transaction_image: item.transaction_bill
 		});
+		if (inputFile.current) {
+			inputFile.current.value = '';
+			inputFile.current.type = 'text';
+			inputFile.current.type = 'file';
+		};
 	};
 
 	const handleDelete = async (id) => {
-		const res = await deleteTransaction(id);
+		setLoad(true);
+		const res = await deleteTransaction(id, token);
 		if (res.response) {
 			alert(res.response.data.message);
+			setLoad(false);
 		} else {
-			const data = await getTransactions();
+			const data = await getTransactions(token);
 			setTransactions(data);
+			setLoad(false);
 			setModal(false);
 		};
 	};

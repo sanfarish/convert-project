@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useRef, useState } from "react";
 import { deleteExpense, getExpenses, postExpense, putExpense } from "../apis/expenses";
 import { deleteIncome, getIncomes, postIncome, putIncome } from "../apis/incomes";
 import { deleteAccount, getAccounts, postAccount, putAccount } from "../apis/accounts";
@@ -9,6 +9,7 @@ const GlobalContext = createContext();
 const GlobalContextProvider = (props) => {
 
 	const [token, setToken] = useState(localStorage.getItem('accessToken'));
+	const [page, setPage] = useState('trans') // 'trans' / 'acc' / 'cat'
 	const [expenses, setExpenses] = useState([]);
 	const [incomes, setIncomes] = useState([]);
 	const [accounts, setAccounts] = useState([]);
@@ -39,12 +40,16 @@ const GlobalContextProvider = (props) => {
 		transaction_bill: '',
 		transaction_image: ''
 	});
+	const inputFile = useRef(null);
+	const [load, setLoad] = useState(false);
 
 	return (
 		<GlobalContext.Provider
 			value={{
 				token,
 				setToken,
+				page,
+				setPage,
 				expenses,
 				setExpenses,
 				incomes,
@@ -63,6 +68,9 @@ const GlobalContextProvider = (props) => {
 				setModalForm,
 				modalInput,
 				setModalInput,
+				inputFile,
+				load,
+				setLoad,
 				deleteExpense,
 				getExpenses,
 				postExpense,

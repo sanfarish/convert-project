@@ -1,8 +1,8 @@
 import axios from "axios";
-import { config } from "./config";
+import { config, hostTarget } from "./config";
 
 const accounts = axios.create({
-	baseURL: "http://localhost:3500/api/v1/accounts"
+	baseURL: `${hostTarget}/api/v1/accounts`
 });
 
 const getAccounts = async (token) => {

@@ -13,6 +13,7 @@ const ExpenseTable = () => {
 		setModalForm,
 		modalInput,
 		setModalInput,
+		setLoad,
 		getExpenses,
 		deleteExpense
 	} = useContext(GlobalContext);
@@ -36,12 +37,15 @@ const ExpenseTable = () => {
 	};
 
 	const handleDelete = async (id) => {
-		const res = await deleteExpense(id);
+		setLoad(true);
+		const res = await deleteExpense(id, token);
 		if (res.response) {
 			alert(res.response.data.message);
+			setLoad(false);
 		} else {
-			const data = await getExpenses();
+			const data = await getExpenses(token);
 			setExpenses(data);
+			setLoad(false);
 			setModal(false);
 		};
 	};

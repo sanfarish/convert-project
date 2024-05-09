@@ -1,7 +1,7 @@
 import React from 'react';
 import RegisterModal from '../components/Modals/RegisterModal';
-import '../css/register/landing.css';
-import '../css/register/modal.css';
+// import '../css/register/landing.css';
+// import '../css/register/modal.css';
 
 const Register = () => {
 

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
 
 const TransactionModal = () => {
@@ -20,6 +20,8 @@ const TransactionModal = () => {
 		setModalForm,
 		modalInput,
 		setModalInput,
+		inputFile,
+		setLoad,
 		getTransactions,
 		postTransaction,
 		putTransaction,
@@ -27,6 +29,7 @@ const TransactionModal = () => {
 		getIncomes,
 		getAccounts
 	} = useContext(GlobalContext);
+	const [viewBill, setViewBill] = useState(false);
 	const styleModal = {
 		opacity: '1',
 		top: '50%',
@@ -48,31 +51,59 @@ const TransactionModal = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [token])
 
-	const handleViewBill = () => {};
+	const handleResetFile = () => {
+		if (inputFile.current) {
+			inputFile.current.value = '';
+			inputFile.current.type = 'text';
+			inputFile.current.type = 'file';
+			setModalInput({...modalInput, transaction_bill: ''});
+		};
+	};
 
-	const handleDeleteBill = () => {};
+	const handleDeleteBill = () => {
+		if (inputFile.current) {
+			inputFile.current.value = '';
+			inputFile.current.type = 'text';
+			inputFile.current.type = 'file';
+			setModalInput({...modalInput, transaction_bill: ''});
+		};
+		setModalInput({...modalInput, transaction_image: ''});
+	};
 
 	const handleSubmit = async (e) => {
-	
+
 		e.preventDefault();
+		setLoad(true);
 		const formTrans = new FormData(e.target);
-	
+
 		if (modalAdd) {
-			const res = await postTransaction(formTrans);
+			if (modalInput.transaction_bill !== '' && modalInput.transaction_bill !== undefined) {
+				formTrans.append('transaction_bill', modalInput.transaction_bill);
+			};
+			const res = await postTransaction(formTrans, token);
 			if (res.response) {
 				alert(res.response.data.message);
+				setLoad(false);
 			} else {
-				const data = await getTransactions();
+				const data = await getTransactions(token);
 				setTransactions(data);
+				setLoad(false);
 				setModal(false);
 			};
 		} else {
-			const res = await putTransaction(modalInput.transaction_id, formTrans);
+			if ((modalInput.transaction_bill === '' || modalInput.transaction_bill === undefined) && modalInput.transaction_image === '') {
+				formTrans.append('transaction_bill', '');
+			} else if ((modalInput.transaction_bill !== '' && modalInput.transaction_bill !== undefined) && modalInput.transaction_image === '') {
+				formTrans.append('transaction_bill', modalInput.transaction_bill);
+			};
+			const res = await putTransaction(modalInput.transaction_id, formTrans, token);
 			if (res.response) {
 				alert(res.response.data.message);
+				setLoad(false);
 			} else {
-				const data = await getTransactions();
+				const data = await getTransactions(token);
 				setTransactions(data);
+				setLoad(false);
 				setModal(false);
 			};
 		};
@@ -229,21 +260,33 @@ const TransactionModal = () => {
 			</form>
 
 			{modalInput.transaction_image === '' && (
-				<label>
-					Upload bill:
-					<input
-						type="file"
-						name='transaction_bill'
-						onChange={e => setModalInput({...modalInput, transaction_bill: e.target.files[0]})}
-					/>
-				</label>
+				<div className='bill-input'>
+					<label>
+						Upload bill:
+						<input
+							type="file"
+							name='transaction_bill'
+							ref={inputFile}
+							onChange={e => setModalInput({...modalInput, transaction_bill: e.target.files[0]})}
+						/>
+					</label>
+					<button onClick={handleResetFile}>Clear File</button>
+				</div>
 			)}
 
-			{modalInput.transaction_image !== '' && <button type="button" onClick={handleDeleteBill}>Delete/Change uploaded bill</button>}
+			{modalInput.transaction_image !== '' &&
+				<div className='bill-handle'>
+					<button type="button" onClick={handleDeleteBill}>Delete/Change uploaded bill</button>
+					<button type="button" onClick={() => setViewBill(true)}>View uploaded bill</button>
+				</div>
+			}
 
-			{modalInput.transaction_image !== '' && <button type="button" onClick={handleViewBill}>View uploaded bill</button>}
-
-			{viewBill === true && <img src={modalInput.transaction_image} />}
+			{viewBill === true &&
+				<div className='bill-image'>
+					<button type="button" onClick={() => setViewBill(false)}>{'\u2716'}</button>
+					<img src={modalInput.transaction_image} height='500px' alt='bill' />
+				</div>
+			}
 		</div>
 	);
 };
