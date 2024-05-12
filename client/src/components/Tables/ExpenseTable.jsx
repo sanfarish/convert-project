@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
+import { DataContext } from '../../context/DataContext';
+import './ExpenseTable.css'
 
 const ExpenseTable = () => {
 
@@ -16,7 +17,7 @@ const ExpenseTable = () => {
 		setLoad,
 		getExpenses,
 		deleteExpense
-	} = useContext(GlobalContext);
+	} = useContext(DataContext);
 
 	useEffect(() => {
 		const getData = async () => {
@@ -52,27 +53,20 @@ const ExpenseTable = () => {
 
 	const Render = ({ data }) => {
 		return (
-			<>
-				<div className="id">
-					<div className="name">{data.expense_name}</div>
-					<div className="edit-wrapper">
-						<button className="edit-btn" onClick={() => handleEditModal(
-							data.expense_id,
-							data.expense_name
-						)}>Edit</button>
-					</div>
-					<div className="del-wrapper">
-						<button className="del-btn" onClick={() => handleDelete(data.expense_id)}>Delete</button>
-					</div>
-				</div>
-				<div className="space"></div>
-			</>
+			<div className="id">
+				<div className="name">{data.expense_name}</div>
+				<button className="edit" onClick={() => handleEditModal(
+					data.expense_id,
+					data.expense_name
+				)}>Edit</button>
+				<button className="delete" onClick={() => handleDelete(data.expense_id)}>Delete</button>
+			</div>
 		);
 	};
 
 	return (
-		<div className="expense-table">
-			Expense Category
+		<div className="card">
+			<span>Expense Category</span>
 			<div className="data">
 				{expenses ? expenses.map(item => <Render data={item} key={item.expense_id} />) : <div className='no-data'>No Data</div>}
 			</div>

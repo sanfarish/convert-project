@@ -1,0 +1,9 @@
+.transactions {
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+    grid-template-rows: 2fr 8fr;
+    grid-template-areas:
+    'table button'
+    'table summary';
+    gap: 1.5rem;
+}

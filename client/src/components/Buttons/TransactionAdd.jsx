@@ -1,5 +1,6 @@
 import { useContext } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
+import { DataContext } from '../../context/DataContext';
+import './TransactionAdd.css'
 
 const TransactionAdd = () => {
 
@@ -11,7 +12,7 @@ const TransactionAdd = () => {
 		modalInput,
 		setModalInput,
 		inputFile
-	} = useContext(GlobalContext);
+	} = useContext(DataContext);
 
 	const datetimeFormat = (date) => {
 		let local = new Date(date);
@@ -44,14 +45,7 @@ const TransactionAdd = () => {
 		};
 	};
 
-	return (
-		<div className="add-btn">
-			<button onClick={handleAdd}>Add Transaction</button>
-			<div className="add-notes">
-				Notes: to edit/delete a transaction, use buttons in the transaction list!
-			</div>
-		</div>
-	)
+	return <button className='card' onClick={handleAdd}>ADD TRANSACTION</button>;
 }
 
 export default TransactionAdd

@@ -1,0 +1,120 @@
+.transactions {
+
+    .card:nth-child(1) {
+        grid-area: table;
+
+        .data {
+            height: 100%;
+            width: 100%;
+            border-radius: 0 0 5px 5px;
+            overflow-y: scroll;
+        }
+
+        .data::-webkit-scrollbar {
+            width: 0.5rem;
+        }
+        
+        .data::-webkit-scrollbar-thumb {
+            background: crimson;
+            border-radius: 5px;
+        }
+
+        .id {
+            width: 100%;
+            height: 5rem;
+            margin-bottom: 0.5rem;
+            display: grid;
+            grid-template-columns: 110px 3fr 2fr 70px;
+            grid-template-rows: 1fr 1fr;
+            grid-template-areas:
+            'day category amount edit'
+            'date note account delete';
+        }
+
+        .id:last-child {
+            margin-bottom: 0;
+        }
+
+        .day, .date, .category, .note, .amount, .account {
+            background: rgb(30, 30, 30);
+            letter-spacing: 0.1ch;
+            display: flex;
+        }
+
+        .day {
+            grid-area: day;
+            align-items: end;
+            justify-content: end;
+            padding: 0 5px 5px 0;
+        }
+
+        .date {
+            grid-area: date;
+            justify-content: end;
+            padding: 5px 5px 0 0;
+        }
+
+        .category {
+            grid-area: category;
+            align-items: end;
+            padding: 0 0 5px 5px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .note {
+            grid-area: note;
+            padding: 5px 0 0 5px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .amount {
+            grid-area: amount;
+            align-items: end;
+            justify-content: end;
+            padding: 0 1rem 5px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .account {
+            grid-area: account;
+            justify-content: end;
+            padding: 5px 1rem 0 0;
+        }
+
+        .edit {
+            grid-area: edit;
+        }
+
+        .edit, .delete {
+            background: rgb(40, 40, 40);
+            color: white;
+            font-size: 1rem;
+            letter-spacing: 0.1ch;
+            transition: all 200ms ease;
+        }
+
+        .edit:hover {
+            color: #1454DC;
+        }
+
+        .edit:hover, .delete:hover {
+            background: black;
+            cursor: pointer;
+            transition: all 200ms ease;
+        }
+
+        .delete {
+            grid-area: delete;
+        }
+
+        .delete:hover {
+            color: crimson;
+        }
+    }
+}

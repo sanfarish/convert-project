@@ -1,0 +1,87 @@
+.log-modal {
+	background: rgb(10, 10, 10);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+    width: 70%;
+    min-width: 500px;
+    max-width: 550px;
+    border-radius: 5px;
+    box-shadow: 0 0 8px 0 white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+	* {
+        font-size: 1.2rem;
+        letter-spacing: 0.1ch;
+    }
+
+    .form-header {
+        width: 100%;
+        font-size: 1.5rem;
+		margin: 1.5rem 0 0.5rem 0;
+        display: flex;
+        align-items: end;
+        justify-content: center;
+    }
+
+    form {
+        width: 100%;
+        height: 100%;
+        display: flex;
+		flex-direction: column;
+		align-items: center;
+
+        > label {
+            height: 2rem;
+            width: 85%;
+			margin: 0.5rem 0 0.5rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            input {
+                height: 100%;
+                padding: 0.5rem;
+            }
+        }
+
+        > button {
+            background: rgb(10, 10, 10);
+            color: white;
+            height: 3rem;
+            width: 5rem;
+			margin: 0.5rem 0 0.5rem 0;
+            border: 2px dashed white;
+            border-radius: 2px;
+            transition: background 200ms ease;
+        }
+
+        > button:hover {
+            background: #1454DC;
+            border: none;
+            cursor: pointer;
+            transition: background 200ms ease;
+        }
+    }
+
+	.form-footer {
+		height: 2rem;
+		width: 100%;
+		margin: 0.5rem 0 1.5rem 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+    .log-link {
+        color: #1454DC;
+        text-decoration: none;
+    }
+
+    .log-link:hover {
+        text-decoration: underline;
+    }
+}

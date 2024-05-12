@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import './LoginModal.css';
 
 const LoginModal = () => {
 
@@ -22,7 +23,7 @@ const LoginModal = () => {
 	};
 
 	return (
-		<div className='modal'>
+		<div className='log-modal'>
 
 			<div className="form-header">Login:</div>
 
@@ -41,7 +42,7 @@ const LoginModal = () => {
 				<button type='submit'>Login</button>
 			</form>
 
-			<div className="form-footer">Don't have an account? <NavLink to='/register'>Register here.</NavLink></div>
+			<div className="form-footer">Don't have an account?&nbsp;<NavLink to='/register' className='log-link'>Register here.</NavLink></div>
 		</div>
 	);
 };

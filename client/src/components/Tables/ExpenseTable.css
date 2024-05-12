@@ -1,0 +1,87 @@
+.categories {
+
+    .card:nth-child(3) {
+        grid-area: expenseTable;
+
+        > span {
+            height: 5rem;
+            width: 100%;
+            font-size: 1.5rem;
+            letter-spacing: 0.2ch;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .data {
+            max-height: calc(100% - 5rem);
+            width: 100%;
+            border-radius: 0 0 5px 5px;
+            overflow-y: scroll;
+        }
+
+        .data::-webkit-scrollbar {
+            width: 0.5rem;
+        }
+
+        .data::-webkit-scrollbar-thumb {
+            background: crimson;
+            border-radius: 5px;
+        }
+
+        .id {
+            width: 100%;
+            height: 5rem;
+            margin-bottom: 0.5rem;
+            display: grid;
+            grid-template-columns: 1fr 70px;
+            grid-template-rows: 1fr 1fr;
+            grid-template-areas:
+            'name edit'
+            'name delete';
+        }
+
+        .id:last-child {
+            margin-bottom: 0;
+        }
+
+        .name {
+            grid-area: name;
+            background: rgb(30, 30, 30);
+            letter-spacing: 0.1ch;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .edit {
+            grid-area: edit;
+        }
+
+        .edit, .delete {
+            background: rgb(40, 40, 40);
+            color: white;
+            font-size: 1rem;
+            letter-spacing: 0.1ch;
+            transition: all 200ms ease;
+        }
+
+        .edit:hover {
+            color: #1454DC;
+        }
+
+        .edit:hover, .delete:hover {
+            background: black;
+            cursor: pointer;
+            transition: all 200ms ease;
+        }
+
+        .delete {
+            grid-area: delete;
+        }
+
+        .delete:hover {
+            color: crimson;
+        }
+    }
+}

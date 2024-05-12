@@ -1,5 +1,6 @@
-import { useContext } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
+import { useContext, useState } from 'react';
+import { DataContext } from '../../context/DataContext';
+import './CategoryModal.css';
 
 const CategoryModal = () => {
 
@@ -21,12 +22,25 @@ const CategoryModal = () => {
 		postExpense,
 		putIncome,
 		putExpense
-	} = useContext(GlobalContext);
+	} = useContext(DataContext);
+	const [colors, setColors] = useState({ background: 'rgb(10, 10, 10)', color: 'white' });
 	const styleModal = {
-		opacity: '1',
 		top: '50%',
-		transform: 'translate(-50%, -50%) scale(1)',
-		transition: 'opacity 0.2s ease-in-out, top 0s ease-in-out, transform 0.2s ease-in-out'
+        transition: 'top 400ms ease-out'
+	};
+
+	const handleHover = () => {
+		if (modalForm === 'plus') {
+			setColors({ background: '#1454DC', color: 'white' })
+		} else if (modalForm === 'minus') {
+			setColors({ background: 'crimson', color: 'white' })
+		} else if (modalForm === 'empty') {
+			setColors({ background: 'white', color: 'black' })
+		};
+	};
+
+	const handleLeftHover = () => {
+		setColors({ background: 'rgb(10, 10, 10)', color: 'white' })
 	};
 
 	const handleSubmit = async (e) => {
@@ -83,7 +97,7 @@ const CategoryModal = () => {
 	};
 
 	return (
-		<div className='modal' style={(modal && (modalType === 'category')) ? styleModal : {}}>
+		<div className='modal cat' style={(modal && (modalType === 'category')) ? styleModal : {}}>
 
 			<button onClick={() => setModal(false)}>{'\u2716'}</button>
 
@@ -100,9 +114,9 @@ const CategoryModal = () => {
 
 			<form onSubmit={handleSubmit}>
 
-				{modalForm === 'plus' && (
+				{modalForm === 'plus' &&
 					<label>
-					Name:
+						Name:
 						<input
 							type="text"
 							name='income_name'
@@ -111,11 +125,11 @@ const CategoryModal = () => {
 							onChange={(e) => setModalInput({...modalInput, income_name: e.target.value})}
 						/>
 					</label>
-				)}
+				}
 
-				{modalForm === 'minus' && (
+				{modalForm === 'minus' &&
 					<label>
-					Name:
+						Name:
 						<input
 							type="text"
 							name='expense_name'
@@ -123,19 +137,14 @@ const CategoryModal = () => {
 							value={modalInput.expense_name}
 							onChange={e => setModalInput({...modalInput, expense_name: e.target.value})}
 						/>
-					</label>
-				)}
+				</label>
+				}
 
 				<button
-				type='submit'
-					style={
-						modalForm === 'plus'
-						? {backgroundColor: '#1999FC'}
-						: modalForm === 'minus'
-						? {backgroundColor: '#FF6255'}
-						: modalForm === 'empty'
-						&& {backgroundColor: '#888888'}
-					}
+					type='submit'
+					style={colors}
+					onMouseEnter={handleHover}
+					onMouseLeave={handleLeftHover}
 				>{modalAdd ? 'Add' : 'Save'}</button>
 			</form>
 		</div>

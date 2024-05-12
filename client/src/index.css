@@ -13,17 +13,3 @@
     outline: none;
     box-sizing: border-box;
 }
-
-main {
-    margin-top: 5rem;
-    margin-left: 5rem;
-    padding: 1rem;
-}
-
-@media only screen and (max-width: 768px) {
-
-	main {
-		margin-left: 0;
-		margin-bottom: 5rem;
-	}
-}

@@ -1,5 +1,6 @@
 import { useContext } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
+import { DataContext } from '../../context/DataContext';
+import './AccountAdd.css';
 
 const AccountAdd = () => {
 
@@ -10,7 +11,7 @@ const AccountAdd = () => {
 		setModalForm,
 		modalInput,
 		setModalInput
-	} = useContext(GlobalContext);
+	} = useContext(DataContext);
 
 	const handleAdd = () => {
 		setModal(true);
@@ -20,14 +21,7 @@ const AccountAdd = () => {
 		setModalInput({...modalInput, account_name: ''});
 	};
 
-	return (
-		<div className="add-btn">
-			<button onClick={handleAdd}>Add Account</button>
-			<div className="add-notes">
-				Notes: cannot add/edit balance, only add/edit account name!
-			</div>
-		</div>
-	);
+	return <button className='card' onClick={handleAdd}>ADD ACCOUNT</button>;
 };
 
 export default AccountAdd;

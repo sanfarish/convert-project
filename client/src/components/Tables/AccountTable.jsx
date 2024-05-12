@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
+import { DataContext } from '../../context/DataContext';
+import './AccountTable.css';
 
 const AccountTable = () => {
 
@@ -16,7 +17,7 @@ const AccountTable = () => {
 		setLoad,
 		getAccounts,
 		deleteAccount
-	} = useContext(GlobalContext);
+	} = useContext(DataContext);
 
 	useEffect(() => {
 		const getData = async () => {
@@ -27,6 +28,16 @@ const AccountTable = () => {
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [token]);
+
+	const handleColor = (balance) => {
+		if (balance > 0) {
+			return { color: '#1454DC' };
+		} else if (balance < 0) {
+			return { color: 'crimson' };
+		} else {
+			return { color: 'white' };
+		};
+	};
 
 	const handleEditModal = (id, name, bal) => {
 		setModal(true);
@@ -52,24 +63,17 @@ const AccountTable = () => {
 
 	const Render = ({ id, name, bal }) => {
 		return (
-			<>
-				<div className={`id ${bal > 0 ? 'assets' : bal < 0 ? 'liabilities' : 'empty'}`}>
-					<div className="account">{name}</div>
-					<div className="amount">Rp {(bal < 0 ? bal * -1 : bal).toLocaleString()},-</div>
-					<div className="edit-wrapper">
-						<button className="edit-btn" onClick={() => handleEditModal(id, name, bal)}>Edit</button>
-					</div>
-					<div className="del-wrapper">
-						<button className="del-btn" onClick={() => {handleDelete(id)}}>Delete</button>
-					</div>
-				</div>
-				<div className="space"></div>
-			</>
+			<div className='id'>
+				<div className="name">{name}</div>
+				<div className="balance" style={handleColor(bal)}>Rp {(bal < 0 ? bal * -1 : bal).toLocaleString()},-</div>
+				<button className="edit" onClick={() => handleEditModal(id, name, bal)}>Edit</button>
+				<button className="delete" onClick={() => {handleDelete(id)}}>Delete</button>
+			</div>
 		);
 	};
 
 	return (
-		<div className="table">
+		<div className="card">
 			<div className="data">
 				{accounts ? accounts.map(item => 
 					<Render

@@ -1,0 +1,9 @@
+.categories {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 8fr 2fr;
+    grid-template-areas:
+    'incomeTable expenseTable'
+    'incomeButton expenseButton';
+    gap: 1.5rem;
+}

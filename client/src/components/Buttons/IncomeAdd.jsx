@@ -1,5 +1,6 @@
 import { useContext } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
+import { DataContext } from '../../context/DataContext';
+import './IncomeAdd.css';
 
 const IncomeAdd = () => {
 
@@ -10,7 +11,7 @@ const IncomeAdd = () => {
 		setModalForm,
 		modalInput,
 		setModalInput,
-	} = useContext(GlobalContext);
+	} = useContext(DataContext);
 
 	const handleAdd = () => {
 		setModal(true);
@@ -20,11 +21,7 @@ const IncomeAdd = () => {
 		setModalInput({...modalInput, income_name: ''});
 	};
 
-	return (
-		<div className="income-btn">
-			<button onClick={handleAdd}>Add Income Category</button>
-		</div>
-	);
+	return <button className='card' onClick={handleAdd}>ADD INCOME CATEGORY</button>;
 };
 
 export default IncomeAdd;

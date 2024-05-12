@@ -1,0 +1,24 @@
+main {
+	height: calc(100vh - 5rem);
+	width: calc(100vw - 5rem);
+	margin-top: 5rem;
+	margin-left: 5rem;
+	padding: 1.5rem;
+}
+
+.card {
+	background: rgb(10, 10, 10);
+	border-radius: 5px;
+	box-shadow: 0 0 8px 0 white;
+	overflow: hidden;
+}
+
+@media only screen and (max-width: 768px) {
+
+	main {
+		height: calc(100vh - 10rem);
+		width: 100vw;
+		margin-left: 0;
+		margin-bottom: 5rem;
+	}
+}

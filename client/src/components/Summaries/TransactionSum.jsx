@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
+import { DataContext } from '../../context/DataContext';
+import './TransactionSum.css';
 
 const TransactionSum = () => {
 
-	const { transactions } = useContext(GlobalContext);
+	const { transactions } = useContext(DataContext);
 	const [income, setIncome] = useState(0);
 	const [expense, setExpense] = useState(0);
 
@@ -20,17 +21,17 @@ const TransactionSum = () => {
 	}, [transactions]);
 
 	return (
-		<div className="summary">
-			<div className="sum-in">
-				Income
+		<div className="card">
+			<div className="sum">
+			<span>Income</span>
 				<span>Rp {income.toLocaleString()},-</span>
 			</div>
-			<div className="sum-out">
-				Expense
+			<div className="sum">
+				<span>Expense</span>
 				<span>Rp {expense.toLocaleString()},-</span>
 			</div>
-			<div className="sum-tot">
-				Total
+			<div className="sum">
+				<span>Total</span>
 				<span>Rp {(income - expense).toLocaleString()},-</span>
 			</div>
 		</div>

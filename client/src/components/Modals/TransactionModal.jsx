@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
+import { DataContext } from '../../context/DataContext';
+import './TransactionModal.css';
 
 const TransactionModal = () => {
 
@@ -28,7 +29,7 @@ const TransactionModal = () => {
 		getExpenses,
 		getIncomes,
 		getAccounts
-	} = useContext(GlobalContext);
+	} = useContext(DataContext);
 	const [viewBill, setViewBill] = useState(false);
 	const styleModal = {
 		opacity: '1',

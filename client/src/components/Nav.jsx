@@ -1,19 +1,24 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, matchPath, useLocation } from 'react-router-dom';
 import standard from '../logo-standard.png';
 import small from '../logo-small.png';
 import './Nav.css';
-import { useContext } from 'react';
-import { GlobalContext } from '../context/GlobalContext';
 
 const Nav = () => {
 
-	const { page } = useContext(GlobalContext);
+	const location = useLocation();
+	const styleOpened = { backgroundColor: 'black', color: 'crimson' };
+
+	const locationMatch = (path) => {
+		return matchPath({
+			path,
+			exact: true,
+			strict: true
+		}, location.pathname);
+	};
 
 	const handleLogout = () => {
 		localStorage.removeItem('accessToken');
 	};
-
-	const styleOpened = { backgroundColor: 'black', color: 'crimson' };
 
 	return (
 		<nav className='navbar'>
@@ -25,19 +30,19 @@ const Nav = () => {
 					</div>
 				</li>
 				<li className='nav-item'>
-					<NavLink to="/transactions" className='nav-link' style={page === 'trans' ? styleOpened : {}}>
+					<NavLink to="/transactions" className='nav-link' style={locationMatch('/transactions') && styleOpened}>
 						<i className="fa-solid fa-handshake"></i>
 						<span className='link-text'>Transactions</span>
 					</NavLink>
 				</li>
 				<li className='nav-item'>
-					<NavLink to="/accounts" className='nav-link' style={page === 'acc' ? styleOpened : {}}>
+					<NavLink to="/accounts" className='nav-link' style={locationMatch('/accounts') && styleOpened}>
 						<i className="fa-solid fa-sack-dollar"></i>
 						<span className='link-text'>Accounts</span>
 					</NavLink>
 				</li>
 				<li className='nav-item'>
-					<NavLink to="/categories" className='nav-link' style={page === 'cat' ? styleOpened : {}}>
+					<NavLink to="/categories" className='nav-link' style={locationMatch('/categories') && styleOpened}>
 						<i className="fa-solid fa-shapes"></i>
 						<span className='link-text'>Categories</span>
 					</NavLink>

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
+import { DataContext } from '../../context/DataContext';
+import './TransactionTable.css';
 
 const TransactionTable = () => {
 
@@ -17,7 +18,7 @@ const TransactionTable = () => {
 		setLoad,
 		getTransactions,
 		deleteTransaction
-	} = useContext(GlobalContext);
+	} = useContext(DataContext);
 	const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
 
 	useEffect(() => {
@@ -34,7 +35,11 @@ const TransactionTable = () => {
 
 	const dates = (datetime) => {
 		const time = new Date(datetime);
-		return `${time.getDate()}/${time.getMonth() + 1}/${time.getFullYear()}`;
+		return `${
+			time.getDate().toString().length === 1 ? '0' + time.getDate() : time.getDate()
+		}/${
+			(time.getMonth() + 1).toString().length === 1 ? '0' + (time.getMonth() + 1) : (time.getMonth() + 1)
+		}/${time.getFullYear()}`;
 	};
 
 	const datetimeFormat = (date) => {
@@ -42,6 +47,16 @@ const TransactionTable = () => {
 		let offset = local.getTimezoneOffset();
 		let utc = new Date(local.getTime() - offset * 60000).toISOString().slice(0, 16);
 		return utc;
+	};
+
+	const handleColor = (data) => {
+		if (data.id_income !== '') {
+			return { color: '#1454DC' };
+		} else if (data.id_expense !== '') {
+			return { color: 'crimson' };
+		} else {
+			return { color: 'white' };
+		};
 	};
 
 	const handleEditModal = (item) => {
@@ -83,59 +98,42 @@ const TransactionTable = () => {
 		};
 	};
 
-	const Render = ({ title, data }) => {
+	const Render = ({ data }) => {
 		return (
-			<>
-				<div className={`id ${title}`}>
+			<div className='id'>
 
-                    <div className="day">{dayDate(data.transaction_time)}</div>
+				<div className="day">{dayDate(data.transaction_time)}</div>
 
-                    <div className="date">{dates(data.transaction_time)}</div>
+				<div className="date">{dates(data.transaction_time)}</div>
 
-                    <div className="category">{
-						data.id_income !== ''
-						? data.income_name
-						: data.id_expense
-						? data.expense_name
-						: data.id_transfer
-						&& `${data.account_name} \u2192 ${data.transfer_name}`
-					}</div>
+				<div className="category">{
+					data.id_income !== ''
+					? data.income_name
+					: data.id_expense
+					? data.expense_name
+					: data.id_transfer
+					&& `${data.account_name} \u2192 ${data.transfer_name}`
+				}</div>
 
-                    <div className="note">{data.transaction_note}</div>
+				<div className="note">{data.transaction_note}</div>
 
-                    <div className="amount">Rp {data.transaction_amount.toLocaleString()},-</div>
+				<div className="amount" style={handleColor(data)}>Rp {data.transaction_amount.toLocaleString()},-</div>
 
-                    <div className="account">
-						{(data.id_income !== '' || data.id_expense !== '') && data.account_name}
-					</div>
+				<div className="account">
+					{(data.id_income !== '' || data.id_expense !== '') && data.account_name}
+				</div>
 
-                    <div className="edit-wrapper">
-                        <button className="edit-btn" onClick={() => handleEditModal(data)}>Edit</button>
-                    </div>
+				<button className="edit" onClick={() => handleEditModal(data)}>Edit</button>
 
-                    <div className="del-wrapper">
-                        <button className="del-btn" onClick={() => handleDelete(data.transaction_id)}>Delete</button>
-                    </div>
-                </div>
-
-                <div className="space"></div>
-			</>
+				<button className="delete" onClick={() => handleDelete(data.transaction_id)}>Delete</button>
+			</div>
 		);
 	};
 
 	return (
-		<div className="table">
+		<div className="card">
 			<div className="data">
-				{transactions ? transactions.map(item => {
-					return(
-						item.id_income !== ''
-						? <Render title="income" data={item} key={item.transaction_id} />
-						: item.id_expense !== ''
-						? <Render title="expense" data={item} key={item.transaction_id} />
-						: item.id_transfer !== ''
-						&& <Render title="transfer" data={item} key={item.transaction_id} />
-					);
-				})
+				{transactions ? transactions.map(item => <Render data={item} key={item.transaction_id} />)
 				: <div className='no-data'>No Data</div>}
 			</div>
 		</div>

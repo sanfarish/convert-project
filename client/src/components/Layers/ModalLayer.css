@@ -1,0 +1,14 @@
+.modal-layer {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    backdrop-filter: none;
+    transition:
+    opacity 0s ease-in-out 200ms,
+    top 0s ease-in-out 200ms, 
+    backdrop-filter 200ms ease-in;
+}

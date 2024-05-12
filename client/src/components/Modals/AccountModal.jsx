@@ -1,5 +1,6 @@
 import { useContext } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
+import { DataContext } from '../../context/DataContext';
+import './AccountModal.css';
 
 const AccountModal = () => {
 
@@ -10,19 +11,16 @@ const AccountModal = () => {
 		setModal,
 		modalType,
 		modalAdd,
-		modalForm,
 		modalInput,
 		setModalInput,
 		setLoad,
 		getAccounts,
 		postAccount,
 		putAccount
-	} = useContext(GlobalContext);
+	} = useContext(DataContext);
 	const styleModal = {
-		opacity: '1',
 		top: '50%',
-		transform: 'translate(-50%, -50%) scale(1)',
-		transition: 'opacity 0.2s ease-in-out, top 0s ease-in-out, transform 0.2s ease-in-out'
+        transition: 'top 400ms ease-out'
 	};
 
 	const handleSubmit = async (e) => {
@@ -57,7 +55,7 @@ const AccountModal = () => {
 	};
 
 	return (
-		<div className='modal' style={(modal && (modalType === 'accounts')) ? styleModal : {}}>
+		<div className='modal acc' style={(modal && (modalType === 'accounts')) ? styleModal : {}}>
 
 			<button onClick={() => setModal(false)}>{'\u2716'}</button>
 
@@ -78,17 +76,7 @@ const AccountModal = () => {
 					/>
 				</label>
 
-				<button
-				type='submit'
-					style={
-						modalForm === 'plus'
-						? {backgroundColor: '#1999FC'}
-						: modalForm === 'minus'
-						? {backgroundColor: '#FF6255'}
-						: modalForm === 'empty'
-						&& {backgroundColor: '#888888'}
-					}
-				>{modalAdd ? 'Add' : 'Save'}</button>
+				<button type='submit'>{modalAdd ? 'Add' : 'Save'}</button>
 			</form>
 		</div>
 	);

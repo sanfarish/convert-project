@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
+import { DataContext } from '../../context/DataContext';
+import './AccountSum.css';
 
 const AccountSum = () => {
 
-	const { accounts } = useContext(GlobalContext);
+	const { accounts } = useContext(DataContext);
 	const [assets, setAssets] = useState(0);
 	const [liabilities, setLiabilities] = useState(0);
 
@@ -20,17 +21,17 @@ const AccountSum = () => {
 	}, [accounts]);
 
 	return (
-		<div className="summary">
-			<div className="sum-in">
-				Assets
+		<div className="card">
+			<div className="sum">
+				<span>Assets</span>
 				<span>Rp {assets.toLocaleString()},-</span>
 			</div>
-			<div className="sum-out">
-				Liabilities
+			<div className="sum">
+				<span>Liabilities</span>
 				<span>Rp {liabilities.toLocaleString()},-</span>
 			</div>
-			<div>
-				Total
+			<div className='sum'>
+				<span>Total</span>
 				<span>Rp {(assets - liabilities).toLocaleString()},-</span>
 			</div>
 		</div>
