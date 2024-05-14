@@ -6,7 +6,6 @@ const TransactionAdd = () => {
 
 	const {
 		setModal,
-		setModalType,
 		setModalAdd,
 		setModalForm,
 		modalInput,
@@ -23,7 +22,6 @@ const TransactionAdd = () => {
 
 	const handleAdd = () => {
 		setModal(true);
-		setModalType('transactions');
 		setModalAdd(true);
 		setModalForm('minus');
 		setModalInput({

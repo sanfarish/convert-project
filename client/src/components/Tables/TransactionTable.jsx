@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { DataContext } from '../../context/DataContext';
 import './TransactionTable.css';
 
@@ -9,7 +9,6 @@ const TransactionTable = () => {
 		transactions,
 		setTransactions,
 		setModal,
-		setModalType,
 		setModalAdd,
 		setModalForm,
 		modalInput,
@@ -61,7 +60,6 @@ const TransactionTable = () => {
 
 	const handleEditModal = (item) => {
 		setModal(true);
-		setModalType('transactions');
 		setModalAdd(false);
 		setModalForm(item.id_income !== '' ? 'plus' : item.id_expense !== '' ? 'minus' : item.id_transfer !== '' && 'empty');
 		setModalInput({

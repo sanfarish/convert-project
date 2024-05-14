@@ -1,3 +1,4 @@
+const user = require('../models/users');
 const expense = require('../models/expenses');
 const income = require('../models/incomes');
 const account = require('../models/accounts');
@@ -34,6 +35,12 @@ exports.emptyTransaction = (body) => {
 		|| Number(body.transaction_amount) % 1 !== 0
 		|| isNaN(Number(body.transaction_amount))
 	);
+};
+
+exports.emptyUserId = async (userid) => {
+	const res = await user.findByID(userid);
+	const data = res.some(item => item.user_id === id);
+	return data;
 };
 
 exports.emptyExpenseId = async (userid, id) => {

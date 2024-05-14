@@ -73,7 +73,7 @@
 	letter-spacing: 0.3ch;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 805px) {
 
 	.navbar {
 		height: 5rem;
@@ -100,5 +100,15 @@
 	.link-text {
 		margin-top: 0.5rem;
 		font-size: 0.8rem;
+	}
+}
+
+@media only screen and (max-width: 425px) {
+	.nav-link i {
+		font-size: x-large;
+	}
+
+	.link-text {
+		font-size: 0.6rem;
 	}
 }

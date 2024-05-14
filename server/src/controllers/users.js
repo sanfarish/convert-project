@@ -1,19 +1,19 @@
 const users = require('../models/users');
 const { deleteUserData } = require('../utils/deleteRules');
+const { emptyUserId } = require('../utils/emptyRules');
 const { catchError } = require('../utils/errorCatch');
-
-// development only
-exports.getUsers = async (req, res) => {
-	try {
-		const data = await users.findAll();
-		res.status(200).send(data);
-	} catch (err) {catchError(err, res)};
-};
 
 exports.getUser = async (req, res) => {
 	try {
-		const data = await users.findByID(req.userid);
-		res.status(200).send(data[0]);
+		const idCheck = await emptyUserId(req.userid)
+		if (!idCheck) {
+			res.status(400).json({
+				message: 'There are no user data with requested id!'
+			});
+		} else {
+			const data = await users.findByID(req.userid);
+			res.status(200).send(data[0]);
+		};
 	} catch (err) {catchError(err, res)};
 };
 

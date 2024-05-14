@@ -27,3 +27,32 @@
         }
     }
 }
+
+@media only screen and (max-width: 805px) {
+    .accounts {
+        .card:nth-child(3) {
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .accounts {
+        .card:nth-child(3) {
+            * {
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .accounts {
+        .card:nth-child(3) {
+            * {
+                font-size: 0.8rem;
+            }
+        }
+    }
+}

@@ -6,7 +6,6 @@ const IncomeAdd = () => {
 
 	const {
 		setModal,
-		setModalType,
 		setModalAdd,
 		setModalForm,
 		modalInput,
@@ -15,7 +14,6 @@ const IncomeAdd = () => {
 
 	const handleAdd = () => {
 		setModal(true);
-		setModalType('category');
 		setModalAdd(true);
 		setModalForm('plus');
 		setModalInput({...modalInput, income_name: ''});

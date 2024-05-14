@@ -1,0 +1,366 @@
+.modal.tra {
+
+    background: rgb(10, 10, 10);
+    width: 90%;
+    min-width: 234px;
+    max-width: 550px;
+    border-radius: 5px;
+    box-shadow: 0 0 8px 0 white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    * {
+        font-size: 1.2rem;
+        letter-spacing: 0.1ch;
+    }
+
+    > button {
+        background: rgb(40, 40, 40);
+        color: white;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        height: 30px;
+        width: 30px;
+        padding: 0 0 2px 2px;
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 200ms ease;
+    }
+
+    > button:hover {
+        background: black;
+        color: crimson;
+        transition: all 200ms ease;
+    }
+
+    .form-header {
+        width: 80%;
+        font-size: 1.5rem;
+        padding: 1.5rem 0 0.5rem 0;
+        display: flex;
+        justify-content: space-between;
+
+        > button {
+            background: rgb(10, 10, 10);
+            color: white;
+            width: 7.5rem;
+            padding: 1rem 0 1rem 0;
+            border: 2px dashed white;
+            transition: background 200ms ease;
+        }
+
+        > button:hover {
+            padding-top: calc(1rem + 2px);
+            padding-bottom: calc(1rem + 2px);
+            border: none;
+            cursor: pointer;
+            transition: background 200ms ease;
+        }
+
+        .form-plus:hover {
+            background: #1454DC;
+        }
+
+        > .form-plus.active {
+            background: #1454DC;
+            color: white;
+            border: none;
+            padding-top: calc(1rem + 2px);
+            padding-bottom: calc(1rem + 2px);
+        }
+
+        .form-minus:hover {
+            background: crimson;
+        }
+
+        > .form-minus.active {
+            background: crimson;
+            color: white;
+            border: none;
+            padding-top: calc(1rem + 2px);
+            padding-bottom: calc(1rem + 2px);
+        }
+
+        .form-empty:hover {
+            background: white;
+            color: black;
+        }
+
+        > .form-empty.active {
+            background: white;
+            color: black;
+            border: none;
+            padding-top: calc(1rem + 2px);
+            padding-bottom: calc(1rem + 2px);
+        }
+    }
+
+    form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        > label {
+            height: 2rem;
+            width: 80%;
+            margin: 0.5rem 0 0.5rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+
+            input, select {
+                height: 100%;
+                width: 65%;
+            }
+
+            input {
+                padding: 0 0.5 0 0.5rem;
+            }
+        }
+
+        > button {
+            background: rgb(10, 10, 10);
+            color: white;
+            position: absolute;
+            bottom: 1.5rem;
+            padding: 0.8rem;
+            border: 2px dashed white;
+            border-radius: 2px;
+            transition: background 200ms ease;
+        }
+
+        > button:hover {
+            background: #1454DC;
+            padding: calc(0.8rem + 2px);
+            border: none;
+            cursor: pointer;
+            transition: background 200ms ease;
+        }
+
+    }
+
+    .bill-input {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+
+        label {
+            width: 100%;
+            margin: 0.5rem 0 0.5rem 0;
+            text-wrap: nowrap;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+
+            input {
+                height: 100%;
+                width: 65%;
+            }
+        }
+
+        > button {
+            background: rgb(10, 10, 10);
+            color: white;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            margin-bottom: calc(5.3rem + 4px);
+            border: 2px dashed white;
+            border-radius: 2px;
+            transition: background 200ms ease;
+        }
+
+        > button:hover {
+            background: crimson;
+            padding: calc(0.5rem + 2px);
+            border: none;
+            cursor: pointer;
+            transition: background 200ms ease;
+        }
+    }
+
+    .bill-handle {
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+
+        > button {
+            background: rgb(10, 10, 10);
+            color: white;
+            width: 40%;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            margin-bottom: calc(5.3rem + 4px);
+            border: 2px dashed white;
+            border-radius: 2px;
+            transition: background 200ms ease;
+        }
+
+        > button:hover {
+            padding: calc(0.5rem + 2px);
+            border: none;
+            cursor: pointer;
+            transition: background 200ms ease;
+        }
+
+        > button:first-child:hover {
+            background: crimson;
+        }
+
+        > button:last-child:hover {
+            background: #1454DC;
+        }
+    }
+
+    .bill-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(1px) brightness(0.5);
+
+        > button {
+            background: rgb(40, 40, 40);
+            color: white;
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            height: 30px;
+            width: 30px;
+            padding: 0 0 2px 2px;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 200ms ease;
+        }
+
+        > button:hover {
+            background: black;
+            color: crimson;
+            transition: all 200ms ease;
+        }
+
+        img {
+            max-height: 500px;
+            max-width: 500px;
+        }
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .modal.tra {
+
+        * {
+            font-size: 1rem;
+        }
+
+        > button {
+            height: 25px;
+            width: 25px;
+        }
+
+        .form-header {
+            > button {
+                width: 5.5rem;
+                padding: 0.5rem 0 0.5rem 0;
+            }
+
+            > button:hover {
+                padding-top: calc(0.5rem + 2px);
+                padding-bottom: calc(0.5rem + 2px);
+            }
+
+            .form-plus.active {
+                padding-top: calc(0.5rem + 2px);
+                padding-bottom: calc(0.5rem + 2px);
+            }
+
+            .form-minus.active {
+                padding-top: calc(0.5rem + 2px);
+                padding-bottom: calc(0.5rem + 2px);
+            }
+
+            .form-empty.active {
+                padding-top: calc(0.5rem + 2px);
+                padding-bottom: calc(0.5rem + 2px);
+            }
+        }
+
+        form {
+            label {
+                input, select {
+                    height: 70%;
+                    padding: 0 0.2rem 0 0.2rem;
+                }
+            }
+        }
+
+        .bill-input {
+            label {
+                input {
+                    height: 70%;
+                }
+            }
+        }
+
+        .bill-handle {
+            > button {
+                width: 49%;
+                padding: 0.2rem;
+            }
+        }
+
+        .bill-image {
+            img {
+                max-height: 300px;
+                max-width: 300px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .modal.tra {
+        .form-header {
+            > button {
+                width: 4.5rem;
+            }
+        }
+
+        > button {
+            height: 20px;
+            width: 20px;
+        }
+
+        form {
+            label {
+                input, select {
+                    width: 55%;
+                }
+            }
+        }
+
+        .bill-input {
+            label {
+                input {
+                    width: 55%;
+                }
+            }
+        }
+    }
+    
+}

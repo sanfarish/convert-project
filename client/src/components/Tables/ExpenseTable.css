@@ -2,10 +2,12 @@
 
     .card:nth-child(3) {
         grid-area: expenseTable;
+        display: flex;
+        flex-direction: column;
 
         > span {
-            height: 5rem;
             width: 100%;
+            padding: 1rem 0;
             font-size: 1.5rem;
             letter-spacing: 0.2ch;
             display: flex;
@@ -14,7 +16,6 @@
         }
 
         .data {
-            max-height: calc(100% - 5rem);
             width: 100%;
             border-radius: 0 0 5px 5px;
             overflow-y: scroll;
@@ -82,6 +83,26 @@
 
         .delete:hover {
             color: crimson;
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .categories {
+        .card:nth-child(3) {
+            > span {
+                padding: 0.5rem 0;
+                font-size: 1rem;
+            }
+
+            .id {
+                height: 4rem;
+                font-size: 0.8rem;
+            }
+
+            .edit, .delete {
+                font-size: 0.8rem;
+            }
         }
     }
 }

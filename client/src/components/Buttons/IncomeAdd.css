@@ -1,7 +1,9 @@
 .categories {
+
     .card:nth-child(2) {
         grid-area: incomeButton;
         color: white;
+        padding: 0.8rem;
         border-radius: 5px;
         font-size: 1.2rem;
         letter-spacing: 0.1ch;
@@ -19,12 +21,12 @@
         cursor: pointer;
         transition: background 200ms ease ;
     }
+}
 
-    @media only screen and (max-width: 768px) {
+@media only screen and (max-width: 450px) {
+    .categories {
         .card:nth-child(2) {
-            button {
-                font-size: 0.9rem;
-            }
+            font-size: 0.8rem;
         }
     }
 }

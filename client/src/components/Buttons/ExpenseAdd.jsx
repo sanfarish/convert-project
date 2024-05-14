@@ -6,7 +6,6 @@ const ExpenseAdd = () => {
 
 	const {
 		setModal,
-		setModalType,
 		setModalAdd,
 		setModalForm,
 		modalInput,
@@ -15,7 +14,6 @@ const ExpenseAdd = () => {
 
 	const handleAdd = () => {
 		setModal(true);
-		setModalType('category');
 		setModalAdd(true);
 		setModalForm('minus');
 		setModalInput({...modalInput, expense_name: ''});

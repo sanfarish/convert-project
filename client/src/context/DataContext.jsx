@@ -9,13 +9,12 @@ const DataContext = createContext();
 const DataContextProvider = (props) => {
 
 	const [token, setToken] = useState(localStorage.getItem('accessToken'));
-	const [page, setPage] = useState('trans') // 'trans' / 'acc' / 'cat'
+	const [user, setUser] = useState({});
 	const [expenses, setExpenses] = useState([]);
 	const [incomes, setIncomes] = useState([]);
 	const [accounts, setAccounts] = useState([]);
 	const [transactions, setTransactions] = useState([]);
 	const [modal, setModal] = useState(false);
-	const [modalType, setModalType] = useState(''); // 'category' / 'accounts' / 'transactions'
 	const [modalAdd, setModalAdd] = useState(true);
 	const [modalForm, setModalForm] = useState('minus'); // 'plus' / 'minus' / 'empty'
 	const [modalInput, setModalInput] = useState({
@@ -41,15 +40,14 @@ const DataContextProvider = (props) => {
 		transaction_image: ''
 	});
 	const inputFile = useRef(null);
-	const [load, setLoad] = useState(false);
 
 	return (
 		<DataContext.Provider
 			value={{
 				token,
 				setToken,
-				page,
-				setPage,
+				user,
+				setUser,
 				expenses,
 				setExpenses,
 				incomes,
@@ -60,8 +58,6 @@ const DataContextProvider = (props) => {
 				setTransactions,
 				modal,
 				setModal,
-				modalType,
-				setModalType,
 				modalAdd,
 				setModalAdd,
 				modalForm,
@@ -69,8 +65,6 @@ const DataContextProvider = (props) => {
 				modalInput,
 				setModalInput,
 				inputFile,
-				load,
-				setLoad,
 				deleteExpense,
 				getExpenses,
 				postExpense,

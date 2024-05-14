@@ -1,9 +1,11 @@
-import React from 'react';
+import { useEffect } from 'react';
 import LoginModal from '../components/Modals/LoginModal';
-// import '../css/login/landing.css';
-// import '../css/login/modal.css';
 
 const Login = () => {
+
+	useEffect(() => {
+		document.title = 'Login | Expense Manager';
+	}, []);
 
 	return (
 		<div className='login'>

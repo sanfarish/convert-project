@@ -9,7 +9,6 @@ const AccountTable = () => {
 		accounts,
 		setAccounts,
 		setModal,
-		setModalType,
 		setModalAdd,
 		setModalForm,
 		modalInput,
@@ -41,7 +40,6 @@ const AccountTable = () => {
 
 	const handleEditModal = (id, name, bal) => {
 		setModal(true);
-		setModalType('accounts');
 		setModalAdd(false);
 		setModalForm(bal > 0 ? 'plus' : bal < 0 ? 'minus' : 'empty');
 		setModalInput({...modalInput, account_id: id, account_name: name});

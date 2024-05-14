@@ -41,7 +41,7 @@
 	margin-left: 1rem;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 805px) {
 
 	.head {
 		width: 100vw;
@@ -62,5 +62,25 @@
 
 	.user-avatar {
 		width: 3rem;
+	}
+}
+
+@media only screen and (max-width: 425px) {
+	.head-title {
+		padding: 0 1rem;
+		font-size: 1.2rem;
+	}
+
+	.head-user {
+		padding: 0 1rem;
+		max-width: 7.2rem;
+	}
+
+	.user-name {
+		font-size: 0.9rem;
+	}
+
+	.user-avatar {
+		width: 2rem;
 	}
 }

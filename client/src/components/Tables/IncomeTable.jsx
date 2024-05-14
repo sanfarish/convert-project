@@ -9,7 +9,6 @@ const IncomeTable = () => {
 		incomes,
 		setIncomes,
 		setModal,
-		setModalType,
 		setModalAdd,
 		setModalForm,
 		modalInput,
@@ -31,7 +30,6 @@ const IncomeTable = () => {
 
 	const handleEditModal = (id, name) => {
 		setModal(true);
-		setModalType('category');
 		setModalAdd(false);
 		setModalForm('plus');
 		setModalInput({...modalInput, income_id: id, income_name: name});

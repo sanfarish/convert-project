@@ -35,4 +35,4 @@ app.use('/api/v1', dataRoute);
 app.use(notFound);
 
 const port = process.env.PORT || 3500;
-app.listen(port, process.env.HOST || 'localhost', () => console.log("Expense Manager API Server running on port", port));
+app.listen(port, () => console.log("Expense Manager API Server running on port", port));

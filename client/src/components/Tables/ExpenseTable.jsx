@@ -9,7 +9,6 @@ const ExpenseTable = () => {
 		expenses,
 		setExpenses,
 		setModal,
-		setModalType,
 		setModalAdd,
 		setModalForm,
 		modalInput,
@@ -31,7 +30,6 @@ const ExpenseTable = () => {
 
 	const handleEditModal = (id, name) => {
 		setModal(true);
-		setModalType('category');
 		setModalAdd(false);
 		setModalForm('minus');
 		setModalInput({...modalInput, expense_id: id, expense_name: name});

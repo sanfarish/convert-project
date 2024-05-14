@@ -3,6 +3,7 @@
     .card:nth-child(2) {
         grid-area: button;
         color: white;
+        padding: 0.8rem;
         border-radius: 5px;
         font-size: 1.2rem;
         letter-spacing: 0.1ch;
@@ -20,12 +21,35 @@
         cursor: pointer;
         transition: background 200ms ease ;
     }
+}
 
-    @media only screen and (max-width: 768px) {
+@media only screen and (max-width: 805px) {
+    .transactions {
+
         .card:nth-child(2) {
-            button {
-                font-size: 0.9rem;
-            }
+            position: fixed;
+            bottom: 6rem;
+            right: 2rem;
+        }
+
+        .card:nth-child(2):hover {
+            padding: calc(0.8rem + 2px);
+        }
+    }
+}
+
+@media only screen and (max-width: 505px) {
+    .transactions {
+        .card:nth-child(2) {
+            font-size: 0.8rem;
+        }
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .transactions {
+        .card:nth-child(2) {
+            font-size: 0.6rem;
         }
     }
 }

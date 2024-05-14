@@ -9,6 +9,7 @@ import Transactions from "./pages/Transactions";
 import Accounts from "./pages/Accounts";
 import Categories from "./pages/Categories";
 import DashboardRoute from "./routes/DashboardRoute";
+import { GlobalContextProvider } from "./context/GlobalContext";
 
 const App = () => {
 	return (
@@ -18,18 +19,21 @@ const App = () => {
 
 				<Route path="/" element={ <Navigate to='/login' /> } />
 
-				<Route element={ <AuthContextProvider> <Outlet /> </AuthContextProvider> }>
-					<Route path="/login" element={ <Login /> } />
-					<Route path="/register" element={ <Register /> } />
-				</Route>
+				<Route element={<GlobalContextProvider> <Outlet /> </GlobalContextProvider>}>
 
-				<Route element={ <DataContextProvider> <PrivateRoute /> </DataContextProvider> }>
+					<Route element={ <AuthContextProvider> <Outlet /> </AuthContextProvider> }>
+						<Route path="/login" element={ <Login /> } />
+						<Route path="/register" element={ <Register /> } />
+					</Route>
 
-					<Route element={ <DashboardRoute /> }>
+					<Route element={ <DataContextProvider> <PrivateRoute /> </DataContextProvider> }>
 
-						<Route path="/transactions" element={ <Transactions /> } />
-						<Route path="/accounts" element={ <Accounts /> } />
-						<Route path="/categories" element={ <Categories /> } />
+						<Route element={ <DashboardRoute /> }>
+
+							<Route path="/transactions" element={ <Transactions /> } />
+							<Route path="/accounts" element={ <Accounts /> } />
+							<Route path="/categories" element={ <Categories /> } />
+						</Route>
 					</Route>
 				</Route>
 			</Routes>

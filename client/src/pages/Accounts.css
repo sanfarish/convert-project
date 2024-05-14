@@ -7,3 +7,13 @@
     'table summary';
     gap: 1.5rem;
 }
+
+@media only screen and (max-width: 805px) {
+    .accounts {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 5fr;
+        grid-template-areas:
+        'summary'
+        'table';
+    }
+}

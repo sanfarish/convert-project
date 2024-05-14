@@ -6,7 +6,6 @@ const AccountAdd = () => {
 
 	const {
 		setModal,
-		setModalType,
 		setModalAdd,
 		setModalForm,
 		modalInput,
@@ -15,7 +14,6 @@ const AccountAdd = () => {
 
 	const handleAdd = () => {
 		setModal(true);
-		setModalType('accounts');
 		setModalAdd(true);
 		setModalForm('empty');
 		setModalInput({...modalInput, account_name: ''});

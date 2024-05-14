@@ -20,6 +20,7 @@
         }
 
         .id {
+            background: rgb(30, 30, 30);
             width: 100%;
             height: 5rem;
             margin-bottom: 0.5rem;
@@ -37,7 +38,6 @@
 
         .name {
             grid-area: name;
-            background: rgb(30, 30, 30);
             letter-spacing: 0.1ch;
             padding: 1rem;
             display: flex;
@@ -82,6 +82,71 @@
 
         .delete:hover {
             color: crimson;
+        }
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .accounts {
+        .card:nth-child(1) {
+            .id:last-child {
+                margin-bottom: 3rem;
+            }
+        }
+
+    }
+}
+
+@media only screen and (max-width: 505px) {
+    .accounts {
+        .card:nth-child(1) {
+            * {
+                font-size: 0.8rem;
+            }
+
+            .id {
+                height: 4rem;
+            }
+
+            .edit, .delete {
+                font-size: 0.8rem;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .accounts {
+        .card:nth-child(1) {
+            * {
+                font-size: 0.6rem;
+            }
+
+            .id {
+                height: 3rem;
+            }
+
+            .edit, .delete {
+                font-size: 0.6rem;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .accounts {
+        .card:nth-child(1) {
+            * {
+                font-size: 0.4rem;
+            }
+
+            .id {
+                height: 2rem;
+            }
+
+            .edit, .delete {
+                font-size: 0.4rem;
+            }
         }
     }
 }

@@ -1,8 +1,11 @@
 import { useContext, useState } from 'react';
+import { GlobalContext } from '../../context/GlobalContext';
 import { DataContext } from '../../context/DataContext';
 import './CategoryModal.css';
 
 const CategoryModal = () => {
+
+	const { setLoad } = useContext(GlobalContext);
 
 	const {
 		token,
@@ -10,12 +13,10 @@ const CategoryModal = () => {
 		setExpenses,
 		modal,
 		setModal,
-		modalType,
 		modalAdd,
 		modalForm,
 		modalInput,
 		setModalInput,
-		setLoad,
 		getIncomes,
 		getExpenses,
 		postIncome,
@@ -97,7 +98,7 @@ const CategoryModal = () => {
 	};
 
 	return (
-		<div className='modal cat' style={(modal && (modalType === 'category')) ? styleModal : {}}>
+		<div className='modal cat' style={modal ? styleModal : {}}>
 
 			<button onClick={() => setModal(false)}>{'\u2716'}</button>
 

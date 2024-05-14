@@ -1,8 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
+import { GlobalContext } from '../../context/GlobalContext';
 import { DataContext } from '../../context/DataContext';
 import './TransactionModal.css';
 
 const TransactionModal = () => {
+
+	const { setLoad } = useContext(GlobalContext);
 
 	const {
 		token,
@@ -15,14 +18,12 @@ const TransactionModal = () => {
 		setExpenses,
 		modal,
 		setModal,
-		modalType,
 		modalAdd,
 		modalForm,
 		setModalForm,
 		modalInput,
 		setModalInput,
 		inputFile,
-		setLoad,
 		getTransactions,
 		postTransaction,
 		putTransaction,
@@ -32,10 +33,8 @@ const TransactionModal = () => {
 	} = useContext(DataContext);
 	const [viewBill, setViewBill] = useState(false);
 	const styleModal = {
-		opacity: '1',
 		top: '50%',
-		transform: 'translate(-50%, -50%) scale(1)',
-		transition: 'opacity 0.2s ease-in-out, top 0s ease-in-out, transform 0.2s ease-in-out'
+        transition: 'top 400ms ease-out'
 	};
 
 	useEffect(() => {
@@ -111,34 +110,34 @@ const TransactionModal = () => {
 	};
 
 	return (
-		<div className='modal' style={(modal && (modalType === 'transactions')) ? styleModal : {}}>
+		<div className='modal tra' style={modal ? styleModal : {}}>
 
 			<button onClick={() => setModal(false)}>{'\u2716'}</button>
 
 			<div className='form-header'>
 				<button
+					className={`form-plus ${modalForm === 'plus' && 'active'}`}
 					onClick={() => {
 						setModalForm('plus');
 						modalInput.id_expense = '';
 						modalInput.id_transfer = '';
 					}}
-					style={modalForm === 'plus' ? {backgroundColor: '#1999FC'} : {}}
 				>Income</button>
 				<button
+					className={`form-minus ${modalForm === 'minus' && 'active'}`}
 					onClick={() => {
 						setModalForm('minus');
 						modalInput.id_income = '';
 						modalInput.id_transfer = '';
 					}}
-					style={modalForm === 'minus' ? {backgroundColor: '#FF6255'} : {}}
 					>Expense</button>
 				<button
+					className={`form-empty ${modalForm === 'empty' && 'active'}`}
 					onClick={() => {
 						setModalForm('empty');
 						modalInput.id_income = '';
 						modalInput.id_expense = '';
 					}}
-					style={modalForm === 'empty' ? {backgroundColor: 'white', color: 'black'} : {}}
 				>Transfer</button>
 			</div>
 
@@ -247,17 +246,7 @@ const TransactionModal = () => {
 					/>
 				</label>
 
-				<button
-					type='submit'
-					style={
-						modalForm === 'plus'
-						? {backgroundColor: '#1999FC'}
-						: modalForm === 'minus'
-						? {backgroundColor: '#FF6255'}
-						: modalForm === 'empty'
-						&& {backgroundColor: '#888888'}
-					}
-				>{modalAdd ? 'Add' : 'Save'}</button>
+				<button type='submit' >{modalAdd ? 'Add' : 'Save'}</button>
 			</form>
 
 			{modalInput.transaction_image === '' && (
@@ -277,7 +266,7 @@ const TransactionModal = () => {
 
 			{modalInput.transaction_image !== '' &&
 				<div className='bill-handle'>
-					<button type="button" onClick={handleDeleteBill}>Delete/Change uploaded bill</button>
+					<button type="button" onClick={handleDeleteBill}>Delete / Change uploaded bill</button>
 					<button type="button" onClick={() => setViewBill(true)}>View uploaded bill</button>
 				</div>
 			}
@@ -285,7 +274,9 @@ const TransactionModal = () => {
 			{viewBill === true &&
 				<div className='bill-image'>
 					<button type="button" onClick={() => setViewBill(false)}>{'\u2716'}</button>
-					<img src={modalInput.transaction_image} height='500px' alt='bill' />
+					<a href={modalInput.transaction_image}>
+						<img src={modalInput.transaction_image} alt='bill' />
+					</a>
 				</div>
 			}
 		</div>

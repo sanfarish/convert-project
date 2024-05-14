@@ -1,19 +1,20 @@
 import { useContext } from 'react';
+import { GlobalContext } from '../../context/GlobalContext';
 import { DataContext } from '../../context/DataContext';
 import './AccountModal.css';
 
 const AccountModal = () => {
+
+	const { setLoad } = useContext(GlobalContext);
 
 	const {
 		token,
 		setAccounts,
 		modal,
 		setModal,
-		modalType,
 		modalAdd,
 		modalInput,
 		setModalInput,
-		setLoad,
 		getAccounts,
 		postAccount,
 		putAccount
@@ -55,7 +56,7 @@ const AccountModal = () => {
 	};
 
 	return (
-		<div className='modal acc' style={(modal && (modalType === 'accounts')) ? styleModal : {}}>
+		<div className='modal acc' style={modal ? styleModal : {}}>
 
 			<button onClick={() => setModal(false)}>{'\u2716'}</button>
 
