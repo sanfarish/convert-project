@@ -1,14 +1,16 @@
-import { act, render, screen } from '@testing-library/react';
-import { BrowserRouter, Navigate, Outlet, Route, Routes } from "react-router-dom";
+import { expect, it, vi } from 'vitest';
+import { render } from '@testing-library/react';
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { DataContextProvider } from "../../context/DataContext";
 import { GlobalContextProvider } from "../../context/GlobalContext";
 import '@testing-library/jest-dom';
-
 import Header from '../Header';
 
-jest.mock('axios', () => {
+vi.mock('axios', async (importOriginal) => {
+	const actual = await importOriginal();
 	return {
-		create: jest.fn(() => {
+		...actual,
+		create: vi.fn(() => {
 		})
 	};
 });
