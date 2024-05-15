@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
 import { DataContext } from '../../context/DataContext';
+import { message } from 'antd';
 import './TransactionModal.css';
 
 const TransactionModal = () => {
@@ -80,11 +81,12 @@ const TransactionModal = () => {
 			};
 			const res = await postTransaction(formTrans, token);
 			if (res.response) {
-				alert(res.response.data.message);
+				message.error(res.response.data.message);
 				setLoad(false);
 			} else {
 				const data = await getTransactions(token);
 				setTransactions(data);
+				message.success('New transaction is posted!');
 				setLoad(false);
 				setModal(false);
 			};
@@ -96,11 +98,12 @@ const TransactionModal = () => {
 			};
 			const res = await putTransaction(modalInput.transaction_id, formTrans, token);
 			if (res.response) {
-				alert(res.response.data.message);
+				message.error(res.response.data.message);
 				setLoad(false);
 			} else {
 				const data = await getTransactions(token);
 				setTransactions(data);
+				message.success('Transaction successfully updated');
 				setLoad(false);
 				setModal(false);
 			};

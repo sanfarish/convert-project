@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../context/GlobalContext';
 import { AuthContext } from '../../context/AuthContext';
+import { message } from 'antd';
 import './LoginModal.css';
 
 const LoginModal = () => {
@@ -19,9 +20,10 @@ const LoginModal = () => {
 
 		if (res.response) {
 			setLoad(false);
-			alert (res.response.data.message);
+			message.error(res.response.data.message);
 		} else {
 			localStorage.setItem('accessToken', res.data.data.accessToken);
+			message.success('Login successfully!');
 			setLoad(false);
 			navigate('/transactions');
 		};

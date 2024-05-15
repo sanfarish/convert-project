@@ -16,7 +16,7 @@ exports.createExpense = async (req, res) => {
 		const emptyCheck = emptyName(req.body.expense_name);
 		if (emptyCheck) {
 			res.status(400).json({
-				message: 'please fill required input with appropriate value'
+				message: 'Please fill all the required fields!'
 			});
 		} else {
 			const body = { expense_id: crypto.randomUUID(), id_user: req.userid, expense_name: req.body.expense_name };
@@ -42,14 +42,14 @@ exports.updateExpense = async (req, res) => {
 		const idCheck = await emptyExpenseId(req.userid, req.params.id);
 		if (!idCheck) {
 			res.status(400).json({
-				message: 'there are no expense data with requested id',
+				message: 'No expense with requested id!',
 				data: req.params.id
 			});
 		} else {
 			const emptyCheck = emptyName(req.body.expense_name);
 			if (emptyCheck) {
 				res.status(400).json({
-					message: 'please fill required input with appropriate value'
+					message: 'Please fill all the required fields!'
 				});
 			} else {
 				const body = { expense_name: req.body.expense_name };
@@ -76,7 +76,7 @@ exports.deleteExpense = async (req, res) => {
 		const idCheck = await emptyExpenseId(req.userid, req.params.id);
 		if (!idCheck) {
 			res.status(400).json({
-				message: 'there are no expense data with requested id',
+				message: 'No expense with requested id!',
 				data: req.params.id
 			});
 		} else {

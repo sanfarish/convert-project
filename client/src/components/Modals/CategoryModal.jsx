@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
 import { DataContext } from '../../context/DataContext';
+import { message } from 'antd';
 import './CategoryModal.css';
 
 const CategoryModal = () => {
@@ -51,44 +52,48 @@ const CategoryModal = () => {
 		if (modalAdd && modalForm === 'plus') {
 			const res = await postIncome(formCategory, token);
 			if (res.response) {
-				alert(res.response.data.message);
+				message.error(res.response.data.message);
 				setLoad(false);
 			} else {
 				const data = await getIncomes(token);
 				setIncomes(data);
+				message.success('New income category added!');
 				setLoad(false);
 				setModal(false);
 			};
 		} else if (modalAdd && modalForm === 'minus') {
 			const res = await postExpense(formCategory, token);
 			if (res.response) {
-				alert(res.response.data.message);
+				message.error(res.response.data.message);
 				setLoad(false);
 			} else {
 				const data = await getExpenses(token);
 				setExpenses(data);
+				message.success('New expense category added!');
 				setLoad(false);
 				setModal(false);
 			};
 		} else if (!modalAdd && modalForm === 'plus') {
 			const res = await putIncome(modalInput.income_id, formCategory, token);
 			if (res.response) {
-				alert(res.response.data.message);
+				message.error(res.response.data.message);
 				setLoad(false);
 			} else {
 				const data = await getIncomes(token);
 				setIncomes(data);
+				message.success('Income category successfully updated!');
 				setLoad(false);
 				setModal(false);
 			};
 		} else if (!modalAdd && modalForm === 'minus') {
 			const res = await putExpense(modalInput.expense_id, formCategory, token);
 			if (res.response) {
-				alert(res.response.data.message);
+				message.error(res.response.data.message);
 				setLoad(false);
 			} else {
 				const data = await getExpenses(token);
 				setExpenses(data);
+				message.success('Expense category successfully updated!');
 				setLoad(false);
 				setModal(false);
 			};

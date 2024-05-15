@@ -7,13 +7,13 @@ exports.register = async (req, res) => {
 	try {
 		if (!req.body.user_name || !req.body.user_email || !req.body.user_password) {
 			res.status(400).json({
-				message: 'please fill required input with appropriate value'
+				message: 'Please fill all the required fields!'
 			});
 		} else {
 			const emailCheck = await emailUser(req.body.user_email);
 			if (emailCheck) {
 				res.status(500).json({
-					message: 'there are already user with that email, register with another email',
+					message: 'This email has already been used!',
 					data: { user_email: req.body.user_email }
 				});
 			} else {
@@ -40,25 +40,25 @@ exports.login = async (req, res) => {
 	try {
 		if (!req.body.user_email || !req.body.user_password) {
 			res.status(400).json({
-				message: 'please fill required input with appropriate value'
+				message: 'Please fill all the required fields!'
 			});
 		} else {
 			const emailCheck = await emailUser(req.body.user_email);
 			if (!emailCheck) {
 				res.status(500).json({
-					message: 'there are no user with that email, register first',
+					message: 'User not found!',
 					data: { user_email: req.body.user_email }
 				});
 			} else {
 				const compare = await comparePassword(req.body.user_email, req.body.user_password);
 				if (!compare) {
 					res.status(400).json({
-						message: 'wrong password'
+						message: 'Password is wrong!'
 					});
 				} else {
 					const accessToken = await buildToken(req.body.user_email);
 					res.status(200).json({
-						message: 'user login successfully',
+						message: 'Successfully logged in!',
 						data: { accessToken }
 					});
 				};

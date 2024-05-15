@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
 import { DataContext } from '../../context/DataContext';
+import { message } from 'antd';
 import './IncomeTable.css';
 
 const IncomeTable = () => {
@@ -39,11 +40,12 @@ const IncomeTable = () => {
 		setLoad(true);
 		const res = await deleteIncome(id, token);
 		if (res.response) {
-			alert(res.response.data.message);
+			message.error(res.response.data.message);
 			setLoad(false);
 		} else {
 			const data = await getIncomes(token);
 			setIncomes(data);
+			message.success('Income category successfully deleted!');
 			setLoad(false);
 			setModal(false);
 		};

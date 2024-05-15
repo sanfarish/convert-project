@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
 import { DataContext } from '../../context/DataContext';
+import { message } from 'antd';
 import './AccountModal.css';
 
 const AccountModal = () => {
@@ -31,11 +32,12 @@ const AccountModal = () => {
 		if (modalAdd) {
 			const res = await postAccount(formAccount, token);
 			if (res.response) {
-				alert(res.response.data.message);
+				message.error(res.response.data.message);
 				setLoad(false);
 			} else {
 				const data = await getAccounts(token);
 				setAccounts(data);
+				message.success('New account added!');
 				setLoad(false);
 				setModal(false);
 			};
@@ -47,6 +49,7 @@ const AccountModal = () => {
 			} else {
 				const data = await getAccounts(token);
 				setAccounts(data);
+				message.success('Account successfully updated!');
 				setLoad(false);
 				setModal(false);
 			};

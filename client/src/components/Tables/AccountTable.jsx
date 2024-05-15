@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
 import { DataContext } from '../../context/DataContext';
+import { message } from 'antd';
 import './AccountTable.css';
 
 const AccountTable = () => {
@@ -49,11 +50,12 @@ const AccountTable = () => {
 		setLoad(true);
 		const res = await deleteAccount(id, token);
 		if (res.response) {
-			alert(res.response.data.message);
+			message.error(res.response.data.message);
 			setLoad(false);
 		} else {
 			const data = await getAccounts(token);
 			setAccounts(data);
+			message.success('Account successfully deleted!');
 			setLoad(false);
 			setModal(false);
 		};

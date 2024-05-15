@@ -16,13 +16,13 @@ exports.createAccount = async (req, res) => {
 		const emptyCheck = emptyName(req.body.account_name);
 		if (emptyCheck) {
 			res.status(400).json({
-				message: 'please fill required input with appropriate value'
+				message: 'Please fill all the required fields!'
 			});
 		} else {
 			const nameCheck = await nameAccount(req.userid, false, req.body.account_name);
 			if (nameCheck) {
 				res.status(500).json({
-					message: 'there are already account with that name, change with another unique name',
+					message: 'This account name is already existed!',
 					data: { account_name: req.body.account_name }
 				});
 			} else {
@@ -47,7 +47,7 @@ exports.updateAccount = async (req, res) => {
 		const idCheck = await emptyAccountId(req.userid, req.params.id);
 		if (!idCheck) {
 			res.status(400).json({
-				message: 'there are no account data with requested id',
+				message: 'No account with requested id!',
 				data: req.params.id
 			});
 		} else {
@@ -55,14 +55,14 @@ exports.updateAccount = async (req, res) => {
 			const emptyCheckBal = emptyBalance(req.body.account_balance);
 			if (emptyCheckName && emptyCheckBal) {
 				res.status(400).json({
-					message: 'please fill required input with appropriate value'
+					message: 'Please fill all the required fields!'
 				});
 			} else if (emptyCheckBal) {
 				const body = { account_name: req.body.account_name };
 				const nameCheck = await nameAccount(req.userid, req.params.id, req.body.account_name);
 				if (nameCheck) {
 					res.status(500).json({
-						message: 'there are already account with that name, change with another unique name',
+						message: 'This account name is already existed!',
 						data: { account_name: body.account_name }
 					});
 				} else {
@@ -81,7 +81,7 @@ exports.updateAccount = async (req, res) => {
 				});
 			} else {
 				res.status(400).json({
-					message: 'only accept http request with one parameter'
+					message: 'Only accept one parameter to update!'
 				});
 			};
 		};
@@ -93,14 +93,14 @@ exports.deleteAccount = async (req, res) => {
 		const idCheck = await emptyAccountId(req.userid, req.params.id);
 		if (!idCheck) {
 			res.status(400).json({
-				message: 'there are no account data with requested id',
+				message: 'No account with requested id!',
 				data: req.params.id
 			});
 		} else {
 			const deleteCheck = await deleteAccount(req.userid, req.params.id);
 			if (deleteCheck) {
 				res.status(500).json({
-					message: 'cannot delete account that is in use on transactions',
+					message: 'Cannot delete account that is in use on transactions!',
 					data: req.params.id
 				});
 			} else {

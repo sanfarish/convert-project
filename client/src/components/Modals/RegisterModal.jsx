@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../context/GlobalContext';
 import { AuthContext } from '../../context/AuthContext';
+import { message } from 'antd';
 import './RegisterModal.css';
 
 const RegisterModal = () => {
@@ -19,9 +20,10 @@ const RegisterModal = () => {
 
 		if (res.message) {
 			setLoad(false);
-			alert (res.response.data.message);
+			message.error(res.response.data.message);
 		} else {
 			alert (res.data.message);
+			message.success ('Registration successed!!');
 			setLoad(false);
 			navigate('/login');
 		};

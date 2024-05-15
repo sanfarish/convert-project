@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { body, check, validationResult } = require('express-validator');
+const { body, validationResult } = require('express-validator');
 const multer = require('multer');
 
 // JWT Authorization

@@ -16,7 +16,7 @@ exports.createIncome = async (req, res) => {
 		const emptyCheck = emptyName(req.body.income_name);
 		if (emptyCheck) {
 			res.status(400).json({
-				message: 'please fill required input with appropriate value'
+				message: 'Please fill all the required fields!'
 			});
 		} else {
 			const body = { income_id: crypto.randomUUID(), id_user: req.userid, income_name: req.body.income_name };
@@ -42,14 +42,14 @@ exports.updateIncome = async (req, res) => {
 		const idCheck = await emptyIncomeId(req.userid, req.params.id);
 		if (!idCheck) {
 			res.status(400).json({
-				message: 'there are no income data with requested id',
+				message: 'No income with requested id!',
 				data: req.params.id
 			});
 		} else {
 			const emptyCheck = emptyName(req.body.income_name);
 			if (emptyCheck) {
 				res.status(400).json({
-					message: 'please fill required input with appropriate value'
+					message: 'Please fill all the required fields!'
 				});
 			} else {
 				const body = { income_name: req.body.income_name };
@@ -76,7 +76,7 @@ exports.deleteIncome = async (req, res) => {
 		const idCheck = await emptyIncomeId(req.userid, req.params.id); 
 		if (!idCheck) {
 			res.status(400).json({
-				message: 'there are no income data with requested id',
+				message: 'No income with requested id!',
 				data: req.params.id
 			});
 		} else {

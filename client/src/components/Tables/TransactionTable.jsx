@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
 import { DataContext } from '../../context/DataContext';
+import { message } from 'antd';
 import './TransactionTable.css';
 
 const TransactionTable = () => {
@@ -86,11 +87,12 @@ const TransactionTable = () => {
 		setLoad(true);
 		const res = await deleteTransaction(id, token);
 		if (res.response) {
-			alert(res.response.data.message);
+			message.error(res.response.data.message);
 			setLoad(false);
 		} else {
 			const data = await getTransactions(token);
 			setTransactions(data);
+			message.success('Transaction successfully deleted!');
 			setLoad(false);
 			setModal(false);
 		};
