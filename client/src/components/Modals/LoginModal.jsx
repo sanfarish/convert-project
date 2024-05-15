@@ -7,7 +7,7 @@ import './LoginModal.css';
 
 const LoginModal = () => {
 
-	const { setLoad } = useContext(GlobalContext);
+	const { setLoad, setToken } = useContext(GlobalContext);
 	const { postLogin } = useContext(AuthContext);
 	const navigate = useNavigate();
 
@@ -23,6 +23,7 @@ const LoginModal = () => {
 			message.error(res.response.data.message);
 		} else {
 			localStorage.setItem('accessToken', res.data.data.accessToken);
+			setToken(localStorage.getItem('accessToken'));
 			message.success('Login successfully!');
 			setLoad(false);
 			navigate('/transactions');

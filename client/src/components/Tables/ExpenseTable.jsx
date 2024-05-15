@@ -22,7 +22,9 @@ const ExpenseTable = () => {
 	useEffect(() => {
 		const getData = async () => {
 			const data = await getExpenses(token);
-			setExpenses(data);
+			if (data) {
+				setExpenses(data);
+			};
 		};
 		getData();
 
@@ -44,7 +46,9 @@ const ExpenseTable = () => {
 			setLoad(false);
 		} else {
 			const data = await getExpenses(token);
-			setExpenses(data);
+			if (data) {
+				setExpenses(data);
+			};
 			message.success('Expense category successfully deleted!');
 			setLoad(false);
 			setModal(false);
@@ -68,7 +72,7 @@ const ExpenseTable = () => {
 		<div className="card">
 			<span>Expense Category</span>
 			<div className="data">
-				{expenses ? expenses.map(item => <Render data={item} key={item.expense_id} />) : <div className='no-data'>No Data</div>}
+				{expenses.length !== 0 ? expenses.map(item => <Render data={item} key={item.expense_id} />) : <div className='no-data'>No Data</div>}
 			</div>
 		</div>
 	);

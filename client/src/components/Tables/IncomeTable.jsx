@@ -22,7 +22,9 @@ const IncomeTable = () => {
 	useEffect(() => {
 		const getData = async () => {
 			const data = await getIncomes(token);
-			setIncomes(data);
+			if (data) {
+				setIncomes(data);
+			};
 		};
 		getData();
 
@@ -44,7 +46,9 @@ const IncomeTable = () => {
 			setLoad(false);
 		} else {
 			const data = await getIncomes(token);
-			setIncomes(data);
+			if (data) {
+				setIncomes(data);
+			};
 			message.success('Income category successfully deleted!');
 			setLoad(false);
 			setModal(false);
@@ -68,7 +72,7 @@ const IncomeTable = () => {
 		<div className="card">
 			<span>Income Category</span>
 			<div className="data">
-				{incomes ? incomes.map(item => <Render data={item} key={item.income_id} />) : <div className='no-data'>No Data</div>}
+				{incomes.length !== 0 ? incomes.map(item => <Render data={item} key={item.income_id} />) : <div className='no-data'>No Data</div>}
 			</div>
 		</div>
 	);

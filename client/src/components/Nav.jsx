@@ -1,10 +1,13 @@
+import { useContext } from 'react';
 import { NavLink, matchPath, useLocation } from 'react-router-dom';
+import { GlobalContext } from '../context/GlobalContext';
 import standard from '../logo-standard.png';
 import small from '../logo-small.png';
 import './Nav.css';
 
 const Nav = () => {
 
+	const { setToken } = useContext(GlobalContext);
 	const location = useLocation();
 	const styleOpened = { backgroundColor: 'black', color: 'crimson' };
 
@@ -18,6 +21,7 @@ const Nav = () => {
 
 	const handleLogout = () => {
 		localStorage.removeItem('accessToken');
+		setToken(localStorage.getItem('accessToken'));
 	};
 
 	return (

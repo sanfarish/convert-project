@@ -3,6 +3,7 @@ import { GlobalContextProvider } from "./context/GlobalContext";
 import { AuthContextProvider } from "./context/AuthContext";
 import { DataContextProvider } from "./context/DataContext";
 import NotFound from "./pages/NotFound";
+import PublicRoute from "./routes/PublicRoute";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import PrivateRoute from "./routes/PrivateRoute";
@@ -21,7 +22,7 @@ const App = () => {
 
 				<Route element={<GlobalContextProvider> <Outlet /> </GlobalContextProvider>}>
 
-					<Route element={ <AuthContextProvider> <Outlet /> </AuthContextProvider> }>
+					<Route element={ <AuthContextProvider> <PublicRoute /> </AuthContextProvider> }>
 						<Route path="/login" element={ <Login /> } />
 						<Route path="/register" element={ <Register /> } />
 					</Route>

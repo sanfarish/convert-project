@@ -41,9 +41,15 @@ const TransactionModal = () => {
 			const expenseData = await getExpenses(token);
 			const incomeData = await getIncomes(token);
 			const accountData = await getAccounts(token);
-			setExpenses(expenseData);
-			setIncomes(incomeData);
-			setAccounts(accountData);
+			if (expenseData) {	
+				setExpenses(expenseData);
+			};
+			if (incomeData) {
+				setIncomes(incomeData);
+			};
+			if (accountData) {
+				setAccounts(accountData);
+			};
 		};
 		getData();
 
@@ -85,7 +91,9 @@ const TransactionModal = () => {
 				setLoad(false);
 			} else {
 				const data = await getTransactions(token);
-				setTransactions(data);
+				if (data) {
+					setTransactions(data);
+				};
 				message.success('New transaction is posted!');
 				setLoad(false);
 				setModal(false);
@@ -102,7 +110,9 @@ const TransactionModal = () => {
 				setLoad(false);
 			} else {
 				const data = await getTransactions(token);
-				setTransactions(data);
+				if (data) {
+					setTransactions(data);
+				};
 				message.success('Transaction successfully updated');
 				setLoad(false);
 				setModal(false);
@@ -164,7 +174,7 @@ const TransactionModal = () => {
 						onChange={e => setModalInput({...modalInput, id_account: e.target.value})}
 					>
 						<option value="">-account-</option>
-						{accounts && accounts.map(item => (
+						{accounts.length !== 0 && accounts.map(item => (
 							item.account_id !== ''
 							&& <option value={item.account_id} key={item.account_id}>{item.account_name}</option>
 						))}
@@ -181,7 +191,7 @@ const TransactionModal = () => {
 							onChange={e => setModalInput({...modalInput, id_income: e.target.value})}
 						>
 							<option value="">-category-</option>
-							{incomes && incomes.map(item => (
+							{incomes.length !== 0 && incomes.map(item => (
 								item.income_id !== ''
 								&& <option value={item.income_id} key={item.income_id}>{item.income_name}</option>
 							))}
@@ -199,7 +209,7 @@ const TransactionModal = () => {
 							onChange={e => setModalInput({...modalInput, id_expense: e.target.value})}
 						>
 							<option value="">-category-</option>
-							{expenses && expenses.map(item => (
+							{expenses.length !== 0 && expenses.map(item => (
 								item.expense_id !== ''
 								&& <option value={item.expense_id} key={item.expense_id}>{item.expense_name}</option>
 							))}
@@ -217,7 +227,7 @@ const TransactionModal = () => {
 							onChange={e => setModalInput({...modalInput, id_transfer: e.target.value})}
 						>
 							<option value="">-account-</option>
-							{accounts && accounts.map(item => (
+							{accounts.length !== 0 && accounts.map(item => (
 								item.account_id !== ''
 								&& <option value={item.account_id} key={item.account_id}>{item.account_name}</option>
 							))}

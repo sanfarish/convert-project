@@ -22,8 +22,7 @@ const RegisterModal = () => {
 			setLoad(false);
 			message.error(res.response.data.message);
 		} else {
-			alert (res.data.message);
-			message.success ('Registration successed!!');
+			message.success('Registration successed!!');
 			setLoad(false);
 			navigate('/login');
 		};

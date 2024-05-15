@@ -11,7 +11,7 @@ const AccountSum = () => {
 	useEffect(() => {
 		setAssets(0);
 		setLiabilities(0);
-		accounts && accounts.forEach(item => {
+		accounts.length !== 0 && accounts.forEach(item => {
 			if (item.account_balance > 0) {
 				setAssets(prev => prev + item.account_balance);
 			} else if (item.account_balance < 0) {

@@ -24,7 +24,9 @@ const TransactionTable = () => {
 	useEffect(() => {
 		const getData = async () => {
 			const data = await getTransactions(token);
-			setTransactions(data);
+			if (data) {
+				setTransactions(data);
+			};
 		};
 		getData();
 
@@ -91,7 +93,9 @@ const TransactionTable = () => {
 			setLoad(false);
 		} else {
 			const data = await getTransactions(token);
-			setTransactions(data);
+			if (data) {
+				setTransactions(data);
+			};
 			message.success('Transaction successfully deleted!');
 			setLoad(false);
 			setModal(false);
@@ -133,7 +137,7 @@ const TransactionTable = () => {
 	return (
 		<div className="card">
 			<div className="data">
-				{transactions ? transactions.map(item => <Render data={item} key={item.transaction_id} />)
+				{transactions.length !== 0 ? transactions.map(item => <Render data={item} key={item.transaction_id} />)
 				: <div className='no-data'>No Data</div>}
 			</div>
 		</div>

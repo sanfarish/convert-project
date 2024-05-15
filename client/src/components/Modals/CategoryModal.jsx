@@ -56,7 +56,9 @@ const CategoryModal = () => {
 				setLoad(false);
 			} else {
 				const data = await getIncomes(token);
-				setIncomes(data);
+				if (data) {
+					setIncomes(data);
+				};
 				message.success('New income category added!');
 				setLoad(false);
 				setModal(false);
@@ -68,7 +70,9 @@ const CategoryModal = () => {
 				setLoad(false);
 			} else {
 				const data = await getExpenses(token);
-				setExpenses(data);
+				if (data) {
+					setExpenses(data);
+				};
 				message.success('New expense category added!');
 				setLoad(false);
 				setModal(false);
@@ -80,7 +84,9 @@ const CategoryModal = () => {
 				setLoad(false);
 			} else {
 				const data = await getIncomes(token);
-				setIncomes(data);
+				if (data) {
+					setIncomes(data);
+				};
 				message.success('Income category successfully updated!');
 				setLoad(false);
 				setModal(false);
@@ -92,7 +98,9 @@ const CategoryModal = () => {
 				setLoad(false);
 			} else {
 				const data = await getExpenses(token);
-				setExpenses(data);
+				if (data) {
+					setExpenses(data);
+				};
 				message.success('Expense category successfully updated!');
 				setLoad(false);
 				setModal(false);

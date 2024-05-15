@@ -11,7 +11,7 @@ const TransactionSum = () => {
 	useEffect(() => {
 		setIncome(0);
 		setExpense(0);
-		transactions && transactions.forEach(item => {
+		transactions.length !== 0 && transactions.forEach(item => {
 			if (item.id_income !== '') {
 				setIncome(prev => prev + item.transaction_amount);
 			} else if (item.id_expense !== '') {

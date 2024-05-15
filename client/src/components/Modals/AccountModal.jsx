@@ -36,7 +36,9 @@ const AccountModal = () => {
 				setLoad(false);
 			} else {
 				const data = await getAccounts(token);
-				setAccounts(data);
+				if (data) {
+					setAccounts(data);
+				};
 				message.success('New account added!');
 				setLoad(false);
 				setModal(false);
@@ -48,7 +50,9 @@ const AccountModal = () => {
 				setLoad(false);
 			} else {
 				const data = await getAccounts(token);
-				setAccounts(data);
+				if (data) {
+					setAccounts(data);
+				};
 				message.success('Account successfully updated!');
 				setLoad(false);
 				setModal(false);

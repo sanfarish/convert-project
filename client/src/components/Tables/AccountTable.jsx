@@ -22,7 +22,9 @@ const AccountTable = () => {
 	useEffect(() => {
 		const getData = async () => {
 			const data = await getAccounts(token);
-			setAccounts(data);
+			if (data) {
+				setAccounts(data);
+			};
 		};
 		getData();
 
@@ -54,7 +56,9 @@ const AccountTable = () => {
 			setLoad(false);
 		} else {
 			const data = await getAccounts(token);
-			setAccounts(data);
+			if (data) {
+				setAccounts(data);
+			};
 			message.success('Account successfully deleted!');
 			setLoad(false);
 			setModal(false);
@@ -75,7 +79,7 @@ const AccountTable = () => {
 	return (
 		<div className="card">
 			<div className="data">
-				{accounts ? accounts.map(item => 
+				{accounts.length !== 0 ? accounts.map(item => 
 					<Render
 						id={item.account_id}
 						name={item.account_name}
