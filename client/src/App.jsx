@@ -1,4 +1,5 @@
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from "react-router-dom";
+import { GlobalContextProvider } from "./context/GlobalContext";
 import { AuthContextProvider } from "./context/AuthContext";
 import { DataContextProvider } from "./context/DataContext";
 import NotFound from "./pages/NotFound";
@@ -9,7 +10,6 @@ import Transactions from "./pages/Transactions";
 import Accounts from "./pages/Accounts";
 import Categories from "./pages/Categories";
 import DashboardRoute from "./routes/DashboardRoute";
-import { GlobalContextProvider } from "./context/GlobalContext";
 
 const App = () => {
 	return (

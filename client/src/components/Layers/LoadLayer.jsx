@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import { DataContext } from '../../context/DataContext';
+import { GlobalContext } from '../../context/GlobalContext';
 
 const LoadLayer = () => {
 
-	const { load } = useContext(DataContext);
+	const { load } = useContext(GlobalContext);
 
 	return load && <div className='loader-screen' style={{
 		backgroundColor: 'rgba(0, 0, 0, 0.7)',

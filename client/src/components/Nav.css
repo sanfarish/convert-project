@@ -104,11 +104,12 @@
 }
 
 @media only screen and (max-width: 425px) {
+
 	.nav-link i {
-		font-size: x-large;
+		min-width: 0;
 	}
 
 	.link-text {
-		font-size: 0.6rem;
+		display: none;
 	}
 }

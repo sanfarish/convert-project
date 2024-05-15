@@ -5,10 +5,8 @@ import './AccountModal.css';
 
 const AccountModal = () => {
 
-	const { setLoad } = useContext(GlobalContext);
-
+	const { token, setLoad } = useContext(GlobalContext);
 	const {
-		token,
 		setAccounts,
 		modal,
 		setModal,

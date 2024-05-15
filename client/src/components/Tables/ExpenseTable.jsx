@@ -1,11 +1,12 @@
 import { useContext, useEffect } from 'react';
+import { GlobalContext } from '../../context/GlobalContext';
 import { DataContext } from '../../context/DataContext';
-import './ExpenseTable.css'
+import './ExpenseTable.css';
 
 const ExpenseTable = () => {
 
+	const { token, setLoad } = useContext(GlobalContext);
 	const {
-		token,
 		expenses,
 		setExpenses,
 		setModal,
@@ -13,7 +14,6 @@ const ExpenseTable = () => {
 		setModalForm,
 		modalInput,
 		setModalInput,
-		setLoad,
 		getExpenses,
 		deleteExpense
 	} = useContext(DataContext);

@@ -11,13 +11,6 @@ exports.getAccounts = async (req, res) => {
 	} catch (err) {catchError(err, res)};
 };
 
-exports.getAccount = async (req, res) => {
-	try {
-		const data = await account.findByID(req.userid, req.params.id);
-		res.status(200).send(data[0]);
-	} catch (err) {catchError(err, res)};
-};
-
 exports.createAccount = async (req, res) => {
 	try {
 		const emptyCheck = emptyName(req.body.account_name);

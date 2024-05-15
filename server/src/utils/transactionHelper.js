@@ -1,21 +1,5 @@
-const fs = require('fs');
 const account = require('../models/accounts');
 const transaction = require('../models/transactions');
-
-exports.deleteTemp = (path) => {
-	fs.unlink(path, (err) => {
-		if (err) throw err;
-	});
-};
-
-exports.deletePath = async (userid, id) => {
-	const res = await transaction.findByID(userid, id);
-	if (res[0].transaction_bill !== '') {
-		return res[0].transaction_bill;
-	} else {
-		return false;
-	};
-};
 
 const balanceFinder = async (userid, id) => {
 	try {

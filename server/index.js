@@ -7,7 +7,7 @@ const morgan = require('morgan');
 // const swaggerUI = require('swagger-ui-express');
 const dataRoute = require('./src/routes/data');
 const authRoute = require('./src/routes/auth');
-const { authorization, notFound } = require('./src/middlewares');
+const { notFound } = require('./src/middlewares');
 
 app.use(express.json({
     verify: (req, res, buf, encoding) => {
@@ -20,7 +20,6 @@ app.use(express.json({
         };
     }
 }));
-// app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.use(morgan('dev'));
 
@@ -28,11 +27,9 @@ app.use(morgan('dev'));
 
 app.use('/api/v1', authRoute);
 
-app.use(authorization);
-
 app.use('/api/v1', dataRoute);
 
-app.use(notFound);
+app.use('*', notFound);
 
 const port = process.env.PORT || 3500;
 app.listen(port, () => console.log("Expense Manager API Server running on port", port));

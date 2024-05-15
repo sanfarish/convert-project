@@ -38,8 +38,8 @@ exports.emptyTransaction = (body) => {
 };
 
 exports.emptyUserId = async (userid) => {
-	const res = await user.findByID(userid);
-	const data = res.some(item => item.user_id === id);
+	const res = await user.findAll();
+	const data = res.some(item => item.user_id === userid);
 	return data;
 };
 

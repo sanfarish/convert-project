@@ -25,8 +25,8 @@ const Nav = () => {
 			<ul className='navbar-nav'>
 				<li className='logo'>
 					<div className='nav-logo'>
-						<img className='logo-small' src={small} alt="LOGO" />
-						<img className='logo-standard' src={standard} alt="EXPENSE MANAGER" />
+						<img className='logo-small' src={small} alt="logo" />
+						<img className='logo-standard' src={standard} alt="expense-manager" />
 					</div>
 				</li>
 				<li className='nav-item'>

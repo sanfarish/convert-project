@@ -1,23 +1,28 @@
 import { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { GlobalContext } from '../../context/GlobalContext';
 import { AuthContext } from '../../context/AuthContext';
 import './LoginModal.css';
 
 const LoginModal = () => {
 
+	const { setLoad } = useContext(GlobalContext);
 	const { postLogin } = useContext(AuthContext);
 	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
 
 		e.preventDefault();
+		setLoad(true);
 		const formLogin = new FormData(e.target);
 		const res = await postLogin(formLogin);
 
 		if (res.response) {
+			setLoad(false);
 			alert (res.response.data.message);
 		} else {
 			localStorage.setItem('accessToken', res.data.data.accessToken);
+			setLoad(false);
 			navigate('/transactions');
 		};
 	};

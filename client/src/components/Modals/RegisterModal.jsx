@@ -1,23 +1,28 @@
 import { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { GlobalContext } from '../../context/GlobalContext';
 import { AuthContext } from '../../context/AuthContext';
 import './RegisterModal.css';
 
 const RegisterModal = () => {
 
+	const { setLoad } = useContext(GlobalContext);
 	const { postRegister } = useContext(AuthContext);
 	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
 
 		e.preventDefault();
+		setLoad(true);
 		const formRegister = new FormData(e.target);
 		const res = await postRegister(formRegister);
 
 		if (res.message) {
+			setLoad(false);
 			alert (res.response.data.message);
 		} else {
 			alert (res.data.message);
+			setLoad(false);
 			navigate('/login');
 		};
 	};

@@ -106,6 +106,7 @@
 
             .id {
                 height: 4rem;
+                grid-template-columns: 1fr 1fr 60px;
             }
 
             .edit, .delete {
@@ -124,6 +125,7 @@
 
             .id {
                 height: 3rem;
+                grid-template-columns: 1fr 1fr 50px;
             }
 
             .edit, .delete {
@@ -137,15 +139,16 @@
     .accounts {
         .card:nth-child(1) {
             * {
-                font-size: 0.4rem;
+                font-size: 0.5rem;
             }
 
             .id {
-                height: 2rem;
+                height: 2.5rem;
+                grid-template-columns: 1fr 1fr 40px;
             }
 
             .edit, .delete {
-                font-size: 0.4rem;
+                font-size: 0.5rem;
             }
         }
     }

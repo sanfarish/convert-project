@@ -5,10 +5,8 @@ import './TransactionModal.css';
 
 const TransactionModal = () => {
 
-	const { setLoad } = useContext(GlobalContext);
-
+	const { token, setLoad } = useContext(GlobalContext);
 	const {
-		token,
 		setTransactions,
 		accounts,
 		setAccounts,

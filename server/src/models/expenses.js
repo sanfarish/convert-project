@@ -8,13 +8,6 @@ exports.findAll = (userid) => {
 	.orderBy('expense_name', 'asc');
 };
 
-exports.findByID = (userid, id) => {
-	return knex('expenses')
-	.select('expense_id', 'expense_name')
-	.where('id_user', userid)
-	.andWhere('expense_id', id);
-};
-
 exports.create =  async (body) => {
 	await knex('expenses').insert(body);
 };

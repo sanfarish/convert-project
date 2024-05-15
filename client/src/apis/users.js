@@ -3,8 +3,8 @@ import { config, hostTarget } from "./config";
 
 const getUser = async (token) => {
 	try {
-		const res = await axios.get(`${hostTarget}/api/v1/users`, config(token));
-		return res;
+		const res = await axios.get(`${hostTarget}/users`, config(token));
+		return res.data;
 	} catch (err) {return err};
 };
 

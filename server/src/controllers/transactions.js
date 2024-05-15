@@ -1,7 +1,8 @@
 const transaction = require('../models/transactions');
 const { emptyTransaction, emptyTransactionId } = require('../utils/emptyRules');
 const { multipleRule, idRule } = require('../utils/transactionRules');
-const { deleteTemp, deletePath, bodyAppend, addBalance, removeBalance } = require('../utils/transactionHelper');
+const { bodyAppend, addBalance, removeBalance } = require('../utils/transactionHelper');
+const { deletePath, deleteTemp } = require('../utils/tempHelper');
 const { cloudinaryUpload, cloudinaryDestroy } = require('../utils/cloudinaryHelper');
 const { catchError } = require('../utils/errorCatch');
 
@@ -15,28 +16,6 @@ exports.getTransactions = async (req, res) => {
 			return item;
 		});
 		res.status(200).send(mod);
-	} catch (err) {catchError(err, res)};
-};
-
-exports.getTransaction = async (req, res) => {
-	try {
-		const idCheck = await emptyTransactionId(req.userid, req.params.id);
-		if (!idCheck) {
-			if (req.file) {
-				deleteTemp(req.file.path);
-			};
-			res.status(400).json({
-				message: 'There are no transaction data with requested id!',
-				data: req.params.id
-			});
-		} else {
-			const data = await transaction.findByID(req.userid, req.params.id);
-			const mod = data[0];
-			if (mod.transaction_bill !== '') {
-				mod.transaction_bill = process.env.C_PATH + mod.transaction_bill;
-			};
-			res.status(200).send(mod);
-		};
 	} catch (err) {catchError(err, res)};
 };
 

@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { DataContext } from '../context/DataContext';
+import { GlobalContext } from '../context/GlobalContext';
 
 const PrivateRoute = () => {
 
-	const { token } = useContext(DataContext);
+	const { token } = useContext(GlobalContext);
 
 	return token ? <Outlet /> : <Navigate to='/login' />;
 };

@@ -11,13 +11,6 @@ exports.getIncomes = async (req, res) => {
 	} catch (err) {catchError(err, res)};
 };
 
-exports.getIncome = async (req, res) => {
-	try {
-		const data = await income.findByID(req.userid, req.params.id);
-		res.status(200).send(data[0]);
-	} catch (err) {catchError(err, res)};
-};
-
 exports.createIncome = async (req, res) => {
 	try {
 		const emptyCheck = emptyName(req.body.income_name);

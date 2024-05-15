@@ -5,10 +5,8 @@ import './CategoryModal.css';
 
 const CategoryModal = () => {
 
-	const { setLoad } = useContext(GlobalContext);
-
+	const { token, setLoad } = useContext(GlobalContext);
 	const {
-		token,
 		setIncomes,
 		setExpenses,
 		modal,

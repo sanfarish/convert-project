@@ -1,11 +1,12 @@
 import { useContext, useEffect } from 'react';
+import { GlobalContext } from '../../context/GlobalContext';
 import { DataContext } from '../../context/DataContext';
 import './AccountTable.css';
 
 const AccountTable = () => {
 
+	const { token, setLoad } = useContext(GlobalContext);
 	const {
-		token,
 		accounts,
 		setAccounts,
 		setModal,
@@ -13,7 +14,6 @@ const AccountTable = () => {
 		setModalForm,
 		modalInput,
 		setModalInput,
-		setLoad,
 		getAccounts,
 		deleteAccount
 	} = useContext(DataContext);

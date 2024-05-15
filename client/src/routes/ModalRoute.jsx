@@ -1,4 +1,3 @@
-import React from 'react';
 import { matchPath, useLocation } from 'react-router';
 import TransactionModal from '../components/Modals/TransactionModal';
 import AccountModal from '../components/Modals/AccountModal';
@@ -24,8 +23,6 @@ const ModalRoute = () => {
 			return <AccountModal />;
 		} else if (locationMatch('/categories')) {
 			return <CategoryModal />;
-		} else {
-			<>Not Found</>;
 		};
 	};
 

@@ -1,11 +1,12 @@
 import { useContext, useEffect } from 'react';
+import { GlobalContext } from '../../context/GlobalContext';
 import { DataContext } from '../../context/DataContext';
 import './TransactionTable.css';
 
 const TransactionTable = () => {
 
+	const { token, setLoad } = useContext(GlobalContext);
 	const {
-		token,
 		transactions,
 		setTransactions,
 		setModal,
@@ -14,7 +15,6 @@ const TransactionTable = () => {
 		modalInput,
 		setModalInput,
 		inputFile,
-		setLoad,
 		getTransactions,
 		deleteTransaction
 	} = useContext(DataContext);

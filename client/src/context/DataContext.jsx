@@ -1,4 +1,5 @@
 import { createContext, useRef, useState } from "react";
+import { getUser } from "../apis/users";
 import { deleteExpense, getExpenses, postExpense, putExpense } from "../apis/expenses";
 import { deleteIncome, getIncomes, postIncome, putIncome } from "../apis/incomes";
 import { deleteAccount, getAccounts, postAccount, putAccount } from "../apis/accounts";
@@ -8,7 +9,6 @@ const DataContext = createContext();
 
 const DataContextProvider = (props) => {
 
-	const [token, setToken] = useState(localStorage.getItem('accessToken'));
 	const [user, setUser] = useState({});
 	const [expenses, setExpenses] = useState([]);
 	const [incomes, setIncomes] = useState([]);
@@ -44,8 +44,6 @@ const DataContextProvider = (props) => {
 	return (
 		<DataContext.Provider
 			value={{
-				token,
-				setToken,
 				user,
 				setUser,
 				expenses,
@@ -65,6 +63,7 @@ const DataContextProvider = (props) => {
 				modalInput,
 				setModalInput,
 				inputFile,
+				getUser,
 				deleteExpense,
 				getExpenses,
 				postExpense,

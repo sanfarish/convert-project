@@ -5,7 +5,7 @@ const { catchError } = require('../utils/errorCatch');
 
 exports.getUser = async (req, res) => {
 	try {
-		const idCheck = await emptyUserId(req.userid)
+		const idCheck = await emptyUserId(req.userid);
 		if (!idCheck) {
 			res.status(400).json({
 				message: 'There are no user data with requested id!'

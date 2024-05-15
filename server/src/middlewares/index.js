@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { body, check, validationResult } = require('express-validator');
 const multer = require('multer');
 
 // JWT Authorization
@@ -6,13 +7,13 @@ exports.authorization = (req, res, next) => {
 	const bearerToken = req.get('Authorization');
 	if (!bearerToken) {
 		res.status(401).json({
-			message: 'authorization key required'
+			message: 'authorization required'
 		});
 	} else {
 		const token =  bearerToken.split(' ')[1];
 		if (token === null) {
 			res.status(401).json({
-				message: 'authorization key required'
+				message: 'authorization required'
 			});
 		} else {
 			try {
@@ -21,14 +22,30 @@ exports.authorization = (req, res, next) => {
 				next();
 			} catch (err) {
 				res.status(401).json({
-					message: 'authorization key required'
+					message: 'authorization required'
 				});
 			};
 		};
 	};
 };
 
-// Multer upload
+// Express Validator
+exports.validator = [
+	body('user_email').isEmail()
+];
+
+exports.validEmail = (req, res, next) => {
+	const errors = validationResult(req);
+	if (errors.errors.length !== 0) {
+		res.status(401).json({
+			message: 'Email not valid!'
+		});
+	} else {
+		next();
+	};
+};
+
+// Multer
 exports.fileUpload = (file) => {
 
 	const storage = multer.diskStorage({

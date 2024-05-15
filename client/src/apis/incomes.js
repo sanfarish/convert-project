@@ -2,7 +2,7 @@ import axios from "axios";
 import { config, hostTarget } from "./config";
 
 const incomes = axios.create({
-	baseURL: `${hostTarget}/api/v1/incomes`
+	baseURL: `${hostTarget}/incomes`
 });
 
 const getIncomes = async (token) => {

@@ -2,7 +2,7 @@ import axios from "axios";
 import { config, hostTarget } from "./config";
 
 const accounts = axios.create({
-	baseURL: `${hostTarget}/api/v1/accounts`
+	baseURL: `${hostTarget}/accounts`
 });
 
 const getAccounts = async (token) => {
