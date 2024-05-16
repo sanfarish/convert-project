@@ -1,4 +1,3 @@
-import { expect, it, vi } from 'vitest';
 import { render } from '@testing-library/react';
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { DataContextProvider } from "../../context/DataContext";

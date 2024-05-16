@@ -207,11 +207,7 @@ exports.deleteTransaction = async (req, res) => {
 			};
 			await removeBalance(req.userid, req.params.id);
 			await transaction.remove(req.params.id);
-			res.status(200).json({
-				status: 200,
-				message: 'transaction data successfully deleted',
-				data: req.params.id
-			});
+			res.status(204);
 		};
 	} catch (err) {catchError(err, res)};
 };

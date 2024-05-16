@@ -1,5 +1,6 @@
 .vscode
 cloudinary.txt
+deployment.txt
 expense_manager.session.sql
 gaji.png
 nota-pizza.jpg
@@ -8,6 +9,7 @@ request.rest
 tiket-pesawat.jpg
 
 /client/node_modules
+/client/dist
 
 /server/node_modules
 /server/.env

@@ -105,9 +105,7 @@ exports.deleteAccount = async (req, res) => {
 				});
 			} else {
 				await account.remove(req.params.id);
-				res.status(200).json({
-					message: 'account data successfully deleted'
-				});
+				res.status(204);
 			};
 		};
 	} catch (err) {catchError(err, res)};
