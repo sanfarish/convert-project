@@ -56,6 +56,13 @@ const TransactionModal = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [token])
 
+	const handleInputBill = (e) => {
+		setModalInput({
+			...modalInput,
+			transaction_bill: e.target.type === 'file' ? e.target.files[0] : e.target.value
+		});
+	};
+
 	const handleResetFile = () => {
 		if (inputFile.current) {
 			inputFile.current.value = '';
@@ -268,7 +275,7 @@ const TransactionModal = () => {
 							type="file"
 							name='transaction_bill'
 							ref={inputFile}
-							onChange={e => setModalInput({...modalInput, transaction_bill: e.target.files[0]})}
+							onChange={handleInputBill}
 						/>
 					</label>
 					<button onClick={handleResetFile}>Clear File</button>
