@@ -49,10 +49,10 @@ exports.validEmail = (req, res, next) => {
 exports.fileUpload = (file) => {
 
 	const storage = multer.diskStorage({
-		destination: (req, file, cb) => {
+		destination: function (req, file, cb) {
 			cb(null, 'temp');
 		},
-		filename: (req, file, cb) => {
+		filename: function (req, file, cb) {
 			const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
 			if (file.mimetype == 'image/jpeg') {
 				cb(null, uniqueSuffix + '.jpg');
@@ -87,18 +87,20 @@ exports.fileUpload = (file) => {
 
 			if (req.fileTypeCheck) {
 				return res.status(400).json(req.fileTypeCheck);
-			}
+			};
 
-			else if (err) {
+			if (err) {
 				if (err.code === 'LIMIT_FILE_SIZE') {
 					return res.status(400).json({
 						message: `file size exceed maximum ${maxSizeMb}MB`
 					});
 				} else if(err.code === 'LIMIT_UNEXPECTED_FILE') {
-					next();
+					return res.status(400).json({
+						message: err.code
+					});
 				} else {
 					return res.status(500).json({
-						message: err
+						message: err.code
 					});
 				};
 			}
