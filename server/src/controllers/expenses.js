@@ -88,7 +88,9 @@ exports.deleteExpense = async (req, res) => {
 				});
 			} else {
 				await expense.remove(req.params.id);
-				res.status(204);
+				res.status(200).json({
+					message: 'expense data successfully deleted'
+				});
 			};
 		};
 	} catch (err) {catchError(err, res)};

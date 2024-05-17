@@ -88,7 +88,9 @@ exports.deleteIncome = async (req, res) => {
 				});
 			} else {
 				await income.remove(req.params.id);
-				res.status(204);
+				res.status(200).json({
+					message: 'income data successfully deleted'
+				});
 			};
 		};
 	} catch (err) {catchError(err, res)};
