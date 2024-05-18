@@ -46,7 +46,7 @@ const AccountModal = () => {
 		} else {
 			const res = await putAccount(modalInput.account_id, formAccount, token);
 			if (res.response) {
-				alert(res.response.data.message);
+				message.error(res.response.data.message);
 				setLoad(false);
 			} else {
 				const data = await getAccounts(token);

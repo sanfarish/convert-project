@@ -1,5 +1,4 @@
 .log-modal {
-
 	background: rgb(10, 10, 10);
 	position: absolute;
 	top: 50%;
@@ -13,73 +12,38 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
 	* {
-        font-size: 1.2rem;
+        font-size: 1rem;
         letter-spacing: 0.1ch;
     }
-
     .form-header {
         width: 100%;
         font-size: 1.5rem;
-		padding: 1.5rem 0 0.5rem 0;
+		padding: 0.5rem 0 0.5rem 0;
         display: flex;
         justify-content: center;
     }
-
-    form {
-        width: 100%;
+    .Login-Item{
         display: flex;
-		flex-direction: column;
-		align-items: center;
-
-        > label {
-            height: 2rem;
-            width: 80%;
-			margin: 0.5rem 0 0.5rem 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-
-            input {
-                height: 100%;
-                width: 65%;
-                padding: 0 0.5rem 0 0.5rem;
-            }
-        }
-
-        > button {
-            background: rgb(10, 10, 10);
-            color: white;
-            padding: 0.8rem;
-			margin: 0.5rem 0 0.5rem 0;
-            border: 2px dashed white;
-            border-radius: 2px;
-            transition: background 200ms ease;
-        }
-
-        > button:hover {
-            background: #1454DC;
-            padding: calc(0.8rem + 2px);
-            border: none;
-            cursor: pointer;
-            transition: background 200ms ease;
-        }
+        justify-content: center;
+        align-items: center;
     }
-
+    .btn{
+        padding-top: 0;
+    }
+    .LogoImg{
+        padding-top:10px;
+    }
 	.form-footer {
 		width: 100%;
 		padding: 0.5rem 0 1.5rem 0;
 		display: flex;
 		justify-content: center;
 	}
-
     .log-link {
         color: #1454DC;
         text-decoration: none;
     }
-
     .log-link:hover {
         text-decoration: underline;
     }
@@ -100,10 +64,12 @@
                 }
             }
         }
-
         .form-footer {
             flex-direction: column;
             align-items: center;
         }
+    }
+    .LogoImg {
+        width: 50%;
     }
 }

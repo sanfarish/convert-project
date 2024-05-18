@@ -2,25 +2,28 @@ import { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../context/GlobalContext';
 import { AuthContext } from '../../context/AuthContext';
-import { message } from 'antd';
+import { Form,Button, Input, message } from 'antd';
+import Logo from './logo-standard.png';
 import './RegisterModal.css';
 
 const RegisterModal = () => {
 
-	const { setLoad } = useContext(GlobalContext);
+  const { setLoad } = useContext(GlobalContext);
 	const { postRegister } = useContext(AuthContext);
 	const navigate = useNavigate();
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (values) => {
 
-		e.preventDefault();
+		const formRegister = new FormData();
 		setLoad(true);
-		const formRegister = new FormData(e.target);
+		formRegister.append('user_name',values.user_name)
+		formRegister.append('user_email',values.user_email)
+		formRegister.append('user_password',values.user_password)
 		const res = await postRegister(formRegister);
 
 		if (res.message) {
 			setLoad(false);
-			message.error(res.response.data.message);
+		 	message.error(res.response.data.message);
 		} else {
 			message.success('Registration successed!!');
 			setLoad(false);
@@ -30,31 +33,50 @@ const RegisterModal = () => {
 
 	return (
 		<div className='reg-modal'>
-
-			<div className="form-header">Register:</div>
-
-			<form onSubmit={handleSubmit}>
-
-				<label>
-					Name:
-					<input type="text" name="user_name" id="user_name" autoComplete='name' />
-				</label>
-
-				<label>
-					Email:
-					<input type="text" name="user_email" id="user_email" autoComplete='email' />
-				</label>
-
-				<label>
-					Password:
-					<input type="text" name="user_password" id="user_password" />
-				</label>
-
-				<button type="submit">Register</button>
-			</form>
-
-			<div className="form-footer">Already have an account?&nbsp;<NavLink to='/login' className='log-link'>Login here.</NavLink></div>
-		</div>
+			<img src={Logo} alt='logo' className='LogoImg'></img>
+			<div className="form-header">Register</div>
+			<Form layout='vertical' onFinish={handleSubmit} autoComplete='off'>
+            <Form.Item label={<label style={{ color:"white"}}>Full Name : </label>}  
+			name="user_name" rules={[
+              {
+                required:true,
+                message:'Please input your full name!'
+              }
+            ]}>
+              <Input placeholder='Input your full name'/>
+            </Form.Item>
+            <Form.Item label={<label style={{ color:"white"}}>Email : </label>}
+			name="user_email" rules={[
+              {
+                required:true,
+                message:'Please input your Email!'
+              },
+              {
+                type:'email',
+                message:'Email is not valid'
+              }
+            ]}>
+              <Input placeholder='Input your Email'/>
+            </Form.Item>
+            <Form.Item label={<label style={{ color:"white"}}>Password : </label>} name="user_password" rules={[
+              {
+                required:true,
+                message:'Please input your password!'
+              }
+            ]}>
+              <Input.Password placeholder='Input your password'/>
+            </Form.Item>
+            <Form.Item>
+              <Button
+              type='primary' 
+              htmlType='submit' 
+              size='medium' 
+              className='btn'
+              > Create Account</Button>
+            </Form.Item>
+          </Form>
+		<div className="form-footer">Already have an account?&nbsp;<NavLink to='/login' className='log-link'>Login here.</NavLink></div>
+	</div>
 	);
 };
 
